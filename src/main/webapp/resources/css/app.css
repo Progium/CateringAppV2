@@ -1,0 +1,29 @@
+/* app css stylesheet */
+
+
+
+.header-banner{
+	background-image: url("../img/banner3.jpg");
+    background-repeat: repeat-x;
+    height: 20px;
+}
+
+
+.jpa {background-image: url("../img/bg_header.jpg");}
+
+.logo-progium {
+    right: 20%;
+    top: 25px;
+    position: absolute;
+    height: 120px;
+}
+
+#nav{
+	margin-top: 20px;
+	/*height: 116% !important;*/
+}
+
+.navbar-brand{
+	border-right: 0px solid #e3e9ed !important;
+	min-width: 200px !important;
+}
