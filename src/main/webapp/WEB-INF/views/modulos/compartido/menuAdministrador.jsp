@@ -2,7 +2,7 @@
 	<li class="dropdown-submenu"><a href="#"><i
 			class="fa fa-th fa-lg"></i><span>Catering</span></a>
 		<ul class="dropdown-menu">
-			<li><a href="#/catering-registrar">Registrar</a></li>
+			<li><a href="#/catering-registrar">Registrarse</a></li>
 			<li><a href="#/catering-listar">Listar</a></li>
 		</ul></li>
 	<li class="dropdown-submenu"><a href="#/producto-registrar"><i
