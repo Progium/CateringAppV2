@@ -1,4 +1,4 @@
-<section class="main padder" ng-controller="CateringListarController">
+<section class="main padder" >
     <div class="clearfix">
         <h4><i class="fa fa-table"></i>Mis Catering</h4>
     </div>
@@ -6,6 +6,7 @@
         <div class="col-lg-6">
             <section class="panel">
                 <div>
+                
                     <table class="table table-striped m-b-none text-small">
                         <thead>
                             <tr>
@@ -14,24 +15,26 @@
                                 <th width="70"></th>
                             </tr>
                         </thead>
-                        <tbody ng-repeat="catering in CateringLista">
+                        <tbody ng-repeat="catering in cateringLista">
                             <tr>
                                 <td>
                                     {{catering.nombre}}
                                 </td>
                                 <td>
-                                    {{catering.ubicacion}}
+                                    {{catering.direccion}}
                                 </td>
                                 <td class="text-right">
                                     <div class="btn-group">
-                                       <button type="button" class="btn btn-primary">Modificar</button>
+                                       <button type="button" class="btn btn-primary" ng-click = "modificar()">Modificar</button>
                                     </div>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
-                </div>
+                    
+                 </div>
             </section>
-        </div>
+       <button type="submit" class="btn btn-primary" ng-click ="registrar()">Registrar Catering</button>
+      </div>
     </div>
 </section>

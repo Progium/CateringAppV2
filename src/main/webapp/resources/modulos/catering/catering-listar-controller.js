@@ -4,7 +4,7 @@
  * CateringListarController
  * @constructor
  */
-App.controller('CateringListarController', function($scope, $http,$location, $upload) {
+App.controller('CateringListarController', function($scope, $http,$location, $upload, $routeParams) {
 	var objUsuario = $.jStorage.get("user");
 	if(objUsuario){
 		_ScopeContainer['MainController'].esAdministrador = true;	
@@ -33,6 +33,17 @@ App.controller('CateringListarController', function($scope, $http,$location, $up
 	    };
 	    
 	    $scope.init();
-	}
-
+		}
+	    
+	    $scope.registrar = function() {
+			$location.path('/catering-registrar');
+	    }
+	    
+	    $scope.modificar = function() {
+			$location.path('/catering-modificar');
+	    }
+	   
+	   
+	
+	
 });

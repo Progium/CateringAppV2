@@ -133,7 +133,7 @@ public class CateringController {
 		CateringResponse catering = new CateringResponse();
 		
 		
-		List<Catering> listaCatering = cateringService.getCaterinByIdAdministrador(cateringRequest.getAdministradorId());
+		List<Catering> listaCatering = cateringService.getCateringByIdAdministrador(cateringRequest.getAdministradorId());
 		List<CateringPOJO> listaCateringPojo = new ArrayList<CateringPOJO>();
 		
 		for (Catering cat : listaCatering){
@@ -156,7 +156,7 @@ public class CateringController {
 		
 		HttpSession currentSession = request.getSession();
 		int idUsuario = (int) currentSession.getAttribute("idUsuario");	
-		List<Catering> listaCatering = cateringService.getCaterinByIdAdministrador(1);
+		List<Catering> listaCatering = cateringService.getCateringByIdAdministrador(idUsuario);
 		List<CateringPOJO> listaCateringPojo = new ArrayList<CateringPOJO>();
 		
 		for (Catering cat : listaCatering){

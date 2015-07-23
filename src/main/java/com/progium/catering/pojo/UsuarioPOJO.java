@@ -5,7 +5,7 @@ public class UsuarioPOJO {
 	private int idUsuario;
 	private String nombre;
 	private String apellido1;
-	private String apelido2;
+	private String apellido2;
 	private String telefono1;
 	private String telefono2;
 	private String correo;
@@ -42,11 +42,11 @@ public class UsuarioPOJO {
 	}
 
 	public String getApellido2() {
-		return apelido2;
+		return apellido2;
 	}
 
 	public void setApellido2(String apellido2) {
-		this.apelido2 = apelido2;
+		this.apellido2 = apellido2;
 	}
 
 	public String getTelefono1() {
