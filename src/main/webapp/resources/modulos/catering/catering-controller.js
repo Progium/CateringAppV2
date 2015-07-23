@@ -90,7 +90,8 @@ App.controller('CateringRegistrarController', function($scope, $http,$location, 
 					horario: $scope.objCatering.horarioAtencion,
 					provinciaId: $scope.objCatering.idProvincia,
 					cantonId: $scope.objCatering.idCanton,
-					distritoId: $scope.objCatering.idDistrito
+					distritoId: $scope.objCatering.idDistrito,
+					tipoEvento: $scope.objCatering.tipoEventos
 				}
 				
 				$http.post('rest/protected/catering/registrar', datosCatering).success(function (contractCateringResponse){

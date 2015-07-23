@@ -30,10 +30,12 @@ import com.progium.catering.ejb.Distrito;
 import com.progium.catering.ejb.Catering;
 import com.progium.catering.ejb.Tipo;
 import com.progium.catering.ejb.Usuario;
+import com.progium.catering.ejb.Eventocatering;
 import com.progium.catering.pojo.CateringPOJO;
 import com.progium.catering.services.GeneralServiceInterface;
 import com.progium.catering.services.UsuarioServiceInterface;
 import com.progium.catering.services.CateringServiceInterface;
+import com.progium.catering.services.EventoCateringServiceInterface;
 import com.progium.catering.utils.GeneradorContrasennaUtil;
 import com.progium.catering.utils.SendEmail;
 import com.progium.catering.utils.Utils;
@@ -54,6 +56,9 @@ public class CateringController {
 	
 	@Autowired
 	UsuarioServiceInterface usuarioService;
+	
+	@Autowired
+	EventoCateringServiceInterface eventoCateringService;
 
 	@Autowired
 	ServletContext servletContext;
@@ -98,7 +103,7 @@ public class CateringController {
 		CateringResponse cs = new CateringResponse();
 		Usuario objUsuario = generalService.getUsuarioById(cateringRequest.getAdministradorId());
 		Distrito objDistrito = generalService.getDistritoById(cateringRequest.getDistritoId());
-
+		
 		Catering objNuevoCatering = new Catering();
 		objNuevoCatering.setUsuario(objUsuario);
 		objNuevoCatering.setNombre(cateringRequest.getNombre());
@@ -111,11 +116,18 @@ public class CateringController {
 		objNuevoCatering.setCantonId(cateringRequest.getCantonId());
 		objNuevoCatering.setDistrito(objDistrito);
 		objNuevoCatering.setEstado(false);
-
+			
 		Boolean state = cateringService.saveCatering(objNuevoCatering);
 		
 		if (state) {
 			cs.setCode(200);
+			for(int i = 0; i < cateringRequest.getTipoEvento().size(); i++){
+				Eventocatering objNuevoEvento = new Eventocatering();
+				Tipo objTipo = generalService.getTipoById(cateringRequest.getTipoEvento().get(i));
+				objNuevoEvento.setCatering(objNuevoCatering);
+				objNuevoEvento.setTipo(objTipo);
+				Boolean stateEvento = eventoCateringService.saveEventoCatering(objNuevoEvento);
+			}
 			cs.setCodeMessage("catering created succesfully");
 			cs.setIdCatering(objNuevoCatering.getIdCatering());
 
