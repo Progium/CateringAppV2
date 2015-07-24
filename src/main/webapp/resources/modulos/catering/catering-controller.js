@@ -72,7 +72,7 @@ App.controller('CateringRegistrarController', function($scope, $http,$location, 
 	    };
 	    
 		$scope.cancelar = function(){
-			$location.path('/iniciar-sesion');
+			$location.path('/catering-listar');
 		}
 		
 		//Guarda los datos ingresados por el usuario.
@@ -108,12 +108,14 @@ App.controller('CateringRegistrarController', function($scope, $http,$location, 
 								//Muestra un mensaje si el catering es registrado satisfactoriamente en el sistema.
 								if(cateringResponse.code == 200){
 									alert("El catering se registro correctamente.");
+									$location.path('/catering-listar');
 								}else{
 									alert("No se pudo registrar el logo.");
 								 }
 							});
 						}else{
 							alert("El catering se registro correctamente.");
+							$location.path('/catering-listar');
 						}
 					}else{
 						alert("No se pudo registrar el catering.");
