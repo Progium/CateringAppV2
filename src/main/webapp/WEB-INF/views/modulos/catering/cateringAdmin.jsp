@@ -36,7 +36,7 @@
 							</label>
 							<div class="col-lg-8">
 								<input ng-model="objCatering.cedula" type="text"
-									name="cedula" placeholder="304650757" ng-pattern="exp"
+									name="cedula" placeholder="{{placeholder}}" ng-pattern="exp"
 									data-trigger="keyup" class="form-control input-cedula" required/>
 							</div>
 							<div class="col-lg-8 msj-error">

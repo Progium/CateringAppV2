@@ -82,15 +82,12 @@
 							<label class="col-lg-3 control-label">Teléfono</label>
 							<div class="col-lg-8">
 								<input ng-model="objUsuario.telefono1" type="text"
-									name="telefono1" placeholder="88888888" class="form-control"
-									ng-pattern="/^(\d)+$/" ng-maxlength="8" ng-minlength="8"
-									required /> <span class="error-message"
+									name="telefono1" placeholder="2574-5432" class="form-control"
+									ng-pattern="/^\d{4}-?\d{4}$/" required /> <span
+									class="error-message"
 									ng-show="crearUsuario.telefono1.$error.pattern">Debe
-									ingresar solo números</span><span class="error-message"
-									ng-show="crearUsuario.telefono1.$error.maxlength">Debe
-									ingresar 8 números como máximo.</span> <span class="error-message"
-									ng-show="crearUsuario.telefono1.$error.minlength">Debe
-									ingresar 8 números como mínimo.</span>
+									ingresar solo números, el formato de télefono es ####-####,
+									debe ingresar 8 números.</span>
 							</div>
 						</div>
 
@@ -100,15 +97,11 @@
 								alternativo</label>
 							<div class="col-lg-8">
 								<input ng-model="objUsuario.telefono2" type="text"
-									name="telefono2" placeholder="22223333" class="form-control"
-									ng-pattern="/^(\d)+$/" ng-maxlength="8" ng-minlength="8" /> <span
-									class="error-message"
+									name="telefono2" placeholder="4051-7645" class="form-control"
+									ng-pattern="/^\d{4}-?\d{4}$/" /> <span class="error-message"
 									ng-show="crearUsuario.telefono2.$error.pattern">Debe
-									ingresar solo números</span><span class="error-message"
-									ng-show="crearUsuario.telefono2.$error.maxlength">Debe
-									ingresar 8 números como máximo.</span> <span class="error-message"
-									ng-show="crearUsuario.telefono2.$error.minlength">Debe
-									ingresar 8 números como mínimo.</span>
+									ingresar solo números, el formato de télefono es ####-####,
+									debe ingresar 8 números.</span>
 							</div>
 						</div>
 					</div>
@@ -125,18 +118,13 @@
 						<div class="form-group"></div>
 						<!-- Tipo de usuario -->
 						<div class="form-group">
-							<label class="col-lg-3 control-label">Tipo</label>
 							<div class="col-lg-8">
-								<!-- radio -->
-								<div class="radio">
-									<label> <input ng-model="objUsuario.tipoUsuarioId"
-										type="radio" name="radio" value="1"> Cliente
-									</label>
-								</div>
-								<div class="radio">
-									<label> <input ng-model="objUsuario.tipoUsuarioId"
-										type="radio" name="radio" value="2"> Administrador del
-										Catering
+								<!-- checkbox -->
+								<div class="checkbox">
+									<label class="control-label"> <input
+										ng-model="objUsuario.tipoUsuarioId" type="checkbox"
+										name="checkbox" ng-true-value="2" ng-false-value="1">
+										Quiero ser usuario administrador.
 									</label>
 								</div>
 							</div>
@@ -171,6 +159,8 @@
 								<button type="submit" class="btn btn-info" ng-click="guardar()">Guardar</button>
 							</div>
 						</div>
+						<div class="form-group"></div>
+						<div class="form-group"></div>
 						<div class="form-group"></div>
 						<div class="form-group"></div>
 						<div class="form-group"></div>

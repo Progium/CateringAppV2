@@ -23,6 +23,7 @@ App.controller('CateringRegistrarController', function($scope, $http,$location, 
 		};
 		$scope.exp = /^[1-7]{1}\d{8}$/;
 		$scope.msj = "Debe ingresar solo números, debe ingresar los 9 números como se encuentra en la cédula sin espacios.";
+		$scope.placeholder = "304650757";
 		
 	    $scope.init = function() {
 	    	//Obtiene los tipos de eventos
@@ -79,9 +80,11 @@ App.controller('CateringRegistrarController', function($scope, $http,$location, 
 	    	if($scope.objCatering.tipoCedula == 1){
 	    		$scope.exp = /^[1-7]{1}\d{8}$/;
 	    		$scope.msj = "Debe ingresar solo números, debe ingresar los 9 números como se encuentra en la cédula sin espacios.";
+	    		$scope.placeholder = "304650757";
 	    	}else{
 	    		$scope.exp = /^3-?\d{3}-?\d{6}$/;
 	    		$scope.msj = "Debe ingresar solo números, debe ingresar los 10 números de la cédula jurídica con el siguiente formato 3-###-######.";
+	    		$scope.placeholder = "3-101-018738";
 	    	}
 	    	
 	    }
