@@ -37,7 +37,7 @@ public class CateringService implements CateringServiceInterface{
 	}
 	
 	@Override
-	public List<Catering> getAll() {
+	public List<Catering> getCaterigLista() {
 		return (List<Catering>) cateringRepository.findAll(); 
 	}
 }
