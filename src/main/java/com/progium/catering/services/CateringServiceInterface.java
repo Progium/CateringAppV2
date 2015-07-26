@@ -12,6 +12,6 @@ public interface CateringServiceInterface {
 	//Obtiene la lista de catering de un usuario
 	List<Catering> getCateringByIdAdministrador(Integer idAdministrador);
 	//Obtiene todos los catering
-	List<Catering> getAll();
+	List<Catering> getCaterigLista();
 	
 }

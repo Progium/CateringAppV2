@@ -127,29 +127,7 @@ public class CateringController {
 	}
 	
 	
-	@RequestMapping(value ="/getCaterigLista", method = RequestMethod.POST)
-	public CateringResponse getCaterigLista(@RequestBody CateringRequest cateringRequest) throws NoSuchAlgorithmException{
-		
-		CateringResponse catering = new CateringResponse();
-		
-		
-		List<Catering> listaCatering = cateringService.getCateringByIdAdministrador(cateringRequest.getAdministradorId());
-		List<CateringPOJO> listaCateringPojo = new ArrayList<CateringPOJO>();
-		
-		for (Catering cat : listaCatering){
-			CateringPOJO nCatering = new CateringPOJO();
-			PojoUtils.pojoMappingUtility(nCatering,cat);
-			listaCateringPojo.add(nCatering);
-		}
-		
-		catering.setCaterings(listaCateringPojo);
-		
-		return catering;	
-		
-	}
-
-	
-	@RequestMapping(value ="/getAll", method = RequestMethod.GET)
+	@RequestMapping(value ="/getCaterigLista", method = RequestMethod.GET)
 	public CateringResponse getCaterigLista(){
 		
 		CateringResponse catering = new CateringResponse();
