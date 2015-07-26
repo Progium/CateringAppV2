@@ -18,10 +18,13 @@ App.controller('CateringRegistrarController', function($scope, $http,$location, 
 		var listaDistritos = [];
 		var distritos =  [];
 		$scope.listaDistrito = [];
-		$scope.objCatering = {};
+		$scope.objCatering = {
+				tipoCedula : 1
+		};
+		$scope.exp = /^[1-7]{1}\d{8}$/;
+		$scope.msj = "Debe ingresar solo números, debe ingresar los 9 números como se encuentra en la cédula sin espacios.";
 		
 	    $scope.init = function() {
-	    	
 	    	//Obtiene los tipos de eventos
 	    	$http.get('rest/protected/tipo/getTipoEvento')
 			.success(function(tipoResponse) {
@@ -50,7 +53,7 @@ App.controller('CateringRegistrarController', function($scope, $http,$location, 
 				$scope.listaDistrito =_.where(listaDistritos, {canton: $scope.objCatering.idCanton});
 				$scope.objCatering.idDistrito = $scope.listaDistrito[0].idDistrito;
 			});
-	    	
+	    	    	
 	    };
 	    
 	    $scope.init();
@@ -71,6 +74,18 @@ App.controller('CateringRegistrarController', function($scope, $http,$location, 
 			$scope.objCatering.idDistrito = $scope.listaDistrito[0].idDistrito;
 	    };
 	    
+	    $scope.validarFormatoCedula = function(){
+	    	
+	    	if($scope.objCatering.tipoCedula == 1){
+	    		$scope.exp = /^[1-7]{1}\d{8}$/;
+	    		$scope.msj = "Debe ingresar solo números, debe ingresar los 9 números como se encuentra en la cédula sin espacios.";
+	    	}else{
+	    		$scope.exp = /^3-?\d{3}-?\d{6}$/;
+	    		$scope.msj = "Debe ingresar solo números, debe ingresar los 10 números de la cédula jurídica con el siguiente formato 3-###-######.";
+	    	}
+	    	
+	    }
+	    
 		$scope.cancelar = function(){
 			$location.path('/catering-listar');
 		}
@@ -83,7 +98,7 @@ App.controller('CateringRegistrarController', function($scope, $http,$location, 
 				datosCatering = {
 					administradorId: objUsuario.idUsuario,
 					nombre: $scope.objCatering.nombre,
-					cedulaJuridica : $scope.objCatering.cedulaJuridica,
+					cedulaJuridica : $scope.objCatering.cedula,
 					direccion: $scope.objCatering.direccion,
 					telefono1: $scope.objCatering.telefono1,
 					telefono2: $scope.objCatering.telefono2,
@@ -128,7 +143,7 @@ App.controller('CateringRegistrarController', function($scope, $http,$location, 
 		$scope.onFileSelect = function($files) {
 	    	$scope.files = $files;
 	    };
-
+	    
 	}else{
 		var path = "/catering/#/iniciar-sesion";
 		window.location.href = path;
@@ -181,6 +196,10 @@ App.controller('CateringModificarController', function($scope, $location, $route
 		$scope.guardar = function() {
 			$location.path('/iniciar-sesion');
 		}
+		
+	    $scope.isTipoCedulaSelected = function(index) {
+	        return index === $scope.objCatering.cedula;
+	    };
 	};   
 
 });

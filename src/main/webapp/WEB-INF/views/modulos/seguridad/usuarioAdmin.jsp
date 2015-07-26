@@ -26,7 +26,7 @@
 								<div class="media-body">
 									<input ng-file-select="onFileSelect($files)" type="file"
 										name="file" title="Examinar"
-										class="btn btn-sm btn-info m-b-small"/>
+										class="btn btn-sm btn-info m-b-small" />
 								</div>
 							</div>
 						</div>
@@ -79,7 +79,7 @@
 
 						<!-- Teléfono1 -->
 						<div class="form-group">
-							<label class="col-lg-3 control-label">Teléfono1</label>
+							<label class="col-lg-3 control-label">Teléfono</label>
 							<div class="col-lg-8">
 								<input ng-model="objUsuario.telefono1" type="text"
 									name="telefono1" placeholder="88888888" class="form-control"
@@ -96,7 +96,8 @@
 
 						<!-- Teléfono2 -->
 						<div class="form-group">
-							<label class="col-lg-3 control-label">Teléfono2</label>
+							<label class="col-lg-3 control-label">Teléfono
+								alternativo</label>
 							<div class="col-lg-8">
 								<input ng-model="objUsuario.telefono2" type="text"
 									name="telefono2" placeholder="22223333" class="form-control"
