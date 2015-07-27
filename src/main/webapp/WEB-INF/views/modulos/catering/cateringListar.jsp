@@ -25,7 +25,7 @@
                                 </td>
                                 <td class="text-right">
                                     <div class="btn-group">
-                                       <button type="button" class="btn btn-primary" ng-click = "modificar()">Modificar</button>
+                                       <button type="button" class="btn btn-primary" ng-click = "modificar(catering.idCatering)">Modificar</button>
                                     </div>
                                 </td>
                             </tr>

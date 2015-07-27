@@ -30,4 +30,9 @@ public class EventoCateringService implements EventoCateringServiceInterface{
 	public List<Eventocatering> getAll() {
 		return (List<Eventocatering>) eventoCateringRepository.findAll(); 
 	}
+	
+	@Override
+	public List<Eventocatering> getEventoCateringByIdCatering(Integer idCatering) {
+		return eventoCateringRepository.findEventoCateringByCatering_idCatering(idCatering);
+	}
 }

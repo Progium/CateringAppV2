@@ -153,56 +153,159 @@ App.controller('CateringRegistrarController', function($scope, $http,$location, 
 	}
 });
 
-App.controller('CateringModificarController', function($scope, $location, $routeParams) {
+App.controller('CateringModificarController', function($scope, $location, $http, $routeParams) {
 	var objUsuario = $.jStorage.get("user");
 	if(objUsuario){
 		_ScopeContainer['MainController'].esAdministrador = true;
-		$scope.objUsuario = {
-				idCatering: $routeParams.pidCatering
-		};
 		$scope.files = {};
 		$scope.tituloPagina = "Modificar datos del catering";
 		$scope.listaProvincia = [];
 		$scope.listaCanton = [];
+		$scope.listaTipoEvento = [];
+		var listaCantones = [];
+		var cantones =  [];
+		var listaDistritos = [];
+		var distritos =  [];
 		$scope.listaDistrito = [];
-		$scope.objCatering = {};
+		$scope.objCatering = {
+				idCatering: $routeParams.pidCatering
+		};
 		
 	    $scope.init = function() {
+	    	var tamannoCedula;
+			$http.post('rest/protected/catering/getCaterigById', $scope.objCatering.idCatering).success(function (contractCateringResponse){
+				tamannoCedula = contractCateringResponse.catering.cedulaJuridica.length;
+				if(tamannoCedula == 9){
+					$scope.objCatering.tipoCedula = 1;
+				}else{
+					$scope.objCatering.tipoCedula = 2;
+				}
+				$scope.objCatering.nombre = contractCateringResponse.catering.nombre;
+				$scope.objCatering.cedula = contractCateringResponse.catering.cedulaJuridica;
+				$scope.objCatering.direccion = contractCateringResponse.catering.direccion;
+				$scope.objCatering.telefono1 = contractCateringResponse.catering.telefono1;
+				$scope.objCatering.telefono2 = contractCateringResponse.catering.telefono2;
+				$scope.objCatering.horarioAtencion = contractCateringResponse.catering.horario;
+				$scope.objCatering.idProvincia = contractCateringResponse.catering.provinciaId;
+				$scope.objCatering.idCanton = contractCateringResponse.catering.cantonId;
+				$scope.objCatering.idDistrito = contractCateringResponse.catering.distritoId;
+				$scope.objCatering.tipoEventos =contractCateringResponse.catering.tipoEvento;
+			});
+			
+	    	//Obtiene los tipos de eventos
+	    	$http.get('rest/protected/tipo/getTipoEvento')
+			.success(function(tipoResponse) {
+				$scope.listaTipoEvento = tipoResponse.tipos;
+			});
+	    	
 	    	//Obtiene la lista de provincias
 	    	$http.get('rest/protected/provincia/getAll')
 			.success(function(provinciaResponse) {
-
 				$scope.listaProvincia = provinciaResponse.listaProvincia;
-				$scope.objCatering.idProvincia = $scope.listaProvincia[0].idProvincia;	
 			});
+	    	
 	    	//Obtiene la lista de cantones
 	    	$http.get('rest/protected/canton/getAll')
 			.success(function(cantonResponse) {
-
-				$scope.listaCanton = cantonResponse.listaCanton;
-				$scope.objCatering.idCanton = $scope.listaCanton[0].idCanton;	
+				listaCantones = cantonResponse.listaCanton;
+				$scope.listaCanton = _.where(listaCantones, {provincia:$scope.objCatering.idProvincia})	
 			});
+	    	
 	    	//Obtiene la lista de distritos
 	    	$http.get('rest/protected/distrito/getAll')
 			.success(function(distritoResponse) {
-				$scope.listaDistrito = cantonResponse.listaDistrito;
-				$scope.objCatering.idDistrito = $scope.listaDistrito[0].idDistrito;	
+				listaDistritos = distritoResponse.listaDistrito;
+				$scope.listaDistrito =_.where(listaDistritos, {canton: $scope.objCatering.idCanton});
 			});
-	    	
+
 	    };
 	    
 	    $scope.init();
-		$scope.cancelar = function(){
-			$location.path('/');
-		}
-		
-		$scope.guardar = function() {
-			$location.path('/iniciar-sesion');
-		}
-		
-	    $scope.isTipoCedulaSelected = function(index) {
-	        return index === $scope.objCatering.cedula;
+	
+	  //Trae los cantones de la provincia seleccionada
+	    $scope.llenarCanton = function() {
+	    	$scope.listaCanton.length = 0;
+			$scope.listaCanton = _.where(listaCantones, {provincia:$scope.objCatering.idProvincia})
+			$scope.objCatering.idCanton = $scope.listaCanton[0].idCanton;	
+			
+			$scope.llenarDistrito();
 	    };
+	    
+		//Trae los distritos del canton seleccionado
+	    $scope.llenarDistrito = function() {
+	    	$scope.listaDistrito.length = 0;
+			$scope.listaDistrito =_.where(listaDistritos, {canton: $scope.objCatering.idCanton});
+			$scope.objCatering.idDistrito = $scope.listaDistrito[0].idDistrito;
+	    };
+	    
+	    $scope.validarFormatoCedula = function(){
+	    	
+	    	if($scope.objCatering.tipoCedula == 1){
+	    		$scope.exp = /^[1-7]{1}\d{8}$/;
+	    		$scope.msj = "Debe ingresar solo números, debe ingresar los 9 números como se encuentra en la cédula sin espacios.";
+	    		$scope.placeholder = "304650757";
+	    	}else{
+	    		$scope.exp = /^3-?\d{3}-?\d{6}$/;
+	    		$scope.msj = "Debe ingresar solo números, debe ingresar los 10 números de la cédula jurídica con el siguiente formato 3-###-######.";
+	    		$scope.placeholder = "3-101-018738";
+	    	}
+	    	
+	    }
+	    
+		$scope.cancelar = function(){
+			$location.path('/catering-listar');
+		}
+		
+		//Guarda los datos modificados del catering.
+		$scope.guardar = function() {
+			if(this.crearCatering.$valid){
+				var cateringLogo = $scope.files[0];
+				var datosCatering = {};
+				datosCatering = {
+					idCatering: $scope.objCatering.idCatering,
+					administradorId: objUsuario.idUsuario,
+					nombre: $scope.objCatering.nombre,
+					cedulaJuridica : $scope.objCatering.cedula,
+					direccion: $scope.objCatering.direccion,
+					telefono1: $scope.objCatering.telefono1,
+					telefono2: $scope.objCatering.telefono2,
+					horario: $scope.objCatering.horarioAtencion,
+					provinciaId: $scope.objCatering.idProvincia,
+					cantonId: $scope.objCatering.idCanton,
+					distritoId: $scope.objCatering.idDistrito,
+					tipoEvento: $scope.objCatering.tipoEventos
+				}
+				
+				$http.post('rest/protected/catering/modificar', datosCatering).success(function (contractCateringResponse){
+					if(contractCateringResponse.code == 200){
+						if(cateringLogo){
+							//Guarda la información en variables y se las pasa al controlador de catering de java.
+							$scope.upload = $upload.upload({
+								url : 'rest/protected/catering/registrarFoto',
+								data : {
+									idCatering : $scope.objCatering.idCatering
+								},
+								file : cateringLogo
+							}).success(function(cateringResponse, status, headers, config) {
+								//Muestra un mensaje si el catering es registrado satisfactoriamente en el sistema.
+								if(cateringResponse.code == 200){
+									alert("Los datos del catering fueron modificados correctamente.");
+									$location.path('/catering-listar');
+								}else{
+									alert("No se pudo registrar el logo.");
+								 }
+							});
+						}else{
+							alert("Los datos del catering fueron modificados correctamente.");
+							$location.path('/catering-listar');
+						}
+					}else{
+						alert("No se pudo modificar los datos del catering.");
+					}
+				});
+			}
+		}
+	    
 	};   
 
 });

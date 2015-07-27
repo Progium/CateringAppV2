@@ -10,4 +10,7 @@ public interface EventoCateringServiceInterface {
 	//Obtiene todos los catering
 	List<Eventocatering> getAll();
 	
+	//Obtiene la lista de eventos por catering
+	List<Eventocatering> getEventoCateringByIdCatering(Integer idCatering);
+	
 }

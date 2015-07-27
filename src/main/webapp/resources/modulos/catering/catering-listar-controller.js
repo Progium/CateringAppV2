@@ -39,8 +39,8 @@ App.controller('CateringListarController', function($scope, $http,$location, $up
 			$location.path('/catering-registrar');
 	    }
 	    
-	    $scope.modificar = function() {
-			$location.path('/catering-modificar');
+	    $scope.modificar = function(idCatering) {
+			$location.path('/catering-modificar/'+idCatering);
 	    }
 	   
 	   
