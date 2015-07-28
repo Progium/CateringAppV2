@@ -289,4 +289,37 @@ public class CateringController {
 			return cs;
 		}
 		
+		@RequestMapping(value ="/getAll", method = RequestMethod.GET)
+		public CateringResponse getAll(){
+			
+			CateringResponse catering = new CateringResponse();
+			
+			List<Catering> listaCatering = cateringService.getCateringByEstado(false);
+			List<CateringPOJO> listaCateringPojo = new ArrayList<CateringPOJO>();
+			
+			for (Catering cat : listaCatering){
+				CateringPOJO nCatering = new CateringPOJO();
+				//PojoUtils.pojoMappingUtility(nCatering,cat);
+				nCatering.setIdCatering(cat.getIdCatering());
+				nCatering.setNombre(cat.getNombre());
+				nCatering.setCedulaJuridica(cat.getCedulaJuridica());
+				nCatering.setDireccion(cat.getDireccion());
+				nCatering.setTelefono1(cat.getTelefono1());
+				nCatering.setTelefono2(cat.getTelefono2());
+				nCatering.setHorario(cat.getHorario());
+				nCatering.setEstado(cat.getEstado());
+				nCatering.setFotografia(cat.getFotografia());
+				nCatering.setProvinciaId(cat.getProvinciaId());
+				nCatering.setCantonId(cat.getCantonId());
+				nCatering.setAdministradorId(cat.getUsuario().getIdUsuario());
+				nCatering.setDistritoId(cat.getDistrito().getIdDistrito());
+				listaCateringPojo.add(nCatering);
+			}
+			
+			catering.setCaterings(listaCateringPojo);
+			
+			return catering;	
+			
+		}
+		
 }

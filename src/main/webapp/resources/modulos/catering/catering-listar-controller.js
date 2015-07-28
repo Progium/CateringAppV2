@@ -19,9 +19,7 @@ App.controller('CateringListarController', function($scope, $http,$location, $up
 		
 		
 	    $scope.init = function() {
-	    	
-			console.log("entre");
-			//Obtiene la lista de caterings
+	    	//Obtiene la lista de caterings
 			$http.get('rest/protected/catering/getCaterigLista')
 			.success(function(cateringResponse) {
 				$scope.cateringLista = cateringResponse.caterings;

@@ -13,6 +13,7 @@ App.controller('CateringRegistrarController', function($scope, $http,$location, 
 		$scope.listaProvincia = [];
 		$scope.listaCanton = [];
 		$scope.listaTipoEvento = [];
+		$scope.mostrarImagen = false;
 		var listaCantones = [];
 		var cantones =  [];
 		var listaDistritos = [];
@@ -153,7 +154,7 @@ App.controller('CateringRegistrarController', function($scope, $http,$location, 
 	}
 });
 
-App.controller('CateringModificarController', function($scope, $location, $http, $routeParams) {
+App.controller('CateringModificarController', function($scope, $location, $http, $routeParams, $upload) {
 	var objUsuario = $.jStorage.get("user");
 	if(objUsuario){
 		_ScopeContainer['MainController'].esAdministrador = true;
@@ -167,6 +168,7 @@ App.controller('CateringModificarController', function($scope, $location, $http,
 		var listaDistritos = [];
 		var distritos =  [];
 		$scope.listaDistrito = [];
+		$scope.mostrarImagen = true;
 		$scope.objCatering = {
 				idCatering: $routeParams.pidCatering
 		};
@@ -190,6 +192,7 @@ App.controller('CateringModificarController', function($scope, $location, $http,
 				$scope.objCatering.idCanton = contractCateringResponse.catering.cantonId;
 				$scope.objCatering.idDistrito = contractCateringResponse.catering.distritoId;
 				$scope.objCatering.tipoEventos =contractCateringResponse.catering.tipoEvento;
+				$scope.files[0] =contractCateringResponse.catering.fotografia;
 			});
 			
 	    	//Obtiene los tipos de eventos
@@ -305,7 +308,13 @@ App.controller('CateringModificarController', function($scope, $location, $http,
 				});
 			}
 		}
+		
+		//Guarda los archivos seleccionados en el scope.files.
+		$scope.onFileSelect = function($files) {
+	    	$scope.files = $files;
+	    };
 	    
-	};   
+	}; 
+	
 
 });
