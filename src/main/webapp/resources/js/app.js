@@ -32,6 +32,10 @@ App.config(function($routeProvider, $locationProvider) {
 			templateUrl: 'modulos/seguridad-usuario-admin',
 			controller: 'UsuarioModificarController'
 		})
+		.when('/usuario-perfil-mostrar', {
+			templateUrl: 'modulos/seguridad-usuario-perfil',
+			controller: 'UsuarioPerfilController'
+		})
 		.when('/catering-registrar', {
 			templateUrl: 'modulos/catering-admin',
 			controller: 'CateringRegistrarController'

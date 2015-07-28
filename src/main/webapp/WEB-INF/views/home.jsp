@@ -91,7 +91,7 @@
 	            </a>
 	            <ul class="dropdown-menu">
 	                <li><a href="">Configuración</a></li>
-	                <li><a href="">Perfil</a></li>
+	                <li><a href="#/usuario-perfil-mostrar">Perfil</a></li>
 	                <li><a href=""><span class="badge bg-danger pull-right">3</span>Notificaciones</a></li>
 	                <li class="divider"></li>
 	                <li><a href="docs.html">Ayuda</a></li>

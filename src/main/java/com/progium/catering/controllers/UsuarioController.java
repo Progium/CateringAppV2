@@ -17,17 +17,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-
-
+import com.progium.catering.contracts.CateringResponse;
 import com.progium.catering.contracts.TipoResponse;
 import com.progium.catering.contracts.UsuarioResponse;
 import com.progium.catering.contracts.UsuarioRequest;
+import com.progium.catering.ejb.Catering;
 import com.progium.catering.ejb.Tipo;
 import com.progium.catering.ejb.Usuario;
+import com.progium.catering.pojo.CateringPOJO;
 import com.progium.catering.pojo.UsuarioPOJO;
 import com.progium.catering.services.GeneralServiceInterface;
 import com.progium.catering.services.UsuarioServiceInterface;
 import com.progium.catering.utils.GeneradorContrasennaUtil;
+import com.progium.catering.utils.PojoUtils;
 import com.progium.catering.utils.Utils;
 import com.progium.catering.utils.SendEmail;
 
@@ -46,6 +48,9 @@ public class UsuarioController {
 
 	@Autowired
 	ServletContext servletContext;
+	
+	@Autowired
+	HttpServletRequest request;	
 
 	public UsuarioController() {
 		// TODO Auto-generated constructor stub
@@ -118,4 +123,19 @@ public class UsuarioController {
 			}
 			return us;
 		}
+		
+		//Para mostrar el perfil del usuario
+		@RequestMapping(value ="/perfilUsuario", method = RequestMethod.GET)
+		public UsuarioResponse PerfilUsuario(@RequestBody UsuarioRequest usuarioRequest)throws NoSuchAlgorithmException {
+			
+			UsuarioResponse usuario = new UsuarioResponse();
+			
+			HttpSession currentSession = request.getSession();
+			int idUsuario = (int) currentSession.getAttribute("idUsuario");	
+						
+			usuario.setIdUsuario(idUsuario);
+			
+			return usuario;	
+		
+	}
 }

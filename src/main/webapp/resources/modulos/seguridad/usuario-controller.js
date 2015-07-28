@@ -81,6 +81,7 @@ App.controller('UsuarioModificarController', function($scope, $location, $routeP
 	$scope.files = {};
 	$scope.tituloPagina = "Modificar datos del usuario";
 	$scope.objUsuario = {};
+	$scope.usuario = $scope.usuarios[$routeParams.id];	
 	
 	//$routeParams.pidUsuario
 	
@@ -91,4 +92,35 @@ App.controller('UsuarioModificarController', function($scope, $location, $routeP
 	$scope.guardar = function() {
 		$location.path('/iniciar-sesion');
 	}
+
 });
+
+
+App.controller('UsuarioPerfilController', function($scope, $location, $routeParams) {
+	$scope.files = {};
+	$scope.tituloPagina = "Perfil del usuario";
+	$scope.objUsuario = {};
+	$scope.usuario = $scope.objUsuario[$routeParams.id];	
+	
+		
+	$scope.init = function() {
+	
+	//Obtiene el perfil del usuario
+	$http.get('rest/protected/usuario/perfilUsuario')
+	.success(function(usuarioResponse) {
+		$scope.perfilUsuario = usuarioResponse.usuario;
+		console.log($scope.perfilUsuario);
+		
+	});	
+	
+};
+
+$scope.init();
+
+$scope.regresar = function(){
+$location.path('/');
+}
+});
+
+
+
