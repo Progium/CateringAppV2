@@ -26,6 +26,13 @@ public class EventoCateringService implements EventoCateringServiceInterface{
 		
 	}
 	
+	
+	@Override
+	public void deleteEventoCatering(Eventocatering objEventoCatering) {
+		eventoCateringRepository.delete(objEventoCatering);	
+	}
+	
+	
 	@Override
 	public List<Eventocatering> getAll() {
 		return (List<Eventocatering>) eventoCateringRepository.findAll(); 

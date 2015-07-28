@@ -234,13 +234,53 @@ public class CateringController {
 			
 			if (state) {
 				cs.setCode(200);
-//				for(int i = 0; i < cateringRequest.getTipoEvento().size(); i++){
-//					Eventocatering objNuevoEvento = new Eventocatering();
-//					Tipo objTipo = generalService.getTipoById(cateringRequest.getTipoEvento().get(i));
-//					objNuevoEvento.setCatering(objCatering);
-//					objNuevoEvento.setTipo(objTipo);
-//					Boolean stateEvento = eventoCateringService.saveEventoCatering(objNuevoEvento);
-//				}
+				//Obtiene la lista de eventos del catering registrados en base de datos
+				List<Eventocatering> eventoCatering =  eventoCateringService.getEventoCateringByIdCatering(cateringRequest.getIdCatering());
+				Boolean eliminarTipo = false;
+				Boolean crearTipo = false;
+				int idTipoEvento = 0;
+				Eventocatering evento = new Eventocatering();
+				//Valida que si el id del tipo que tiene el request ya se encuentra registrado en base de datos para ese catering o debe registrarse
+				for(int i = 0; i < cateringRequest.getTipoEvento().size(); i++){
+					//Valida el id del request sea igual al de base de datos si ya esta registrado se sale del segundo for, sino lo registra.
+					for(int j = 0; j < eventoCatering.size(); j++){
+						if(cateringRequest.getTipoEvento().get(i) == eventoCatering.get(j).getTipo().getIdTipo()){
+							crearTipo = false;
+							break;
+						}else{
+							crearTipo = true;
+							idTipoEvento = cateringRequest.getTipoEvento().get(i);
+						}
+					}
+					//Si dio true de crear un tipo es porque el usuario selecciono un tipo de evento que aun no se encontraba registrado en base de datos
+					if(crearTipo){
+						Eventocatering objNuevoEvento = new Eventocatering();
+						Tipo objTipo = generalService.getTipoById(idTipoEvento);
+						objNuevoEvento.setCatering(objCatering);
+						objNuevoEvento.setTipo(objTipo);
+						Boolean stateEvento = eventoCateringService.saveEventoCatering(objNuevoEvento);
+					}
+					
+				}
+				
+				//Valida para ver si un tipo de evento fue deseleccionado para eliminarno en base de datos.
+				for(int i = 0; i < eventoCatering.size(); i++){
+					for(int j = 0; j < cateringRequest.getTipoEvento().size(); j++){
+						if(eventoCatering.get(i).getTipo().getIdTipo() == cateringRequest.getTipoEvento().get(j)){
+							eliminarTipo = false;
+							break;
+						}else{
+							eliminarTipo = true;
+							evento = eventoCatering.get(i);
+						}
+					}
+					//Si dio true de eliminar un tipo de evento es porque el usuario deselecciono un tipo de evento.
+					if(eliminarTipo){
+						eventoCateringService.deleteEventoCatering(evento);
+					}
+
+				}
+				
 				cs.setCodeMessage("catering updated succesfully");
 			}else{
 				cs.setCode(401);

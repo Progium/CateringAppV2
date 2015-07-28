@@ -7,6 +7,8 @@ import com.progium.catering.ejb.Eventocatering;
 public interface EventoCateringServiceInterface {
 
 	Boolean saveEventoCatering(Eventocatering objEventoCatering);
+	
+	void deleteEventoCatering(Eventocatering objEventoCatering);
 	//Obtiene todos los catering
 	List<Eventocatering> getAll();
 	
