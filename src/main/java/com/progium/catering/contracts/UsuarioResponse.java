@@ -8,6 +8,7 @@ public class UsuarioResponse extends BaseResponse {
 
 	private List<Usuario> usuarios;
 	private int idUsuario;
+	private int nombre;
 	
 	public UsuarioResponse() {
 		super();
@@ -28,6 +29,14 @@ public class UsuarioResponse extends BaseResponse {
 
 	public void setIdUsuario(int idUsuario) {
 		this.idUsuario = idUsuario;
+	}
+
+	public int getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(int nombre) {
+		this.nombre = nombre;
 	}
 
 	

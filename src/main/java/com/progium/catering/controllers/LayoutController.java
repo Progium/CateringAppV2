@@ -98,6 +98,12 @@ public class LayoutController {
 		return "modulos/seguridad/usuarioAdmin";
 	}
 	
+	@RequestMapping(value = "/seguridad-usuario-perfil")
+	public String getSeguridadUsuarioPerfil()
+	{
+		return "modulos/seguridad/usuarioPerfil";
+	}
+	
 	//-------------------------------------------------------
 	//Subasta
 	//-------------------------------------------------------
