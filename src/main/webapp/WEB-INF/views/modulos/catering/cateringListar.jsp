@@ -13,6 +13,7 @@
                                 <th>Nombre</th>
                                 <th>Ubicacion</th>
                                 <th width="70"></th>
+                                <th width="70"></th>
                             </tr>
                         </thead>
                         <tbody ng-repeat="catering in cateringLista">
@@ -22,6 +23,11 @@
                                 </td>
                                 <td>
                                     {{catering.direccion}}
+                                </td>
+                                 <td class="text-right">
+                                    <div class="btn-group">
+                                       <button type="button" class="btn btn-primary" ng-click = "openModal(catering)">Mostrar Detalle</button>
+                                    </div>
                                 </td>
                                 <td class="text-right">
                                     <div class="btn-group">

@@ -169,6 +169,7 @@ App.controller('CateringModificarController', function($scope, $location, $http,
 		var distritos =  [];
 		$scope.listaDistrito = [];
 		$scope.mostrarImagen = true;
+		$scope.actualizarImagen = false;
 		$scope.objCatering = {
 				idCatering: $routeParams.pidCatering
 		};
@@ -281,7 +282,7 @@ App.controller('CateringModificarController', function($scope, $location, $http,
 				
 				$http.post('rest/protected/catering/modificar', datosCatering).success(function (contractCateringResponse){
 					if(contractCateringResponse.code == 200){
-						if(cateringLogo){
+						if(cateringLogo && $scope.actualizarImagen == true){
 							//Guarda la información en variables y se las pasa al controlador de catering de java.
 							$scope.upload = $upload.upload({
 								url : 'rest/protected/catering/registrarFoto',
@@ -312,6 +313,7 @@ App.controller('CateringModificarController', function($scope, $location, $http,
 		//Guarda los archivos seleccionados en el scope.files.
 		$scope.onFileSelect = function($files) {
 	    	$scope.files = $files;
+	    	$scope.actualizarImagen = true;
 	    };
 	    
 	}; 

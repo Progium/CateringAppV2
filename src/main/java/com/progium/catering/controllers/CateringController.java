@@ -165,6 +165,15 @@ public class CateringController {
 			nCatering.setCantonId(cat.getCantonId());
 			nCatering.setAdministradorId(cat.getUsuario().getIdUsuario());
 			nCatering.setDistritoId(cat.getDistrito().getIdDistrito());
+			
+			//Obtiene el id del tipo de evento que se agrego cuando se registro el catering
+			List<Eventocatering> eventoCatering =  eventoCateringService.getEventoCateringByIdCatering(cat.getIdCatering());
+			List<Integer> tipoEventoCatering = new ArrayList<Integer>();
+			for(int i = 0; i < eventoCatering.size(); i++){
+				tipoEventoCatering.add(eventoCatering.get(i).getTipo().getIdTipo());
+			}
+			nCatering.setTipoEvento(tipoEventoCatering);
+			
 			listaCateringPojo.add(nCatering);
 		}
 		
