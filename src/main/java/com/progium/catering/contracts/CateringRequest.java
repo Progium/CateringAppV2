@@ -1,5 +1,7 @@
 package com.progium.catering.contracts;
 
+import java.util.List;
+
 import org.springframework.web.multipart.MultipartFile;
 
 public class CateringRequest extends BasePagingRequest {
@@ -16,6 +18,7 @@ public class CateringRequest extends BasePagingRequest {
 	private int distritoId;
 	private String needAccess;
 	private MultipartFile file;
+	private List<Integer> tipoEvento;
 	
 	public CateringRequest() {
 		super();
@@ -23,7 +26,7 @@ public class CateringRequest extends BasePagingRequest {
 	}
 
 	public CateringRequest(int administradorId, String nombre, String cedulaJuridica, String direccion, String telefono1, String telefono2,
-			String horario,int provinciaId, int cantonId, int distritoId, String needAccess, MultipartFile file) {
+			String horario,int provinciaId, int cantonId, int distritoId, String needAccess, MultipartFile file, List<Integer> tipoEvento) {
 		super();
 		this.setAdministradorId(administradorId);
 		this.setNombre(nombre);
@@ -37,6 +40,7 @@ public class CateringRequest extends BasePagingRequest {
 		this.setDistritoId(distritoId);
 		this.setNeedAccess(needAccess);
 		this.setFile(file);
+		this.setTipoEvento(tipoEvento);
 	}
 
 	public int getAdministradorId() {
@@ -133,6 +137,14 @@ public class CateringRequest extends BasePagingRequest {
 
 	public void setFile(MultipartFile file) {
 		this.file = file;
+	}
+
+	public List<Integer> getTipoEvento() {
+		return tipoEvento;
+	}
+
+	public void setTipoEvento(List<Integer> tipoEvento) {
+		this.tipoEvento = tipoEvento;
 	}
 
 }

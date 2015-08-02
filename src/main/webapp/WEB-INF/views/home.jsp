@@ -87,13 +87,13 @@
 	    <ul class="nav navbar-nav navbar-avatar pull-right">
 	        <li class="dropdown">
 	            <a href="" class="dropdown-toggle" data-toggle="dropdown">
-	                <span class="hidden-xs-only">Bienvenido! Usuario</span>
+	                <span class="hidden-xs-only">Bienvenido! {{usuario.nombre}}</span>
 	                <span class="thumb-small avatar inline"><img src="resources/first/src/images/avatar.jpg" alt="Mika Sokeil" class="img-circle"></span>
 	                <b class="caret hidden-xs-only"></b>
 	            </a>
 	            <ul class="dropdown-menu">
 	                <li><a href="">Configuración</a></li>
-	                <li><a href="">Perfil</a></li>
+	                <li><a href="#/usuario-perfil-mostrar">Perfil</a></li>
 	                <li><a href=""><span class="badge bg-danger pull-right">3</span>Notificaciones</a></li>
 	                <li class="divider"></li>
 	                <li><a href="docs.html">Ayuda</a></li>
@@ -127,9 +127,9 @@
 	            <small>&copy; Catering Service App 2015</small>
 	            <br>
 	            <br>
-	            <a href="" class="btn btn-xs btn-circle btn-twitter"><i class="fa fa-twitter"></i></a>
-	            <a href="" class="btn btn-xs btn-circle btn-facebook"><i class="fa fa-facebook"></i></a>
-	            <a href="" class="btn btn-xs btn-circle btn-gplus"><i class="fa fa-google-plus"></i></a>
+<!-- 	            <a href="" class="btn btn-xs btn-circle btn-twitter"><i class="fa fa-twitter"></i></a> -->
+<!-- 	            <a href="" class="btn btn-xs btn-circle btn-facebook"><i class="fa fa-facebook"></i></a> -->
+<!-- 	            <a href="" class="btn btn-xs btn-circle btn-gplus"><i class="fa fa-google-plus"></i></a> -->
 	        </p>
 	    </div>
 	</footer>

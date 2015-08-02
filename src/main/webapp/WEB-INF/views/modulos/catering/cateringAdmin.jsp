@@ -23,13 +23,25 @@
 									ingresar solo letras</span>
 							</div>
 						</div>
-						<!-- Cedula Juridica -->
+						<!-- Cedula física o jurídica -->
 						<div class="form-group">
-							<label class="col-lg-3 control-label">Cédula Jurídica</label>
+							<label class="col-lg-3 control-label radio-tipo"> <input
+								ng-model="objCatering.tipoCedula" type="radio" name="radio"
+								ng-change="validarFormatoCedula()" value="1">Cédula
+								física
+							</label> <label class="col-lg-3 control-label "> <input
+								ng-model="objCatering.tipoCedula" type="radio" name="radio"
+								ng-change="validarFormatoCedula()" value="2">Cédula
+								jurídica
+							</label>
 							<div class="col-lg-8">
-								<input ng-model="objCatering.cedulaJuridica" type="text"
-									name="cedulaJuridica" placeholder="3-TTT-CCCCCC"
-									data-trigger="keyup" class="form-control" required />
+								<input ng-model="objCatering.cedula" type="text"
+									name="cedula" placeholder="{{placeholder}}" ng-pattern="exp"
+									data-trigger="keyup" class="form-control input-cedula" required/>
+							</div>
+							<div class="col-lg-8 msj-error">
+								<span class="error-message"
+									ng-show="crearCatering.cedula.$error.pattern">{{msj}}</span>
 							</div>
 						</div>
 						<!--Dirección-->
@@ -50,15 +62,12 @@
 							<label class="col-lg-3 control-label">Teléfono</label>
 							<div class="col-lg-8">
 								<input ng-model="objCatering.telefono1" type="text"
-									name="telefono1" placeholder="88888888" class="form-control"
-									ng-pattern="/^(\d)+$/" ng-maxlength="8" ng-minlength="8"
-									data-trigger="keyup" required /> <span class="error-message"
+									name="telefono1" placeholder="2574-5432" class="form-control"
+									ng-pattern="/^\d{4}-?\d{4}$/" data-trigger="keyup" required />
+								<span class="error-message"
 									ng-show="crearCatering.telefono1.$error.pattern">Debe
-									ingresar solo números.</span><span class="error-message"
-									ng-show="crearCatering.telefono1.$error.maxlength">Debe
-									ingresar 8 números como máximo.</span> <span class="error-message"
-									ng-show="crearCatering.telefono1.$error.minlength">Debe
-									ingresar 8 números como mínimo.</span>
+									ingresar solo números, el formato de télefono es ####-####,
+									debe ingresar 8 números.</span>
 							</div>
 						</div>
 						<!-- Teléfono2 -->
@@ -67,38 +76,28 @@
 								alternativo</label>
 							<div class="col-lg-8">
 								<input ng-model="objCatering.telefono2" type="text"
-									name="telefono2" placeholder="22223333" class="form-control"
-									ng-pattern="/^(\d)+$/" ng-maxlength="8" ng-minlength="8" /> <span
-									class="error-message"
+									name="telefono2" placeholder="4051-7645" class="form-control"
+									ng-pattern="/^\d{4}-?\d{4}$/" /> <span class="error-message"
 									ng-show="crearCatering.telefono2.$error.pattern">Debe
-									ingresar solo números.</span><span class="error-message"
-									ng-show="crearCatering.telefono2.$error.maxlength">Debe
-									ingresar 8 números como máximo.</span> <span class="error-message"
-									ng-show="crearCatering.telefono2.$error.minlength">Debe
-									ingresar 8 números como mínimo.</span>
+									ingresar solo números, el formato de télefono es ####-####,
+									debe ingresar 8 números.</span>
 							</div>
 						</div>
+						<div class="form-group">
+							<div ng-dropdown-multiselect="" options="listaTipoEvento"
+								selected-model="tipoEvento"></div>
+						</div>
 						<!-- Tipo eventos -->
-						<!-- 						<div class="form-group"> -->
-						<!-- 							<label class="col-lg-3 control-label">Tipo de Eventos</label> -->
-						<!-- 							<div class="col-lg-8"> -->
-						<!-- 								<table class="table-bordered table"> -->
-						<!-- 									<th> -->
-						<!-- 									<th>Nombre</th> -->
-						<!-- 									<tr ng-repeat="tipoEvento in listaTipoEvento"> -->
-						<!-- 										<td><input type="checkbox"></td> -->
-						<!-- 										<td><span>{{tipoEvento.nombre}}</span></td> -->
-						<!-- 									</tr> -->
-						<!-- 								</table> -->
-						<!-- 							</div> -->
-						<!-- 						</div> -->
-						<div class="form-group"></div>
-						<div class="form-group"></div>
-						<div class="form-group"></div>
-						<div class="form-group"></div>
-						<div class="form-group"></div>
-						<div class="form-group"></div>
-						<div class="form-group"></div>
+						<div class="form-group">
+							<label class="col-lg-3 control-label">Tipo de Evento</label>
+							<div class="col-lg-8">
+								<select name="idTipo" id="idTipo" class="form-control" multiple
+									ng-multiple="true" ng-model="objCatering.tipoEventos"
+									ng-options="te.idTipo as te.nombre for te in listaTipoEvento"
+									required>
+								</select>
+							</div>
+						</div>
 					</div>
 				</section>
 			</div>
@@ -174,6 +173,9 @@
 								<button type="submit" class="btn btn-info" ng-click="guardar()">Guardar</button>
 							</div>
 						</div>
+						<div class="form-group"></div>
+						<div class="form-group"></div>
+						<div class="form-group"></div>
 					</div>
 				</section>
 			</div>

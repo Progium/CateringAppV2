@@ -18,10 +18,14 @@ App.controller('CateringRegistrarController', function($scope, $http,$location, 
 		var listaDistritos = [];
 		var distritos =  [];
 		$scope.listaDistrito = [];
-		$scope.objCatering = {};
+		$scope.objCatering = {
+				tipoCedula : 1
+		};
+		$scope.exp = /^[1-7]{1}\d{8}$/;
+		$scope.msj = "Debe ingresar solo números, debe ingresar los 9 números como se encuentra en la cédula sin espacios.";
+		$scope.placeholder = "304650757";
 		
 	    $scope.init = function() {
-	    	
 	    	//Obtiene los tipos de eventos
 	    	$http.get('rest/protected/tipo/getTipoEvento')
 			.success(function(tipoResponse) {
@@ -50,7 +54,7 @@ App.controller('CateringRegistrarController', function($scope, $http,$location, 
 				$scope.listaDistrito =_.where(listaDistritos, {canton: $scope.objCatering.idCanton});
 				$scope.objCatering.idDistrito = $scope.listaDistrito[0].idDistrito;
 			});
-	    	
+	    	    	
 	    };
 	    
 	    $scope.init();
@@ -71,8 +75,22 @@ App.controller('CateringRegistrarController', function($scope, $http,$location, 
 			$scope.objCatering.idDistrito = $scope.listaDistrito[0].idDistrito;
 	    };
 	    
+	    $scope.validarFormatoCedula = function(){
+	    	
+	    	if($scope.objCatering.tipoCedula == 1){
+	    		$scope.exp = /^[1-7]{1}\d{8}$/;
+	    		$scope.msj = "Debe ingresar solo números, debe ingresar los 9 números como se encuentra en la cédula sin espacios.";
+	    		$scope.placeholder = "304650757";
+	    	}else{
+	    		$scope.exp = /^3-?\d{3}-?\d{6}$/;
+	    		$scope.msj = "Debe ingresar solo números, debe ingresar los 10 números de la cédula jurídica con el siguiente formato 3-###-######.";
+	    		$scope.placeholder = "3-101-018738";
+	    	}
+	    	
+	    }
+	    
 		$scope.cancelar = function(){
-			$location.path('/iniciar-sesion');
+			$location.path('/catering-listar');
 		}
 		
 		//Guarda los datos ingresados por el usuario.
@@ -83,14 +101,15 @@ App.controller('CateringRegistrarController', function($scope, $http,$location, 
 				datosCatering = {
 					administradorId: objUsuario.idUsuario,
 					nombre: $scope.objCatering.nombre,
-					cedulaJuridica : $scope.objCatering.cedulaJuridica,
+					cedulaJuridica : $scope.objCatering.cedula,
 					direccion: $scope.objCatering.direccion,
 					telefono1: $scope.objCatering.telefono1,
 					telefono2: $scope.objCatering.telefono2,
 					horario: $scope.objCatering.horarioAtencion,
 					provinciaId: $scope.objCatering.idProvincia,
 					cantonId: $scope.objCatering.idCanton,
-					distritoId: $scope.objCatering.idDistrito
+					distritoId: $scope.objCatering.idDistrito,
+					tipoEvento: $scope.objCatering.tipoEventos
 				}
 				
 				$http.post('rest/protected/catering/registrar', datosCatering).success(function (contractCateringResponse){
@@ -107,12 +126,14 @@ App.controller('CateringRegistrarController', function($scope, $http,$location, 
 								//Muestra un mensaje si el catering es registrado satisfactoriamente en el sistema.
 								if(cateringResponse.code == 200){
 									alert("El catering se registro correctamente.");
+									$location.path('/catering-listar');
 								}else{
 									alert("No se pudo registrar el logo.");
 								 }
 							});
 						}else{
 							alert("El catering se registro correctamente.");
+							$location.path('/catering-listar');
 						}
 					}else{
 						alert("No se pudo registrar el catering.");
@@ -125,7 +146,7 @@ App.controller('CateringRegistrarController', function($scope, $http,$location, 
 		$scope.onFileSelect = function($files) {
 	    	$scope.files = $files;
 	    };
-
+	    
 	}else{
 		var path = "/catering/#/iniciar-sesion";
 		window.location.href = path;
@@ -178,6 +199,10 @@ App.controller('CateringModificarController', function($scope, $location, $route
 		$scope.guardar = function() {
 			$location.path('/iniciar-sesion');
 		}
+		
+	    $scope.isTipoCedulaSelected = function(index) {
+	        return index === $scope.objCatering.cedula;
+	    };
 	};   
 
 });
