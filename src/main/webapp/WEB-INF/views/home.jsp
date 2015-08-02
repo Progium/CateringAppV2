@@ -18,12 +18,13 @@
     <link rel="stylesheet" href="resources/first/src/css/plugin.css">
     <link rel="stylesheet" href="resources/first/src/css/font.css">
     <link rel="stylesheet" href="resources/first/src/css/style.css">
-
+	<link rel="stylesheet" href="resources/js/lib/angular/1.3.9/angular-ui-notification.min.css">
     <!--Template scripts-->
     <!--JStorage-->
     <script src="resources/js/lib/jstorage.js"></script>
     <!--Jquery-->
     <script src="resources/first/src/js/jquery.min.js"></script>
+    <script src="resources/first/src/js/jquery.noty.packaged.min.js"></script>
     <!--JStorage-->
     <script src="resources/js/lib/jstorage.js"></script>
     <!--Underscore-->
@@ -56,6 +57,8 @@
     <script src="resources/js/lib/angular/1.3.9/angular.js"></script>
     <script src="resources/js/lib/angular/1.3.9/angular-route.js"></script>
 	<script src="resources/js/lib/uploadfile/angular-file-upload.min.js"></script>
+	<script src="resources/js/lib/angular/1.3.9/angular-ui-notification.js"></script>
+	<script src="resources/js/lib/angular/1.3.9/angular-ui-notification.min.js"></script>
 	
 	<!-- ui-bootstrap -->
 	<script src="resources/js/lib/ui-bootstrap-tpls-0.9.0.min.js"></script>

@@ -20,7 +20,9 @@
 
     <!--Template scripts-->
     <!--Jquery-->
+    
     <script src="resources/first/src/js/jquery.min.js"></script>
+     <script src="resources/first/src/js/jquery.noty.packaged.min.js"></script>
     <!--JStorage-->
     <script src="resources/js/lib/jstorage.js"></script>
     <!--Underscore-->
