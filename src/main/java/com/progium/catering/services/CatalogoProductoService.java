@@ -4,10 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-
-
 import com.progium.catering.ejb.Catalogoproducto;
+import com.progium.catering.ejb.Catering;
 import com.progium.catering.repositories.CatalogoProductoRepository;
 
 @Service
@@ -25,7 +23,10 @@ public class CatalogoProductoService implements CataloProductoServiceInterface{
 			result = false;
 		}
 		return result;
-		
+	}
+	
+	public Catalogoproducto getCatalogoProductoById(Integer idCatalogoProducto){
+		return catalogoProductoRepository.findOne(idCatalogoProducto);
 	}
 	
 }

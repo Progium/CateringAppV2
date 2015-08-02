@@ -72,7 +72,7 @@ App.controller('ProductoRegistrarController', function($scope,$http, $modal) {
 	      
    };
    
-   var ModalInstanceModifyCtrl = function($scope, $http, $modalInstance,$log, $location, $upload, param){
+   var ModalInstanceModifyCtrl = function($scope, $http, $modalInstance,$log, $location, $upload, param, services){
 	   	$scope.requestObject = {};
 		$scope.requestObject.catalogo = {};
 		$scope.productoSelec= {};
@@ -81,21 +81,28 @@ App.controller('ProductoRegistrarController', function($scope,$http, $modal) {
 		$scope.catering= [];
 		$scope.onError = false;
 		$scope.files= {};
+		$scope.objCatalogo = {};
 		
 		$scope.init = function(){
 			
 			$scope.requestObject.catalogo = param.idUsuario;	
 			$scope.productoSelec.idProducto = param.idProducto;
 			$scope.productoSelec.nombre = param.nombre;
-			$scope.
 			
-			//$http.get('rest/protected/catering/getAll')
-			// .success(function(response){
-				$scope.listaCatering = 1;
-				$scope.precio = 3000;
-					//response.catering;
-				//});
 			
+		$http.get('rest/protected/catering/getCaterigLista')
+		.success(function(response){
+			$scope.listaCatering = response.caterings;
+		});
+			
+		};
+		
+		$scope.oncateringSeleccionadoChanged = function(catering, checked){
+			if(checked){
+				$scope.idCaterings.push(catering.idCatering);
+			}else{
+				$scope.idCaterings.splice($scope.idCaterings.indexOf(catering.idCatering), 1);
+			}
 		};
 		
 		$scope.init();
@@ -106,9 +113,9 @@ App.controller('ProductoRegistrarController', function($scope,$http, $modal) {
 				var productoFoto = $scope.files[0];
 				var datosProducto = {};
 				datosProducto ={
-						cateringId: $scope.listaCatering,
+						cateringId: $scope.idCaterings,
 						productoId: $scope.productoSelec.idProducto,
-						precio: $scope.precio
+						precio: parseFloat($scope.objCatalogo.precio)
 						
 				}
 				$http.post('rest/protected/catalogo/create', datosProducto)
@@ -122,16 +129,25 @@ App.controller('ProductoRegistrarController', function($scope,$http, $modal) {
 								},
 								file : productoFoto
 							}).success(function(response, status, headers, config) {
+								if(response.code===200){
+									services.noty('Se añadio el producto al catálogo', 'success');
+									$modalInstance.close();
+								}else{
+									services.noty('No se añadio la fotografía del producto', 'error');
+									$modalInstance.close();
+								}
 								
-								$modalInstance.close();
+								
 							});
 						
 						}else{
+							services.noty('Se añadio el producto al catálogo', 'success');
 							$modalInstance.close(); 
 						}
 					}
 				});
 			}else{
+				services.noty('Error al añadir el producto al catálogo', 'error');
 				this.onError = true;
 			}
 		};

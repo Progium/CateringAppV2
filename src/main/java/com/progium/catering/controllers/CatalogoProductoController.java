@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.progium.catering.contracts.CatalogoProductoRequest;
 import com.progium.catering.contracts.CatalogoProductoResponse;
+import com.progium.catering.contracts.CateringResponse;
 import com.progium.catering.ejb.Catalogoproducto;
 import com.progium.catering.ejb.Producto;
 import com.progium.catering.ejb.Catering;
@@ -46,26 +47,51 @@ public class CatalogoProductoController {
 	
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	@Transactional
-	public CataloProductoResponse create(@RequestBody CatalogoProductoRequest catalogoProductoRequest)throws NoSuchAlgorithmException {
+	public CatalogoProductoResponse create(@RequestBody CatalogoProductoRequest catalogoProductoRequest)throws NoSuchAlgorithmException {
 		
 		CatalogoProductoResponse cs = new CatalogoProductoResponse();
 		Producto objProducto = generalService.getProductoById(catalogoProductoRequest.getProductoId());
 		
-		Catering objCatering = generalService.getCateringById(catalogoProductoRequest.getCateringId());
+		for(int i = 0; i<catalogoProductoRequest.getCateringId().size(); i++){
+			Catering objCatering = generalService.getCateringById(catalogoProductoRequest.getCateringId().get(i));
+			Catalogoproducto objNuevoCataloProducto = new Catalogoproducto();
+			objNuevoCataloProducto.setCatering(objCatering);
+			objNuevoCataloProducto.setProducto(objProducto);
+			objNuevoCataloProducto.setPrecio(catalogoProductoRequest.getPrecio());
+			objNuevoCataloProducto.setEstado(false);
 
-		
-		Catalogoproducto objNuevoCataloProducto = new Catalogoproducto();
-		objNuevoCataloProducto.setCatering(objCatering);
-		objNuevoCataloProducto.setProducto(objProducto);
-		objNuevoCataloProducto.setPrecio(catalogoProductoRequest.getPrecio());
-		objNuevoCataloProducto.setEstado(false);
+			Boolean state = catalogoProductoService.saveCatalogoProducto(objNuevoCataloProducto);
+			
+			if (state) {
+				cs.setCode(200);
+				cs.setCodeMessage("catalogo producto created succesfully");
+				cs.setIdCatalogo(objNuevoCataloProducto.getIdCatalogoProducto());
 
-		Boolean state = c.saveCatering(objNuevoCataloProducto);
+			}else{
+				cs.setCode(401);
+				cs.setErrorMessage("Unauthorized User");
+			}
+			
+		}
 		
+		return cs;
+	}
+	
+	@RequestMapping(value = "/subirFoto", method = RequestMethod.POST)
+	@Transactional
+	public CatalogoProductoResponse subirFoto(@RequestParam("file") MultipartFile file,
+			@RequestParam("IdCatalogoProducto") int idCatalogoProducto)
+			throws NoSuchAlgorithmException {
+		
+		CatalogoProductoResponse cs = new CatalogoProductoResponse();
+		Catalogoproducto objCatalogoProducto = catalogoProductoService.getCatalogoProductoById(idCatalogoProducto);
+		String resultFileName = Utils.writeToFile(file, servletContext);
+
+		objCatalogoProducto.setFotografia(resultFileName);
+		Boolean state = catalogoProductoService.saveCatalogoProducto(objCatalogoProducto);
 		if (state) {
 			cs.setCode(200);
-			cs.setCodeMessage("catering created succesfully");
-			cs.setIdCatering(objCatering.getIdCatering());
+			cs.setCodeMessage("catalogo producto created succesfully");
 
 		}else{
 			cs.setCode(401);
