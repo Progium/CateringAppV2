@@ -8,7 +8,7 @@ public class UsuarioResponse extends BaseResponse {
 
 	private List<Usuario> usuarios;
 	private int idUsuario;
-	private int nombre;
+	private String nombre;
 	
 	public UsuarioResponse() {
 		super();
@@ -31,11 +31,11 @@ public class UsuarioResponse extends BaseResponse {
 		this.idUsuario = idUsuario;
 	}
 
-	public int getNombre() {
+	public String getNombre() {
 		return nombre;
 	}
 
-	public void setNombre(int nombre) {
+	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
