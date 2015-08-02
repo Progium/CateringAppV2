@@ -41,14 +41,12 @@ App.controller('CateringListarController', function($scope, $http,$location, $up
 	    
 	    $scope.openModal = function(cateringSelec){
 
-	    	console.log(cateringSelec);
 	 	   var modalInstance = $modal.open({
 	 		   templateUrl: 'modulos/catering-mostrar-detalle',
 	 		   controller: ModalInstanceViewCtrl,
 	 		   resolve:{
 	 			   param: function() {
 	 				   var obj ={};
-	 				   
 	 				   obj.nombre= cateringSelec.nombre;
 	 				   obj.cedulaJuridica = cateringSelec.cedulaJuridica;
 	 				   obj.direccion = cateringSelec.direccion;
@@ -73,13 +71,14 @@ App.controller('CateringListarController', function($scope, $http,$location, $up
 			$scope.catering = {};
 			$scope.mostrarImagen = false;
 			$scope.onError = false;
+			var provincia;
+			var canton;
+			var distrito;
 			
 			$scope.init = function(){
 				$scope.catering.nombre = param.nombre;
 				$scope.catering.cedula = param.cedulaJuridica;
-				$scope.catering.direccion = param.direccion;
-				$scope.catering.telefono1 = param.telefono1;
-				$scope.catering.telefono2 = param.telefono2;
+				$scope.catering.telefono1 = param.telefono1 + (param.telefono2 != null ? " / " + param.telefono2: "");
 				$scope.catering.horario = param.horario;
 				$scope.catering.provinciaId = param.provinciaId;
 				$scope.catering.cantonId = param.cantonId;
@@ -91,20 +90,35 @@ App.controller('CateringListarController', function($scope, $http,$location, $up
 				}
 				
 				//Obtiene los tipos de eventos
-				$http.post('rest/protected/tipo/getTipo', $scope.catering)
+				$http.post('rest/protected/tipo/getTipo', param)
 				.success(function(tipoResponse) {
 					$scope.listaTipoEvento = tipoResponse.tipos;
 				});
 				
 				//Obtiene los tipos de eventos
-				$http.post('rest/protected/provincia/getProvincia', $scope.catering)
+				$http.post('rest/protected/provincia/getProvincia', param)
 				.success(function(ProvinciaResponse) {
-					$scope.catering.provincia = ProvinciaResponse.provincia.nombre;
+					provincia = ProvinciaResponse.provincia.nombre;
+					console.log(provincia);
 				});
-
+				
+				//Obtiene los tipos de eventos
+				$http.post('rest/protected/canton/getCanton', param)
+				.success(function(CantonResponse) {
+					canton = CantonResponse.canton.nombre;
+				});
+				
+				//Obtiene los tipos de eventos
+				$http.post('rest/protected/distrito/getDistrito', param)
+				.success(function(DistritoResponse) {
+					distrito = DistritoResponse.distrito.nombre;
+					$scope.catering.direccion = provincia + ", " + canton + ", " + distrito + ", " + param.direccion;
+				});
+	
 			};
 			
 			$scope.init();
+			
 			
 			$scope.cancel = function(){
 				$modalInstance.dismiss('cancel');

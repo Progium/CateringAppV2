@@ -151,7 +151,6 @@ public class CateringController {
 		
 		for (Catering cat : listaCatering){
 			CateringPOJO nCatering = new CateringPOJO();
-			//PojoUtils.pojoMappingUtility(nCatering,cat);
 			nCatering.setIdCatering(cat.getIdCatering());
 			nCatering.setNombre(cat.getNombre());
 			nCatering.setCedulaJuridica(cat.getCedulaJuridica());
@@ -191,7 +190,6 @@ public class CateringController {
 		Catering catering = cateringService.getCateringById(cateringRequest.getIdCatering());
 
 		CateringPOJO nCatering = new CateringPOJO();
-		//PojoUtils.pojoMappingUtility(nCatering,cat);
 		nCatering.setIdCatering(catering.getIdCatering());
 		nCatering.setNombre(catering.getNombre());
 		nCatering.setCedulaJuridica(catering.getCedulaJuridica());
@@ -308,7 +306,6 @@ public class CateringController {
 			
 			for (Catering cat : listaCatering){
 				CateringPOJO nCatering = new CateringPOJO();
-				//PojoUtils.pojoMappingUtility(nCatering,cat);
 				nCatering.setIdCatering(cat.getIdCatering());
 				nCatering.setNombre(cat.getNombre());
 				nCatering.setCedulaJuridica(cat.getCedulaJuridica());

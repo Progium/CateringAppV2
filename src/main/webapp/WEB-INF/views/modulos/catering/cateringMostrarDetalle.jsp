@@ -61,16 +61,6 @@
 									data-trigger="keyup" ng-disabled="true" />
 							</div>
 						</div>
-						<!-- Teléfono2 -->
-						<div class="form-group">
-							<label class="col-lg-3 control-label">Teléfono
-								alternativo</label>
-							<div class="col-lg-8">
-								<input ng-model="catering.telefono2" type="text"
-									name="telefono2" placeholder="4051-7645" class="form-control"
-									ng-disabled="true" />
-							</div>
-						</div>
 						<div class="form-group">
 							<div ng-dropdown-multiselect="" options="listaTipoEvento"
 								selected-model="tipoEvento"></div>
@@ -96,34 +86,6 @@
 									placeholder="Lunes a Viernes de 10am a 5pm" rows="5"
 									class="form-control" data-trigger="keyup" ng-maxlength="250"
 									ng-disabled="true"></textarea>
-							</div>
-						</div>
-						<!-- Provincia -->
-						<div class="form-group">
-							<label class="col-lg-3 control-label">Provincia</label>
-							<div class="col-lg-4">
-							
-							<input ng-model="catering.provincia" type="text"
-									name="provincia" class="form-control"
-									ng-disabled="true" />
-							</div>
-						</div>
-						<!-- Cantón -->
-						<div class="form-group">
-							<label class="col-lg-3 control-label">Canton</label>
-							<div class="col-lg-4">
-								<input ng-model="catering.canton" type="text"
-									name="canton" class="form-control"
-									ng-disabled="true" />
-							</div>
-						</div>
-						<!-- Distrito -->
-						<div class="form-group">
-							<label class="col-lg-3 control-label">Distrito</label>
-							<div class="col-lg-4">
-								<input ng-model="catering.distrito" type="text"
-									name="distrito" class="form-control"
-									ng-disabled="true" />
 							</div>
 						</div>
 					</div>

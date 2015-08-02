@@ -7,6 +7,7 @@ import com.progium.catering.pojo.CantonPOJO;
 public class CantonResponse extends BaseResponse{
 
 	private List<CantonPOJO> listaCanton;
+	private CantonPOJO canton;
 	private int idCanton;
 	private String nombre;
 	private int provinciaId;
@@ -51,6 +52,14 @@ public class CantonResponse extends BaseResponse{
 
 	public void setProvinciaId(int provinciaId) {
 		this.provinciaId = provinciaId;
+	}
+
+	public CantonPOJO getCanton() {
+		return canton;
+	}
+
+	public void setCanton(CantonPOJO canton) {
+		this.canton = canton;
 	}
 
 

@@ -3,7 +3,7 @@
         <h4><i class="fa fa-table"></i>Mis Catering</h4>
     </div>
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-8">
             <section class="panel">
                 <div>
                 

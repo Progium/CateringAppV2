@@ -2,7 +2,7 @@ package com.progium.catering.contracts;
 
 public class CantonRequest extends BasePagingRequest {
 
-	private int idCanton;
+	private int cantonId;
 	private String nombre;
 	private int provinciaId;
 
@@ -13,27 +13,27 @@ public class CantonRequest extends BasePagingRequest {
 	}
 
 	
-	public CantonRequest (int idCanton, String nombre,int provinciaId){
+	public CantonRequest (int cantonId, String nombre,int provinciaId){
 		super();
-		this.setIdCanton(idCanton);
+		this.setCantonId(cantonId);
 		this.setNombre(nombre);
 		this.setProvinciaId(provinciaId);
 		// TODO Auto-generated constructor stub
 	}
 	
-	public CantonRequest (int idCanton){
+	public CantonRequest (int cantonId){
 		super();
-		this.setIdCanton(idCanton);
+		this.setCantonId(cantonId);
 		// TODO Auto-generated constructor stub
 	}
 
-	public int getIdCanton() {
-		return idCanton;
+	public int getCantonId() {
+		return cantonId;
 	}
 
 
-	public void setIdCanton(int idCanton) {
-		this.idCanton = idCanton;
+	public void setCantonId(int cantonId) {
+		this.cantonId = cantonId;
 	}
 
 
