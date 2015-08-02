@@ -17,7 +17,6 @@ public class Producto implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idProducto;
-
 	private String nombre;
 
 	//bi-directional many-to-one association to Catalogoproducto

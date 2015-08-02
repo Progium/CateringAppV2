@@ -19,11 +19,11 @@ public class Catalogoproducto implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idCatalogoProducto;
 
-	private byte estado;
+	private boolean estado;
 
 	private String fotografia;
 
-	private BigDecimal precio;
+	private double precio;
 
 	//bi-directional many-to-one association to Catering
 	@ManyToOne
@@ -54,11 +54,11 @@ public class Catalogoproducto implements Serializable {
 		this.idCatalogoProducto = idCatalogoProducto;
 	}
 
-	public byte getEstado() {
+	public boolean getEstado() {
 		return this.estado;
 	}
 
-	public void setEstado(byte estado) {
+	public void setEstado(boolean estado) {
 		this.estado = estado;
 	}
 
@@ -70,11 +70,11 @@ public class Catalogoproducto implements Serializable {
 		this.fotografia = fotografia;
 	}
 
-	public BigDecimal getPrecio() {
+	public double getPrecio() {
 		return this.precio;
 	}
 
-	public void setPrecio(BigDecimal precio) {
+	public void setPrecio(double precio) {
 		this.precio = precio;
 	}
 
