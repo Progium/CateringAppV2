@@ -35,9 +35,9 @@
 								jurídica
 							</label>
 							<div class="col-lg-8">
-								<input ng-model="objCatering.cedula" type="text"
-									name="cedula" placeholder="{{placeholder}}" ng-pattern="exp"
-									data-trigger="keyup" class="form-control input-cedula" required/>
+								<input ng-model="objCatering.cedula" type="text" name="cedula"
+									placeholder="{{placeholder}}" ng-pattern="exp"
+									data-trigger="keyup" class="form-control input-cedula" required />
 							</div>
 							<div class="col-lg-8 msj-error">
 								<span class="error-message"
@@ -155,8 +155,10 @@
 							<div class="col-lg-9 media">
 								<div
 									class="bg-light pull-left text-center media-large thumb-large">
-									<i
-										class="fa fa-user inline fa fa-light fa fa-3x m-t-large m-b-large"></i>
+									<i ng-show="mostrarImagen == false"
+										class="fa fa-user inline fa fa-light fa fa-3x m-t-large m-b-large"></i> <i ng-show="mostrarImagen == true"
+										class="fa inline fa fa-light fa fa-3x m-t-large"><img
+										ng-src={{files[0]}} /></i>
 								</div>
 								<div class="media-body">
 									<input ng-file-select="onFileSelect($files)" type="file"

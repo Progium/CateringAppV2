@@ -4,7 +4,7 @@
  * CateringListarController
  * @constructor
  */
-App.controller('CateringListarController', function($scope, $http,$location, $upload, $routeParams) {
+App.controller('CateringListarController', function($scope, $http,$location, $upload, $routeParams, $modal) {
 	var objUsuario = $.jStorage.get("user");
 	if(objUsuario){
 		_ScopeContainer['MainController'].esAdministrador = true;	
@@ -19,13 +19,10 @@ App.controller('CateringListarController', function($scope, $http,$location, $up
 		
 		
 	    $scope.init = function() {
-	    	
-			//Obtiene la lista de caterings
+	    	//Obtiene la lista de caterings
 			$http.get('rest/protected/catering/getCaterigLista')
 			.success(function(cateringResponse) {
-				$scope.cateringLista = cateringResponse.caterings;
-				console.log($scope.cateringLista);
-				//$scope.objCatering.idCatering = $scope.cateringLista[0].idCatering;	
+				$scope.cateringLista = cateringResponse.caterings;	
 			
 			});	
 			
@@ -38,11 +35,81 @@ App.controller('CateringListarController', function($scope, $http,$location, $up
 			$location.path('/catering-registrar');
 	    }
 	    
-	    $scope.modificar = function() {
-			$location.path('/catering-modificar');
+	    $scope.modificar = function(idCatering) {
+			$location.path('/catering-modificar/'+idCatering);
 	    }
+	    
+	    $scope.openModal = function(cateringSelec){
+
+	    	console.log(cateringSelec);
+	 	   var modalInstance = $modal.open({
+	 		   templateUrl: 'modulos/catering-mostrar-detalle',
+	 		   controller: ModalInstanceViewCtrl,
+	 		   resolve:{
+	 			   param: function() {
+	 				   var obj ={};
+	 				   
+	 				   obj.nombre= cateringSelec.nombre;
+	 				   obj.cedulaJuridica = cateringSelec.cedulaJuridica;
+	 				   obj.direccion = cateringSelec.direccion;
+	 				   obj.telefono1 = cateringSelec.telefono1;
+	 				   obj.telefono2 = cateringSelec.telefono2;
+	 				   obj.horario = cateringSelec.horario;
+	 				   obj.fotografia = cateringSelec.fotografia;
+	 				  obj.provinciaId = cateringSelec.provinciaId;
+	 				  obj.cantonId = cateringSelec.cantonId;
+	 				 obj.distritoId = cateringSelec.distritoId;
+	 				obj.tipoEvento = cateringSelec.tipoEvento;
+	 				   var param = obj;
+	 			   return param;
+	 			   }
+	 		   }
+	 	   	});
+	 	      
+	    };
 	   
-	   
+	    var ModalInstanceViewCtrl = function($scope, $http, $modalInstance,$log, $location, $upload, param){
+	    	
+			$scope.catering = {};
+			$scope.mostrarImagen = false;
+			$scope.onError = false;
+			
+			$scope.init = function(){
+				$scope.catering.nombre = param.nombre;
+				$scope.catering.cedula = param.cedulaJuridica;
+				$scope.catering.direccion = param.direccion;
+				$scope.catering.telefono1 = param.telefono1;
+				$scope.catering.telefono2 = param.telefono2;
+				$scope.catering.horario = param.horario;
+				$scope.catering.provinciaId = param.provinciaId;
+				$scope.catering.cantonId = param.cantonId;
+				$scope.catering.distritoId = param.distritoId;
+				$scope.catering.tipoEvento = param.tipoEvento;
+				$scope.catering.fotografia = param.fotografia;
+				if(param.fotografia){
+					$scope.mostrarImagen = true;
+				}
+				
+				//Obtiene los tipos de eventos
+				$http.post('rest/protected/tipo/getTipo', $scope.catering)
+				.success(function(tipoResponse) {
+					$scope.listaTipoEvento = tipoResponse.tipos;
+				});
+				
+				//Obtiene los tipos de eventos
+				$http.post('rest/protected/provincia/getProvincia', $scope.catering)
+				.success(function(ProvinciaResponse) {
+					$scope.catering.provincia = ProvinciaResponse.provincia.nombre;
+				});
+
+			};
+			
+			$scope.init();
+			
+			$scope.cancel = function(){
+				$modalInstance.dismiss('cancel');
+			};
+	   };	   
 	
 	
 });

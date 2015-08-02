@@ -151,7 +151,29 @@ public class CateringController {
 		
 		for (Catering cat : listaCatering){
 			CateringPOJO nCatering = new CateringPOJO();
-			PojoUtils.pojoMappingUtility(nCatering,cat);
+			//PojoUtils.pojoMappingUtility(nCatering,cat);
+			nCatering.setIdCatering(cat.getIdCatering());
+			nCatering.setNombre(cat.getNombre());
+			nCatering.setCedulaJuridica(cat.getCedulaJuridica());
+			nCatering.setDireccion(cat.getDireccion());
+			nCatering.setTelefono1(cat.getTelefono1());
+			nCatering.setTelefono2(cat.getTelefono2());
+			nCatering.setHorario(cat.getHorario());
+			nCatering.setEstado(cat.getEstado());
+			nCatering.setFotografia(cat.getFotografia());
+			nCatering.setProvinciaId(cat.getProvinciaId());
+			nCatering.setCantonId(cat.getCantonId());
+			nCatering.setAdministradorId(cat.getUsuario().getIdUsuario());
+			nCatering.setDistritoId(cat.getDistrito().getIdDistrito());
+			
+			//Obtiene el id del tipo de evento que se agrego cuando se registro el catering
+			List<Eventocatering> eventoCatering =  eventoCateringService.getEventoCateringByIdCatering(cat.getIdCatering());
+			List<Integer> tipoEventoCatering = new ArrayList<Integer>();
+			for(int i = 0; i < eventoCatering.size(); i++){
+				tipoEventoCatering.add(eventoCatering.get(i).getTipo().getIdTipo());
+			}
+			nCatering.setTipoEvento(tipoEventoCatering);
+			
 			listaCateringPojo.add(nCatering);
 		}
 		
@@ -160,4 +182,153 @@ public class CateringController {
 		return catering;	
 		
 	}
+	
+	@RequestMapping(value ="/getCaterigById", method = RequestMethod.POST)
+	public CateringResponse getCaterigById(@RequestBody CateringRequest cateringRequest)throws NoSuchAlgorithmException {
+		
+		CateringResponse cateringResponse = new CateringResponse();
+		
+		Catering catering = cateringService.getCateringById(cateringRequest.getIdCatering());
+
+		CateringPOJO nCatering = new CateringPOJO();
+		//PojoUtils.pojoMappingUtility(nCatering,cat);
+		nCatering.setIdCatering(catering.getIdCatering());
+		nCatering.setNombre(catering.getNombre());
+		nCatering.setCedulaJuridica(catering.getCedulaJuridica());
+		nCatering.setDireccion(catering.getDireccion());
+		nCatering.setTelefono1(catering.getTelefono1());
+		nCatering.setTelefono2(catering.getTelefono2());
+		nCatering.setHorario(catering.getHorario());
+		nCatering.setEstado(catering.getEstado());
+		nCatering.setFotografia(catering.getFotografia());
+		nCatering.setProvinciaId(catering.getProvinciaId());
+		nCatering.setCantonId(catering.getCantonId());
+		nCatering.setAdministradorId(catering.getUsuario().getIdUsuario());
+		nCatering.setDistritoId(catering.getDistrito().getIdDistrito());
+		
+		//Obtiene el id del tipo de evento que se agrego cuando se registro el catering
+		List<Eventocatering> eventoCatering =  eventoCateringService.getEventoCateringByIdCatering(catering.getIdCatering());
+		List<Integer> tipoEventoCatering = new ArrayList<Integer>();
+		for(int i = 0; i < eventoCatering.size(); i++){
+			tipoEventoCatering.add(eventoCatering.get(i).getTipo().getIdTipo());
+		}
+		nCatering.setTipoEvento(tipoEventoCatering);
+		
+		cateringResponse.setCatering(nCatering);
+		
+		return cateringResponse;	
+		
+	}
+	
+	//Obtiene los parametros que le envia el controller por medio del metodo post.
+		@RequestMapping(value = "/modificar", method = RequestMethod.POST)
+		@Transactional
+		public CateringResponse modificar(@RequestBody CateringRequest cateringRequest)throws NoSuchAlgorithmException {
+			//Crea un nuevo usuario response le setea los datos y le pasa el objeto de catering al servicio de usuario
+			CateringResponse cs = new CateringResponse();
+			Distrito objDistrito = generalService.getDistritoById(cateringRequest.getDistritoId());
+			Catering objCatering = cateringService.getCateringById(cateringRequest.getIdCatering());
+
+			objCatering.setNombre(cateringRequest.getNombre());
+			objCatering.setCedulaJuridica(cateringRequest.getCedulaJuridica());
+			objCatering.setDireccion(cateringRequest.getDireccion());
+			objCatering.setTelefono1(cateringRequest.getTelefono1());
+			objCatering.setTelefono2(cateringRequest.getTelefono2());
+			objCatering.setHorario(cateringRequest.getHorario());
+			objCatering.setProvinciaId(cateringRequest.getProvinciaId());
+			objCatering.setCantonId(cateringRequest.getCantonId());
+			objCatering.setDistrito(objDistrito);
+				
+			Boolean state = cateringService.saveCatering(objCatering);
+			
+			if (state) {
+				cs.setCode(200);
+				//Obtiene la lista de eventos del catering registrados en base de datos
+				List<Eventocatering> eventoCatering =  eventoCateringService.getEventoCateringByIdCatering(cateringRequest.getIdCatering());
+				Boolean eliminarTipo = false;
+				Boolean crearTipo = false;
+				int idTipoEvento = 0;
+				Eventocatering evento = new Eventocatering();
+				//Valida que si el id del tipo que tiene el request ya se encuentra registrado en base de datos para ese catering o debe registrarse
+				for(int i = 0; i < cateringRequest.getTipoEvento().size(); i++){
+					//Valida el id del request sea igual al de base de datos si ya esta registrado se sale del segundo for, sino lo registra.
+					for(int j = 0; j < eventoCatering.size(); j++){
+						if(cateringRequest.getTipoEvento().get(i) == eventoCatering.get(j).getTipo().getIdTipo()){
+							crearTipo = false;
+							break;
+						}else{
+							crearTipo = true;
+							idTipoEvento = cateringRequest.getTipoEvento().get(i);
+						}
+					}
+					//Si dio true de crear un tipo es porque el usuario selecciono un tipo de evento que aun no se encontraba registrado en base de datos
+					if(crearTipo){
+						Eventocatering objNuevoEvento = new Eventocatering();
+						Tipo objTipo = generalService.getTipoById(idTipoEvento);
+						objNuevoEvento.setCatering(objCatering);
+						objNuevoEvento.setTipo(objTipo);
+						Boolean stateEvento = eventoCateringService.saveEventoCatering(objNuevoEvento);
+					}
+					
+				}
+				
+				//Valida para ver si un tipo de evento fue deseleccionado para eliminarno en base de datos.
+				for(int i = 0; i < eventoCatering.size(); i++){
+					for(int j = 0; j < cateringRequest.getTipoEvento().size(); j++){
+						if(eventoCatering.get(i).getTipo().getIdTipo() == cateringRequest.getTipoEvento().get(j)){
+							eliminarTipo = false;
+							break;
+						}else{
+							eliminarTipo = true;
+							evento = eventoCatering.get(i);
+						}
+					}
+					//Si dio true de eliminar un tipo de evento es porque el usuario deselecciono un tipo de evento.
+					if(eliminarTipo){
+						eventoCateringService.deleteEventoCatering(evento);
+					}
+
+				}
+				
+				cs.setCodeMessage("catering updated succesfully");
+			}else{
+				cs.setCode(401);
+				cs.setErrorMessage("Unauthorized User");
+			}
+			return cs;
+		}
+		
+		@RequestMapping(value ="/getAll", method = RequestMethod.GET)
+		public CateringResponse getAll(){
+			
+			CateringResponse catering = new CateringResponse();
+			
+			List<Catering> listaCatering = cateringService.getCateringByEstado(false);
+			List<CateringPOJO> listaCateringPojo = new ArrayList<CateringPOJO>();
+			
+			for (Catering cat : listaCatering){
+				CateringPOJO nCatering = new CateringPOJO();
+				//PojoUtils.pojoMappingUtility(nCatering,cat);
+				nCatering.setIdCatering(cat.getIdCatering());
+				nCatering.setNombre(cat.getNombre());
+				nCatering.setCedulaJuridica(cat.getCedulaJuridica());
+				nCatering.setDireccion(cat.getDireccion());
+				nCatering.setTelefono1(cat.getTelefono1());
+				nCatering.setTelefono2(cat.getTelefono2());
+				nCatering.setHorario(cat.getHorario());
+				nCatering.setEstado(cat.getEstado());
+				nCatering.setFotografia(cat.getFotografia());
+				nCatering.setProvinciaId(cat.getProvinciaId());
+				nCatering.setCantonId(cat.getCantonId());
+				nCatering.setAdministradorId(cat.getUsuario().getIdUsuario());
+				nCatering.setDistritoId(cat.getDistrito().getIdDistrito());
+				listaCateringPojo.add(nCatering);
+			}
+			
+			catering.setCaterings(listaCateringPojo);
+			
+			return catering;	
+			
+		}
+		
 }

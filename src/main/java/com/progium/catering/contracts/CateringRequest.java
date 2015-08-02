@@ -6,6 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class CateringRequest extends BasePagingRequest {
 
+	private int idCatering;
 	private int administradorId;
 	private String nombre;
 	private String cedulaJuridica;
@@ -43,6 +44,11 @@ public class CateringRequest extends BasePagingRequest {
 		this.setTipoEvento(tipoEvento);
 	}
 
+	public CateringRequest(int idCatering) {
+		super();
+		this.setIdCatering(idCatering);
+	}
+	
 	public int getAdministradorId() {
 		return administradorId;
 	}
@@ -145,6 +151,14 @@ public class CateringRequest extends BasePagingRequest {
 
 	public void setTipoEvento(List<Integer> tipoEvento) {
 		this.tipoEvento = tipoEvento;
+	}
+
+	public int getIdCatering() {
+		return idCatering;
+	}
+
+	public void setIdCatering(int idCatering) {
+		this.idCatering = idCatering;
 	}
 
 }

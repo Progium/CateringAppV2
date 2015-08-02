@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.progium.catering.contracts.ProvinciaResponse;
+import com.progium.catering.contracts.ProvinciaRequest;
 import com.progium.catering.ejb.Provincia;
 import com.progium.catering.pojo.ProvinciaPOJO;
 import com.progium.catering.services.GeneralServiceInterface;
@@ -58,6 +59,21 @@ public class ProvinciaController {
 		provincia.setListaProvincia(listaProvinciaPojo);
 		
 		return provincia;		
+	}
+	
+	@RequestMapping(value ="/getProvincia", method = RequestMethod.POST)
+	public ProvinciaResponse getProvincia(@RequestBody ProvinciaRequest provinciaRequest)throws NoSuchAlgorithmException {
+		
+		ProvinciaResponse provinciaResponse = new ProvinciaResponse();
+		
+		Provincia provincia = generalService.getProvinciaById(provinciaRequest.getProvinciaId());
+		ProvinciaPOJO provinciaPojo = new ProvinciaPOJO();
+		
+		PojoUtils.pojoMappingUtility(provinciaPojo,provincia);
+		
+		provinciaResponse.setProvincia(provinciaPojo);
+		
+		return provinciaResponse;		
 	}
 
 }

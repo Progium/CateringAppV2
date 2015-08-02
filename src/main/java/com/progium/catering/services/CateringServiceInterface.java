@@ -13,5 +13,7 @@ public interface CateringServiceInterface {
 	List<Catering> getCateringByIdAdministrador(Integer idAdministrador);
 	//Obtiene todos los catering
 	List<Catering> getCaterigLista();
+	//Obtiene todos los catering
+	List<Catering> getCateringByEstado(Boolean estado);
 	
 }
