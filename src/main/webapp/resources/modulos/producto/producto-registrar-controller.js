@@ -8,12 +8,32 @@ App.controller('ProductoRegistrarController', function($scope,$http, $modal) {
    
 	$scope.productos  = [];
 	$scope.productosSelecc  = [];
+	var listaProductos = [];
+	$scope.objCategoria = {};
+	$scope.listaCategorias = [];
 	$scope.init = function(){
 		var usuario = $.jStorage.get("user");
+		
+		$http.get('rest/protected/categoria/getAll')
+		  .success(function(response){
+			  $scope.listaCategorias= response.categorias;
+			  $scope.objCategoria.idCategoria = $scope.listaCategorias[0].idCategoria;
+			 
+		  });
+		
 		$http.get('rest/protected/producto/getAll')
 		  .success(function(response){
-			  $scope.productos = response.productos;   
+			  listaProductos = response.productos;  
+			  $scope.productos = _.where(listaProductos, {categoria: $scope.objCategoria.idCategoria})
 		  });
+		
+   };
+   
+   $scope.cargarProducto = function() {
+   	$scope.productos.length = 0;
+		$scope.productos = _.where(listaProductos, {categoria: $scope.objCategoria.idCategoria})
+		$scope.objCategoria.idCategoria =  $scope.listaCategorias[0].idCategoria;	
+		
    };
    
    
@@ -56,64 +76,58 @@ App.controller('ProductoRegistrarController', function($scope,$http, $modal) {
 	   	$scope.requestObject = {};
 		$scope.requestObject.catalogo = {};
 		$scope.productoSelec= {};
-		
+		$scope.idCaterings = [];
+		$scope.listaCatering = [];
+		$scope.catering= [];
 		$scope.onError = false;
+		$scope.files= {};
 		
 		$scope.init = function(){
 			
-			$scope.requestObject.catalogo = param.idUsuario;
-			
-			
-//			var requestProducto = {};
-//			
-//			requestProducto.producto = {};
-//			requestProducto.producto.id = param.idProducto;
-			
+			$scope.requestObject.catalogo = param.idUsuario;	
 			$scope.productoSelec.idProducto = param.idProducto;
 			$scope.productoSelec.nombre = param.nombre;
-			/*$http.post('rest/protected/producto/findOne', requestProducto)
-			.success(function (response) {
-				
-			});*/
+			$scope.
 			
-					
-//			$http.post('rest/protected/cateing/getAllFromUsuario', $scope.requestObject )
-//			.success(function(response) {
-//				if(response.code === 200){
-//					//$scope.talleresPropietario = response.talleres;
-//					//alert(response.codeMessage);
-//				} else {
-//					//alert(response.errorMessage);
-//				}	
-//			});
+			//$http.get('rest/protected/catering/getAll')
+			// .success(function(response){
+				$scope.listaCatering = 1;
+				$scope.precio = 3000;
+					//response.catering;
+				//});
+			
 		};
 		
 		$scope.init();
 		
 		$scope.create = function(){
 			if(this.registroCatalogo.$valid){
-				
 				this.onError = false;
-				$http.post('rest/protected/catalogo/create', $scope.requestObject)
+				var productoFoto = $scope.files[0];
+				var datosProducto = {};
+				datosProducto ={
+						cateringId: $scope.listaCatering,
+						productoId: $scope.productoSelec.idProducto,
+						precio: $scope.precio
+						
+				}
+				$http.post('rest/protected/catalogo/create', datosProducto)
 				.success(function(response){
 					if(response.code===200){
-						if($scope.fileSelected){
-							
-							var file = $scope.files[0];
+						if(productoFoto){
 							$scope.upload = $upload.upload({
 								url : 'rest/protected/catalogo/subirFoto',
 								data : {
-									idCatalogo: catalogo.idCatalogo
+									idCatalogo: response.idCatalogo
 								},
-								file : file
-							}).success(function(data, status, headers, config) {
-								// Rent is uploaded successfully
-								$modalInstance.close(); //en caso de no ser modal se haría un redirect
+								file : productoFoto
+							}).success(function(response, status, headers, config) {
+								
+								$modalInstance.close();
 							});
-						//.error(...)
-						//.then(success, error, progress); 
+						
 						}else{
-							$modalInstance.close(); //en caso de no ser modal se haría un redirect
+							$modalInstance.close(); 
 						}
 					}
 				});
@@ -121,14 +135,9 @@ App.controller('ProductoRegistrarController', function($scope,$http, $modal) {
 				this.onError = true;
 			}
 		};
-
 		$scope.cancel = function(){
 			$modalInstance.dismiss('cancel');
 		};
    };
-   
-   
-   
-   
    
 });

@@ -14,22 +14,23 @@
                   	<input type="text"  name="producto" ng-model="productoSelec.nombre" readonly/>
                   </div>
                 </div>
-                  <div class="form-group">
-                    <label class="col-lg-3 control-label">Precio</label>
+                <div class="form-group">
+                	<label class="col-lg-3 control-label">Precio</label>
                     <div class="col-lg-8">
-                      <input type="text"  name="precio" required/>
-                      <span class="error" ng-model="requestObject.catalogo.precio" ng-show="registroCatalogo.precio.$error.required">Requerido</span>
+                    	<input type="text"  name="precio" required/>
+                      	<span class="error" ng-model="requestObject.catalogo.precio" ng-show="registroCatalogo.precio.$error.required">Requerido</span>
                     </div>
-                  </div>   
-                  
-					<div class="form-group">
-						<label class="col-lg-3 control-label">Catering</label>
-  					    <div class="col-lg-8">
-							<select ng-model="seleccionarCatering" ng-options="catering as catering.nombre for catering in caterings">
-							</select>
+                </div> 
+			  	<div class="form-group">
+					<label class="col-lg-3 control-label">Catering</label>
+          			 <div class="col-lg-8">
+           				<div class="pull-left m-l" ng-repeat="catering in listaCateing">
+							<input id="cbCat{{catering.idCatering}}" type="checkbox" 
+									ng-model="cateringSeleccionado" ng-change="oncateringSeleccionadoChanged(catering, cateringSeleccionado)">
+							<label class="text-info">{{catering.nombre}}</label>
 						</div>
-					</div>
-  				
+           			</div>
+  				</div>
 					<div class="form-group">
 						<label class="col-lg-3 control-label">Fotografía</label>
 						<div class="col-lg-9 media">
