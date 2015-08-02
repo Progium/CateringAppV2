@@ -60,9 +60,9 @@ public class TipoController {
 		TipoResponse tipo = new TipoResponse();
 		List<TipoPOJO> listaTipoPojo = new ArrayList<TipoPOJO>();
 		
-		for(int i = 0; i < tipoRequest.getTipo().size(); i++){
+		for(int i = 0; i < tipoRequest.getTipoEvento().size(); i++){
 			
-			Tipo listaEvento = generalService.getTipoById(tipoRequest.getTipo().get(i));
+			Tipo listaEvento = generalService.getTipoById(tipoRequest.getTipoEvento().get(i));
 			TipoPOJO nTipo = new TipoPOJO();
 			PojoUtils.pojoMappingUtility(nTipo,listaEvento);
 			listaTipoPojo.add(nTipo);

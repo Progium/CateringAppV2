@@ -82,7 +82,7 @@
 								<select name="idTipo" id="idTipo" class="form-control" multiple
 									ng-multiple="true" ng-model="catering.tipoEventos"
 									ng-options="te.idTipo as te.nombre for te in listaTipoEvento"
-									required>
+									ng-disabled="true">
 								</select>
 							</div>
 						</div>
@@ -102,30 +102,28 @@
 						<div class="form-group">
 							<label class="col-lg-3 control-label">Provincia</label>
 							<div class="col-lg-4">
-								<select name="idProvincia" id="idProvincia" class="form-control"
-									ng-model="objCatering.idProvincia" ng-change="llenarCanton()"
-									ng-options="p.idProvincia as p.nombre for p in listaProvincia">
-								</select>
+							
+							<input ng-model="catering.provincia" type="text"
+									name="provincia" class="form-control"
+									ng-disabled="true" />
 							</div>
 						</div>
 						<!-- Cantón -->
 						<div class="form-group">
 							<label class="col-lg-3 control-label">Canton</label>
 							<div class="col-lg-4">
-								<select name="idCanton" id="idCanton" class="form-control"
-									ng-model="objCatering.idCanton" ng-change="llenarDistrito()"
-									ng-options="c.idCanton as c.nombre for c in listaCanton">
-								</select>
+								<input ng-model="catering.canton" type="text"
+									name="canton" class="form-control"
+									ng-disabled="true" />
 							</div>
 						</div>
 						<!-- Distrito -->
 						<div class="form-group">
 							<label class="col-lg-3 control-label">Distrito</label>
 							<div class="col-lg-4">
-								<select name="idDistrito" id="idDistrito" class="form-control"
-									ng-model="objCatering.idDistrito"
-									ng-options="d.idDistrito as d.nombre for d in listaDistrito">
-								</select>
+								<input ng-model="catering.distrito" type="text"
+									name="distrito" class="form-control"
+									ng-disabled="true" />
 							</div>
 						</div>
 					</div>

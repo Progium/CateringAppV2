@@ -20,6 +20,12 @@ public class CantonRequest extends BasePagingRequest {
 		this.setProvinciaId(provinciaId);
 		// TODO Auto-generated constructor stub
 	}
+	
+	public CantonRequest (int idCanton){
+		super();
+		this.setIdCanton(idCanton);
+		// TODO Auto-generated constructor stub
+	}
 
 	public int getIdCanton() {
 		return idCanton;

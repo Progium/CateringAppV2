@@ -4,7 +4,7 @@ import java.util.List;
 
 public class TipoRequest extends BasePagingRequest {
 	private int idTipo;
-	private List<Integer> tipo;
+	private List<Integer> tipoEvento;
 	
 	public TipoRequest() {
 		super();
@@ -13,7 +13,7 @@ public class TipoRequest extends BasePagingRequest {
 
 	public TipoRequest(List<Integer> tipoEvento) {
 		super();
-		this.setTipo(tipoEvento);
+		this.setTipoEvento(tipoEvento);
 	}
 	
 	public int getIdTipo() {
@@ -22,11 +22,11 @@ public class TipoRequest extends BasePagingRequest {
 	public void setIdTipo(int idTipo) {
 		this.idTipo = idTipo;
 	}
-	public List<Integer> getTipo() {
-		return tipo;
+	public List<Integer> getTipoEvento() {
+		return tipoEvento;
 	}
-	public void setTipo(List<Integer> tipoEvento) {
-		this.tipo = tipoEvento;
+	public void setTipoEvento(List<Integer> tipoEvento) {
+		this.tipoEvento = tipoEvento;
 	}
 
 }

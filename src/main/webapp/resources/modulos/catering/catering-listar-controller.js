@@ -22,9 +22,7 @@ App.controller('CateringListarController', function($scope, $http,$location, $up
 	    	//Obtiene la lista de caterings
 			$http.get('rest/protected/catering/getCaterigLista')
 			.success(function(cateringResponse) {
-				$scope.cateringLista = cateringResponse.caterings;
-				console.log($scope.cateringLista);
-				//$scope.objCatering.idCatering = $scope.cateringLista[0].idCatering;	
+				$scope.cateringLista = cateringResponse.caterings;	
 			
 			});	
 			
@@ -77,17 +75,15 @@ App.controller('CateringListarController', function($scope, $http,$location, $up
 			$scope.onError = false;
 			
 			$scope.init = function(){
-				console.log("entre al modal");
-				console.log(param);
 				$scope.catering.nombre = param.nombre;
 				$scope.catering.cedula = param.cedulaJuridica;
 				$scope.catering.direccion = param.direccion;
 				$scope.catering.telefono1 = param.telefono1;
 				$scope.catering.telefono2 = param.telefono2;
 				$scope.catering.horario = param.horario;
-				$scope.catering.idProvincia = param.provinciaId;
-				$scope.catering.idCanton = param.cantonId;
-				$scope.catering.idDistrito = param.distritoId;
+				$scope.catering.provinciaId = param.provinciaId;
+				$scope.catering.cantonId = param.cantonId;
+				$scope.catering.distritoId = param.distritoId;
 				$scope.catering.tipoEvento = param.tipoEvento;
 				$scope.catering.fotografia = param.fotografia;
 				if(param.fotografia){
@@ -95,29 +91,15 @@ App.controller('CateringListarController', function($scope, $http,$location, $up
 				}
 				
 				//Obtiene los tipos de eventos
-				$http.post('rest/protected/tipo/getTipo', param.tipoEvento)
+				$http.post('rest/protected/tipo/getTipo', $scope.catering)
 				.success(function(tipoResponse) {
 					$scope.listaTipoEvento = tipoResponse.tipos;
 				});
-		    	
-		    	//Obtiene la lista de provincias
-		    	$http.get('rest/protected/provincia/getAll')
-				.success(function(provinciaResponse) {
-					$scope.listaProvincia = provinciaResponse.listaProvincia;
-				});
-		    	
-		    	//Obtiene la lista de cantones
-		    	$http.get('rest/protected/canton/getAll')
-				.success(function(cantonResponse) {
-					listaCantones = cantonResponse.listaCanton;
-					$scope.listaCanton = _.where(listaCantones, {provincia:$scope.objCatering.idProvincia})	
-				});
-		    	
-		    	//Obtiene la lista de distritos
-		    	$http.get('rest/protected/distrito/getAll')
-				.success(function(distritoResponse) {
-					listaDistritos = distritoResponse.listaDistrito;
-					$scope.listaDistrito =_.where(listaDistritos, {canton: $scope.objCatering.idCanton});
+				
+				//Obtiene los tipos de eventos
+				$http.post('rest/protected/provincia/getProvincia', $scope.catering)
+				.success(function(ProvinciaResponse) {
+					$scope.catering.provincia = ProvinciaResponse.provincia.nombre;
 				});
 
 			};
