@@ -125,7 +125,7 @@ public class GeneralService implements GeneralServiceInterface{
 	
 	@Override
 	public List<Catering> getAllCatering() {
-		return cateringRepository.findAll();
+		return (List<Catering>)  cateringRepository.findAll();
 	}
 	
 	public Catering getCateringById(Integer idCatering) {
