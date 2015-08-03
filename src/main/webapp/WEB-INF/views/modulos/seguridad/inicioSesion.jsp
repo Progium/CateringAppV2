@@ -17,7 +17,7 @@
 					<a ng-href="olvidoContrasenna.html" class="pull-right m-t-mini">
 						<small>¿Olvidó su contraseña?</small>
 					</a>
-					<samp ng-show="mostrarMensaje">Correo o contraseña invalidos</samp>
+					<!--<samp ng-show="mostrarMensaje">Correo o contraseña invalidos</samp>-->
 					<button class="btn btn-info" ng-click="iniciarSesion()">Iniciar
 						sesión</button>
 					<div class="line line-dashed"></div>

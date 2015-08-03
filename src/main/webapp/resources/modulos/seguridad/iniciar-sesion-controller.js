@@ -5,7 +5,7 @@
  * @constructor
  */
 
-App.controller('IniciarSesionController', function($scope, $http,  $location, md5) {
+App.controller('IniciarSesionController', function($scope, $http,  $location, md5, services) {
   $scope.user = {correo:"", contrasenna:""};
   $scope.mostrarMensaje = false;
   $scope.init = function() {
@@ -37,7 +37,9 @@ App.controller('IniciarSesionController', function($scope, $http,  $location, md
 			  }
 
 		  }else{
-			  $scope.mostrarMensaje = true;
+			 // $scope.mostrarMensaje = true;
+			 
+			  services.noty('Correo o contraseña incorrecta', 'error');
 		  }
 	  })
  

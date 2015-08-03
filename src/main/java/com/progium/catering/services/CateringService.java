@@ -32,12 +32,18 @@ public class CateringService implements CateringServiceInterface{
 	}
 	
 	@Override
-	public List<Catering> getCaterinByIdAdministrador(Integer idAdministrador) {
+	public List<Catering> getCateringByIdAdministrador(Integer idAdministrador) {
 		return cateringRepository.findCateringByUsuario_idUsuario(idAdministrador);
 	}
 	
 	@Override
-	public List<Catering> getAll() {
+	public List<Catering> getCaterigLista() {
 		return (List<Catering>) cateringRepository.findAll(); 
 	}
+	
+	@Override
+	public List<Catering> getCateringByEstado(Boolean estado) {
+		return (List<Catering>) cateringRepository.findAll(); 
+	}
+	
 }

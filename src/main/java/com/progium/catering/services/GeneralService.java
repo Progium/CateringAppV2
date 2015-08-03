@@ -10,12 +10,18 @@ import com.progium.catering.ejb.Usuario;
 import com.progium.catering.ejb.Provincia;
 import com.progium.catering.ejb.Canton;
 import com.progium.catering.ejb.Distrito;
+import com.progium.catering.ejb.Categoria;
+import com.progium.catering.ejb.Producto;
+import com.progium.catering.ejb.Catering;
 import com.progium.catering.repositories.GeneralRepository;
 import com.progium.catering.repositories.TipoRepository;
 import com.progium.catering.repositories.ProvinciaRepository;
 import com.progium.catering.repositories.CantonRepository;
 import com.progium.catering.repositories.DistritoReposity;
-import com.progium.catering.repositories.UsuarioRepository;;
+import com.progium.catering.repositories.UsuarioRepository;
+import com.progium.catering.repositories.CategoriaRepository;
+import com.progium.catering.repositories.ProductoRepository;
+import com.progium.catering.repositories.CateringRepository;
 
 @Service
 public class GeneralService implements GeneralServiceInterface{		
@@ -37,6 +43,15 @@ public class GeneralService implements GeneralServiceInterface{
 	
 	@Autowired
 	UsuarioRepository usuarioRepository;
+	
+	@Autowired
+	CategoriaRepository categoriaRepository;
+	
+	@Autowired
+	ProductoRepository productoRepository;
+	
+	@Autowired
+	CateringRepository cateringRepository;
 
 	@Override
 	public List<Tipo> getAllTipo() {
@@ -91,5 +106,29 @@ public class GeneralService implements GeneralServiceInterface{
 	@Override
 	public Distrito getDistritoById(Integer idDistrito) {
 		return distritoRepository.findOne(idDistrito);
+	}
+	
+	@Override
+	public List<Categoria> getAllCategoria() {
+		return categoriaRepository.findAll();
+	}
+	
+	@Override
+	public List<Producto> getAllProducto() {
+		return productoRepository.findAll();
+	}
+	
+	@Override
+	public Producto getProductoById(Integer idProducto) {
+		return productoRepository.findOne(idProducto);
+	}
+	
+	@Override
+	public List<Catering> getAllCatering() {
+		return (List<Catering>)  cateringRepository.findAll();
+	}
+	
+	public Catering getCateringById(Integer idCatering) {
+		return cateringRepository.findOne(idCatering);
 	}
 }

@@ -5,7 +5,7 @@
 .header-banner{
 	background-image: url("../img/banner3.jpg");
     background-repeat: repeat-x;
-    height: 20px;
+    height: 51px;
 }
 
 
@@ -26,4 +26,16 @@
 .navbar-brand{
 	border-right: 0px solid #e3e9ed !important;
 	min-width: 200px !important;
+}
+
+.radio-tipo{
+	margin-left: 122px;
+}
+
+.input-cedula{
+	margin-left: 150px;
+}
+
+.msj-error{
+	  margin-left: 152px;
 }

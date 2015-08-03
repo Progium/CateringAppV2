@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.progium.catering.contracts.DistritoRequest;
 import com.progium.catering.contracts.DistritoResponse;
 import com.progium.catering.ejb.Distrito;
 import com.progium.catering.pojo.DistritoPOJO;
@@ -54,6 +55,21 @@ public class DistritoController {
 		distrito.setListaDistrito(listaDistritoPojo);
 		
 		return distrito;		
+	}
+	
+	@RequestMapping(value ="/getDistrito", method = RequestMethod.POST)
+	public DistritoResponse getDistrito(@RequestBody DistritoRequest distritoRequest)throws NoSuchAlgorithmException {
+		
+		DistritoResponse distritoResponse = new DistritoResponse();
+		
+		Distrito distrito = generalService.getDistritoById(distritoRequest.getDistritoId());
+		DistritoPOJO distritoPojo = new DistritoPOJO();
+		
+		PojoUtils.pojoMappingUtility(distritoPojo,distrito);
+		
+		distritoResponse.setDistrito(distritoPojo);
+		
+		return distritoResponse;		
 	}
 
 }

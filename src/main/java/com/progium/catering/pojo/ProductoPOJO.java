@@ -1,10 +1,13 @@
 package com.progium.catering.pojo;
 
+import com.progium.catering.ejb.Categoria;
+
 public class ProductoPOJO {
 	
 	private int idProducto;
 	private String nombre;
-	private int  categoriaId;
+	private Categoria categoria;
+	private int  idCategoria;
 	
 	public ProductoPOJO() {
 		super();
@@ -27,12 +30,18 @@ public class ProductoPOJO {
 		this.nombre = nombre;
 	}
 	
-	public int getCategoriaId() {
-		return categoriaId;
+	public int getCategoria() {
+		this.idCategoria = this.categoria.getIdCategoria();
+		return idCategoria;
 	}
-	
-	public void setCategoriaId(int categoriaId) {
-		this.categoriaId = categoriaId;
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+		setIdCategoria(this.categoria);
+	}
+
+	public void setIdCategoria(Categoria categoria) {
+		this.idCategoria = categoria.getIdCategoria();
 	}
 	
 	

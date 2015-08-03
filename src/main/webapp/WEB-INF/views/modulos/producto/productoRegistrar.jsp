@@ -8,6 +8,14 @@
 					<i class="fa fa-edit"></i>Mi Catálogo
 				</h4>
 			</div>
+			<div class="form-group">
+				<label class="col-lg-2 control-label">Categoría:</label>
+  				
+					<select name="idCategoria" id="idCategoria" ng-model="objCategoria.idCategoria" 
+							ng-options="cat.idCategoria as cat.nombre for cat in listaCategorias"
+							ng-change="cargarProducto()">
+					</select>
+			</div>
 			<div class="col-xs-6">
 				<section class="panel">
 					<header class="panel-heading bg-white">
@@ -44,7 +52,7 @@
 						<table class="table-bordered table">
 							<th>
 							<th>Nombre</th>
-							<tr ng-repeat="producto in productos | filter:q as results" >
+							<tr ng-repeat="producto in productos | filter:q as results"  >
 								<td>
 									<button type="button" class="fa fa-arrow-left" title="Agregar" ng-click="seleccionado(producto, 'agregar')"></button>
 								</td>

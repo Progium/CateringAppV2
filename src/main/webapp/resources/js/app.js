@@ -32,6 +32,10 @@ App.config(function($routeProvider, $locationProvider) {
 			templateUrl: 'modulos/seguridad-usuario-admin',
 			controller: 'UsuarioModificarController'
 		})
+		.when('/usuario-perfil-mostrar', {
+			templateUrl: 'modulos/seguridad-usuario-perfil',
+			controller: 'UsuarioPerfilController'
+		})
 		.when('/catering-registrar', {
 			templateUrl: 'modulos/catering-admin',
 			controller: 'CateringRegistrarController'
@@ -43,6 +47,10 @@ App.config(function($routeProvider, $locationProvider) {
 		.when('/catering-listar', {
 			templateUrl: 'modulos/catering-listar',
 			controller: 'CateringListarController'
+		})
+		.when('/catering-mostrar-detalle', {
+			templateUrl: 'modulos/catering-mostrar-detalle',
+			controller: 'ModalInstanceViewCtrl'
 		})
 		.when('/catering-buscar', {
 			templateUrl: 'modulos/catering-buscar',
