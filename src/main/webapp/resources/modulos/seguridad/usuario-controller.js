@@ -96,30 +96,40 @@ App.controller('UsuarioModificarController', function($scope, $location, $routeP
 });
 
 
-App.controller('UsuarioPerfilController', function($scope, $location, $routeParams) {
-	$scope.files = {};
-	$scope.tituloPagina = "Perfil del usuario";
-	$scope.objUsuario = {};
-	$scope.usuario = $scope.objUsuario[$routeParams.id];	
+App.controller('UsuarioPerfilController', function($scope, $location, $http, $routeParams) {
 	
-		
-	$scope.init = function() {
-	
-	//Obtiene el perfil del usuario
-	$http.get('rest/protected/usuario/perfilUsuario')
-	.success(function(usuarioResponse) {
-		$scope.perfilUsuario = usuarioResponse.usuario;
-		console.log($scope.perfilUsuario);
-		
-	});	
-	
-};
-
-$scope.init();
-
-$scope.regresar = function(){
-$location.path('/');
-}
+	var objUsuario = $.jStorage.get("user");
+	if(objUsuario){
+		_ScopeContainer['MainController'].esAdministrador = true;
+		$scope.files = {};
+		$scope.tituloPagina = "Perfil del usuario";
+		$scope.usuario = {};
+		$scope.mostrarImagen = false;
+		$scope.init = function() {
+			//Obtiene el perfil del usuario
+			$http.get('rest/protected/usuario/perfilUsuario')
+			.success(function(usuarioResponse) {
+				$scope.usuario.nombre = usuarioResponse.usuario.nombre;
+				$scope.usuario.apellido1 = usuarioResponse.usuario.apellido1;
+				$scope.usuario.apellido2 = usuarioResponse.usuario.apellido2;
+				$scope.usuario.correo = usuarioResponse.usuario.correo;
+				$scope.usuario.telefono1 = usuarioResponse.usuario.telefono1;
+				$scope.usuario.telefono2 = usuarioResponse.usuario.telefono2;
+				$scope.usuario.tipoUsuarioId = objUsuario.tipo;
+				$scope.usuario.contrasenna = usuarioResponse.usuario.contrasenna;
+				$scope.usuario.repetirContrasenna = usuarioResponse.usuario.contrasenna;
+				$scope.usuario.fotografia = usuarioResponse.usuario.fotografia;	
+				if(usuarioResponse.usuario.fotografia){
+					$scope.mostrarImagen = true;
+				}
+				 
+			});
+		}
+		 $scope.init();
+	}else{
+		var path = "/catering/#/iniciar-sesion";
+		window.location.href = path;
+	}	
 });
 
 

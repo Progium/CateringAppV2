@@ -81,7 +81,7 @@
 							<label class="col-lg-3 control-label">Horario atención</label>
 							<div class="col-lg-8">
 
-								<textarea ng-model="catering.horarioAtencion"
+								<textarea ng-model="catering.horario"
 									name="horarioAtencion" data-trigger="keyup"
 									placeholder="Lunes a Viernes de 10am a 5pm" rows="5"
 									class="form-control" data-trigger="keyup" ng-maxlength="250"

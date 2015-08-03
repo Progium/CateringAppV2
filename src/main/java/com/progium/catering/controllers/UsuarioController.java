@@ -22,9 +22,11 @@ import com.progium.catering.contracts.TipoResponse;
 import com.progium.catering.contracts.UsuarioResponse;
 import com.progium.catering.contracts.UsuarioRequest;
 import com.progium.catering.ejb.Catering;
+import com.progium.catering.ejb.Provincia;
 import com.progium.catering.ejb.Tipo;
 import com.progium.catering.ejb.Usuario;
 import com.progium.catering.pojo.CateringPOJO;
+import com.progium.catering.pojo.ProvinciaPOJO;
 import com.progium.catering.pojo.UsuarioPOJO;
 import com.progium.catering.services.GeneralServiceInterface;
 import com.progium.catering.services.UsuarioServiceInterface;
@@ -126,16 +128,21 @@ public class UsuarioController {
 		
 		//Para mostrar el perfil del usuario
 		@RequestMapping(value ="/perfilUsuario", method = RequestMethod.GET)
-		public UsuarioResponse PerfilUsuario(@RequestBody UsuarioRequest usuarioRequest)throws NoSuchAlgorithmException {
+		public UsuarioResponse PerfilUsuario(){
 			
-			UsuarioResponse usuario = new UsuarioResponse();
+			UsuarioResponse usuarioResponse = new UsuarioResponse();
 			
 			HttpSession currentSession = request.getSession();
 			int idUsuario = (int) currentSession.getAttribute("idUsuario");	
 						
-			usuario.setIdUsuario(idUsuario);
+			Usuario usuario = usuarioService.getUsuarioById(idUsuario);
+			UsuarioPOJO usuarioPojo = new UsuarioPOJO();
 			
-			return usuario;	
+			PojoUtils.pojoMappingUtility(usuarioPojo,usuario);
+			
+			usuarioResponse.setUsuario(usuarioPojo);
+			
+			return usuarioResponse;
 		
 	}
 }
