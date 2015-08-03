@@ -6,7 +6,7 @@
  * @constructor
  */
 
-App.controller('UsuarioRegistrarController', function($scope, $http, $location, $upload) {
+App.controller('UsuarioRegistrarController', function($scope, $http, $location, $upload, services) {
 	$scope.files = {};
 	$scope.tituloPagina = "Registrar nuevo usuario";
 	$scope.objUsuario = {
@@ -46,16 +46,16 @@ App.controller('UsuarioRegistrarController', function($scope, $http, $location, 
 						}).success(function(usuarioResponse, status, headers, config) {
 							//Muestra un mensaje si el usuario es registrado satisfactoriamente en el sistema.
 							if(contractUsuarioResponse.code == 200){
-								alert("El usuario se registro correctamente.");
+								services.noty('El usuario se registro correctamente.', 'success');
 								$location.path('/iniciar-sesion');
 							}
 						});
 					}else{
-						alert("El usuario se registro correctamente.");
+						services.noty('El usuario se registro correctamente.', 'success');
 						$location.path('/iniciar-sesion');
 					}
 				}else{
-					alert("No se pudo registrar el usuario.");
+					services.noty('No se pudo registrar el usuario.', 'error');
 				}
 			});
 		}
@@ -70,7 +70,7 @@ App.controller('UsuarioRegistrarController', function($scope, $http, $location, 
     	var isOk = true;
     	if(objUsuario.contrasenna != objUsuario.repetirContrasenna){
     		isOk = false;
-    		alert("El campo de repetir contraseña tiene que ser igual a la contraseña.");
+    		services.noty('El campo de repetir contraseña tiene que ser igual a la contraseña.', 'warning');
     	}
     	
     	return isOk;
@@ -82,8 +82,6 @@ App.controller('UsuarioModificarController', function($scope, $location, $routeP
 	$scope.tituloPagina = "Modificar datos del usuario";
 	$scope.objUsuario = {};
 	$scope.usuario = $scope.usuarios[$routeParams.id];	
-	
-	//$routeParams.pidUsuario
 	
 	$scope.cancelar = function(){
 		$location.path('/');

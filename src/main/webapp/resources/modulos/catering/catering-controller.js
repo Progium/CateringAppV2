@@ -4,7 +4,7 @@
  * CateringController
  * @constructor
  */
-App.controller('CateringRegistrarController', function($scope, $http,$location, $upload) {
+App.controller('CateringRegistrarController', function($scope, $http,$location, $upload, services) {
 	var objUsuario = $.jStorage.get("user");
 	if(objUsuario){
 		_ScopeContainer['MainController'].esAdministrador = true;	
@@ -126,18 +126,18 @@ App.controller('CateringRegistrarController', function($scope, $http,$location, 
 							}).success(function(cateringResponse, status, headers, config) {
 								//Muestra un mensaje si el catering es registrado satisfactoriamente en el sistema.
 								if(cateringResponse.code == 200){
-									alert("El catering se registro correctamente.");
+									services.noty('El catering se registro correctamente.', 'success');
 									$location.path('/catering-listar');
 								}else{
-									alert("No se pudo registrar el logo.");
+									services.noty('No se pudo registrar el logo.', 'error');
 								 }
 							});
 						}else{
-							alert("El catering se registro correctamente.");
+							services.noty('El catering se registro correctamente.', 'success');
 							$location.path('/catering-listar');
 						}
 					}else{
-						alert("No se pudo registrar el catering.");
+						services.noty('No se pudo registrar el catering.', 'error');
 					}
 				});
 			}
@@ -154,7 +154,7 @@ App.controller('CateringRegistrarController', function($scope, $http,$location, 
 	}
 });
 
-App.controller('CateringModificarController', function($scope, $location, $http, $routeParams, $upload) {
+App.controller('CateringModificarController', function($scope, $location, $http, $routeParams, $upload, services) {
 	var objUsuario = $.jStorage.get("user");
 	if(objUsuario){
 		_ScopeContainer['MainController'].esAdministrador = true;
@@ -293,18 +293,18 @@ App.controller('CateringModificarController', function($scope, $location, $http,
 							}).success(function(cateringResponse, status, headers, config) {
 								//Muestra un mensaje si el catering es registrado satisfactoriamente en el sistema.
 								if(cateringResponse.code == 200){
-									alert("Los datos del catering fueron modificados correctamente.");
+									services.noty('Los datos del catering fueron modificados correctamente.', 'success');
 									$location.path('/catering-listar');
 								}else{
-									alert("No se pudo registrar el logo.");
+									services.noty('No se pudo registrar el logo.', 'error');
 								 }
 							});
 						}else{
-							alert("Los datos del catering fueron modificados correctamente.");
+							services.noty('Los datos del catering fueron modificados correctamente.', 'success');
 							$location.path('/catering-listar');
 						}
 					}else{
-						alert("No se pudo modificar los datos del catering.");
+						services.noty('No se pudo modificar los datos del catering.', 'error');
 					}
 				});
 			}
