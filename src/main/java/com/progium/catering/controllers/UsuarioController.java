@@ -104,7 +104,7 @@ public class UsuarioController {
 					.encriptarContrasenna(usuarioRequest.getContrasenna()));
 
 			Boolean state = usuarioService.saveUsuario(objNuevoUsuario);
-		
+
 			if (state) {
 				us.setCode(200);
 				us.setCodeMessage("user created succesfully");

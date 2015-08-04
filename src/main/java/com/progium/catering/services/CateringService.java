@@ -4,7 +4,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.progium.catering.contracts.CateringRequest;
 import com.progium.catering.repositories.CateringRepository;
 import com.progium.catering.ejb.Catering;
 
@@ -45,5 +49,22 @@ public class CateringService implements CateringServiceInterface{
 	public List<Catering> getCateringByEstado(Boolean estado) {
 		return (List<Catering>) cateringRepository.findAll(); 
 	}
+	
+	@Override
+	@Transactional
+	public Page<Catering> getAll(CateringRequest cateringRequest) {
+	
+		PageRequest pr;
+		pr = new PageRequest(cateringRequest.getPageNumber(),
+				cateringRequest.getPageSize());
+	
+		Page<Catering> result;
+		
+		result = cateringRepository.findAll(pr);
+		
+		return result;
+		
+	}
+
 	
 }
