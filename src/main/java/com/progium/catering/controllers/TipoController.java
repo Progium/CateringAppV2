@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.progium.catering.contracts.TipoRequest;
 import com.progium.catering.contracts.TipoResponse;
+import com.progium.catering.ejb.Eventocatering;
 import com.progium.catering.ejb.Tipo;
 import com.progium.catering.pojo.TipoPOJO;
 import com.progium.catering.services.GeneralServiceInterface;
@@ -50,6 +52,25 @@ public class TipoController {
 		tipo.setTipos(listaTipoPojo);
 		
 		return tipo;		
+	}
+	
+	@RequestMapping(value ="/getTipo", method = RequestMethod.POST)
+	public TipoResponse getTipo(@RequestBody TipoRequest tipoRequest)throws NoSuchAlgorithmException {
+		
+		TipoResponse tipo = new TipoResponse();
+		List<TipoPOJO> listaTipoPojo = new ArrayList<TipoPOJO>();
+		
+		for(int i = 0; i < tipoRequest.getTipoEvento().size(); i++){
+			
+			Tipo listaEvento = generalService.getTipoById(tipoRequest.getTipoEvento().get(i));
+			TipoPOJO nTipo = new TipoPOJO();
+			PojoUtils.pojoMappingUtility(nTipo,listaEvento);
+			listaTipoPojo.add(nTipo);
+		}
+		
+		tipo.setTipos(listaTipoPojo);
+		
+		return tipo;
 	}
 
 }

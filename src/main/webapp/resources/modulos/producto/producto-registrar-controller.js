@@ -8,12 +8,32 @@ App.controller('ProductoRegistrarController', function($scope,$http, $modal) {
    
 	$scope.productos  = [];
 	$scope.productosSelecc  = [];
+	var listaProductos = [];
+	$scope.objCategoria = {};
+	$scope.listaCategorias = [];
 	$scope.init = function(){
 		var usuario = $.jStorage.get("user");
+		
+		$http.get('rest/protected/categoria/getAll')
+		  .success(function(response){
+			  $scope.listaCategorias= response.categorias;
+			  $scope.objCategoria.idCategoria = $scope.listaCategorias[0].idCategoria;
+			 
+		  });
+		
 		$http.get('rest/protected/producto/getAll')
 		  .success(function(response){
-			  $scope.productos = response.productos;   
+			  listaProductos = response.productos;  
+			  $scope.productos = _.where(listaProductos, {categoria: $scope.objCategoria.idCategoria})
 		  });
+		
+   };
+   
+   $scope.cargarProducto = function() {
+   	$scope.productos.length = 0;
+		$scope.productos = _.where(listaProductos, {categoria: $scope.objCategoria.idCategoria})
+		$scope.objCategoria.idCategoria =  $scope.listaCategorias[0].idCategoria;	
+		
    };
    
    
@@ -52,83 +72,88 @@ App.controller('ProductoRegistrarController', function($scope,$http, $modal) {
 	      
    };
    
-   var ModalInstanceModifyCtrl = function($scope, $http, $modalInstance,$log, $location, $upload, param){
+   var ModalInstanceModifyCtrl = function($scope, $http, $modalInstance,$log, $location, $upload, param, services){
 	   	$scope.requestObject = {};
 		$scope.requestObject.catalogo = {};
 		$scope.productoSelec= {};
-		
+		$scope.idCaterings = [];
+		$scope.listaCatering = [];
+		$scope.catering= [];
 		$scope.onError = false;
+		$scope.files= {};
+		$scope.objCatalogo = {};
 		
 		$scope.init = function(){
 			
-			$scope.requestObject.catalogo = param.idUsuario;
-			
-			
-//			var requestProducto = {};
-//			
-//			requestProducto.producto = {};
-//			requestProducto.producto.id = param.idProducto;
-			
+			$scope.requestObject.catalogo = param.idUsuario;	
 			$scope.productoSelec.idProducto = param.idProducto;
 			$scope.productoSelec.nombre = param.nombre;
-			/*$http.post('rest/protected/producto/findOne', requestProducto)
-			.success(function (response) {
-				
-			});*/
 			
-					
-//			$http.post('rest/protected/cateing/getAllFromUsuario', $scope.requestObject )
-//			.success(function(response) {
-//				if(response.code === 200){
-//					//$scope.talleresPropietario = response.talleres;
-//					//alert(response.codeMessage);
-//				} else {
-//					//alert(response.errorMessage);
-//				}	
-//			});
+			
+		$http.get('rest/protected/catering/getCaterigLista')
+		.success(function(response){
+			$scope.listaCatering = response.caterings;
+		});
+			
+		};
+		
+		$scope.oncateringSeleccionadoChanged = function(catering, checked){
+			if(checked){
+				$scope.idCaterings.push(catering.idCatering);
+			}else{
+				$scope.idCaterings.splice($scope.idCaterings.indexOf(catering.idCatering), 1);
+			}
 		};
 		
 		$scope.init();
 		
 		$scope.create = function(){
 			if(this.registroCatalogo.$valid){
-				
 				this.onError = false;
-				$http.post('rest/protected/catalogo/create', $scope.requestObject)
+				var productoFoto = $scope.files[0];
+				var datosProducto = {};
+				datosProducto ={
+						cateringId: $scope.idCaterings,
+						productoId: $scope.productoSelec.idProducto,
+						precio: parseFloat($scope.objCatalogo.precio)
+						
+				}
+				$http.post('rest/protected/catalogo/create', datosProducto)
 				.success(function(response){
 					if(response.code===200){
-						if($scope.fileSelected){
-							
-							var file = $scope.files[0];
+						if(productoFoto){
 							$scope.upload = $upload.upload({
 								url : 'rest/protected/catalogo/subirFoto',
 								data : {
-									idCatalogo: catalogo.idCatalogo
+									idCatalogo: response.idCatalogo
 								},
-								file : file
-							}).success(function(data, status, headers, config) {
-								// Rent is uploaded successfully
-								$modalInstance.close(); //en caso de no ser modal se haría un redirect
+								file : productoFoto
+							}).success(function(response, status, headers, config) {
+								if(response.code===200){
+									services.noty('Se añadio el producto al catálogo', 'success');
+									$modalInstance.close();
+								}else{
+									services.noty('No se añadio la fotografía del producto', 'error');
+									$modalInstance.close();
+								}
+								
+								
 							});
-						//.error(...)
-						//.then(success, error, progress); 
+						
 						}else{
-							$modalInstance.close(); //en caso de no ser modal se haría un redirect
+							services.noty('Se añadio el producto al catálogo', 'success');
+							$modalInstance.close(); 
 						}
 					}
 				});
 			}else{
+				services.noty('Error al añadir el producto al catálogo', 'error');
 				this.onError = true;
 			}
 		};
-
 		$scope.cancel = function(){
 			$modalInstance.dismiss('cancel');
 		};
    };
-   
-   
-   
-   
    
 });

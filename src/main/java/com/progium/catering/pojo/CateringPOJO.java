@@ -1,4 +1,5 @@
 package com.progium.catering.pojo;
+import java.util.List;
 
 public class CateringPOJO {
 
@@ -15,6 +16,8 @@ public class CateringPOJO {
 	private Integer cantonId;
 	private Integer administradorId;
 	private Integer distritoId;
+	private List<Integer> tipoEvento;
+	
 	
 	public CateringPOJO() {
 		super();
@@ -123,5 +126,13 @@ public class CateringPOJO {
 
 	public void setDistritoId(Integer distritoId) {
 		this.distritoId = distritoId;
+	}
+
+	public List<Integer> getTipoEvento() {
+		return tipoEvento;
+	}
+
+	public void setTipoEvento(List<Integer> tipoEvento) {
+		this.tipoEvento = tipoEvento;
 	}
 }

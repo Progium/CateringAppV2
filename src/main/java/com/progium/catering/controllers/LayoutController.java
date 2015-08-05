@@ -27,6 +27,12 @@ public class LayoutController {
 	{
 		return "modulos/catering/cateringListar";
 	}
+	
+	@RequestMapping(value = "/catering-mostrar-detalle")
+	public String getCateringMostrarDetalle()
+	{
+		return "modulos/catering/cateringMostrarDetalle";
+	}
 	//-------------------------------------------------------
 	//Compartido
 	//-------------------------------------------------------
@@ -96,6 +102,12 @@ public class LayoutController {
 	public String getSeguridadUsuarioAdmin()
 	{
 		return "modulos/seguridad/usuarioAdmin";
+	}
+	
+	@RequestMapping(value = "/seguridad-usuario-perfil")
+	public String getSeguridadUsuarioPerfil()
+	{
+		return "modulos/seguridad/usuarioPerfil";
 	}
 	
 	//-------------------------------------------------------

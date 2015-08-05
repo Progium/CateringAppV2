@@ -7,6 +7,7 @@ import com.progium.catering.pojo.DistritoPOJO;
 public class DistritoResponse extends BaseResponse{
 
 	private List<DistritoPOJO> listaDistrito;
+	private DistritoPOJO distrito;
 
 	public DistritoResponse() {
 		super();
@@ -19,5 +20,13 @@ public class DistritoResponse extends BaseResponse{
 
 	public void setListaDistrito(List<DistritoPOJO> listaDistrito) {
 		this.listaDistrito = listaDistrito;
+	}
+
+	public DistritoPOJO getDistrito() {
+		return distrito;
+	}
+
+	public void setDistrito(DistritoPOJO distrito) {
+		this.distrito = distrito;
 	}
 }

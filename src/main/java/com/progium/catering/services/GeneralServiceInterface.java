@@ -7,6 +7,9 @@ import com.progium.catering.ejb.Provincia;
 import com.progium.catering.ejb.Canton;
 import com.progium.catering.ejb.Distrito;
 import com.progium.catering.ejb.Usuario;
+import com.progium.catering.ejb.Categoria;
+import com.progium.catering.ejb.Producto;
+import com.progium.catering.ejb.Catering;
 
 public interface GeneralServiceInterface {
 
@@ -25,4 +28,12 @@ public interface GeneralServiceInterface {
 	Distrito getDistritoById(Integer idDistrito);
 	//Obtiene un objeto usuario
 	Usuario getUsuarioById(Integer idUsuario);
+	//Obtiene las categorias
+	List<Categoria> getAllCategoria();
+	//Obtiene la lista de productos y producto en especifico
+	List<Producto> getAllProducto();
+	Producto getProductoById(Integer idProducto);
+	//Obtiene la lista de catering y catering en especifico
+	List<Catering> getAllCatering();
+	Catering getCateringById(Integer idCatering);
 }

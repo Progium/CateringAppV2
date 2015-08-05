@@ -1,5 +1,7 @@
 package com.progium.catering.contracts;
 
+import com.progium.catering.pojo.UsuarioPOJO;
+
 public class UsuarioRequest extends BasePagingRequest {
 
 	private String nombre;
@@ -11,7 +13,7 @@ public class UsuarioRequest extends BasePagingRequest {
 	private int tipoUsuarioId;
 	private String contrasenna;
 	private String needAccess;
-	
+		
 	public UsuarioRequest() {
 		super();
 	}

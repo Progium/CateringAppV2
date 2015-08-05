@@ -18,6 +18,7 @@
     <!--Template scripts-->
     <!--Jquery-->
     <script src="resources/first/src/js/jquery.min.js"></script>
+    <script src="resources/first/src/js/jquery.noty.packaged.min.js"></script>
     <!-- Bootstrap -->
     <script src="resources/first/src/js/bootstrap.js"></script>
     <!-- app -->
@@ -47,6 +48,7 @@
     <!--Aplicacion-->
     <script src="resources/js/app.js"></script>
     <script src="resources/js/services.js"></script>
+    <script src="resources/js/GeneralService.js"></script>
 
     <!--Controladores-->
     <script src="modulos/seguridad/iniciar-sesion-controller.js"></script>
@@ -63,7 +65,7 @@
             <ul class="nav navbar-nav navbar-avatar pull-right">
                 <li class="dropdown">
                     <a href="" class="dropdown-toggle" data-toggle="dropdown">
-                        <span class="hidden-xs-only">Bienvenido! Usuario</span>
+                        <span class="hidden-xs-only">Bienvenido! {{usuario.nombre}}</span>
                         <span class="thumb-small avatar inline"><img src="resources/first/src/images/avatar.jpg" alt="Mika Sokeil" class="img-circle"></span>
                         <b class="caret hidden-xs-only"></b>
                     </a>
@@ -177,9 +179,9 @@
                     <small>&copy; Catering Service App 2015</small>
                     <br>
                     <br>
-                    <a href="" class="btn btn-xs btn-circle btn-twitter"><i class="fa fa-twitter"></i></a>
+                   <!--  <a href="" class="btn btn-xs btn-circle btn-twitter"><i class="fa fa-twitter"></i></a>
                     <a href="" class="btn btn-xs btn-circle btn-facebook"><i class="fa fa-facebook"></i></a>
-                    <a href="" class="btn btn-xs btn-circle btn-gplus"><i class="fa fa-google-plus"></i></a>
+                    <a href="" class="btn btn-xs btn-circle btn-gplus"><i class="fa fa-google-plus"></i></a> -->
                 </p>
             </div>
         </footer>

@@ -76,5 +76,20 @@ public class CantonController {
 		
 		return canton;		
 	}
+	
+	@RequestMapping(value ="/getCanton", method = RequestMethod.POST)
+	public CantonResponse getCanton(@RequestBody CantonRequest cantonRequest)throws NoSuchAlgorithmException {
+		
+		CantonResponse cantonResponse = new CantonResponse();
+		
+		Canton canton = generalService.getCantonById(cantonRequest.getCantonId());
+		CantonPOJO cantonPojo = new CantonPOJO();
+		
+		PojoUtils.pojoMappingUtility(cantonPojo,canton);
+		
+		cantonResponse.setCanton(cantonPojo);
+		
+		return cantonResponse;		
+	}
 
 }
