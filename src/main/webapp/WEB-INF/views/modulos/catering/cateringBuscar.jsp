@@ -6,17 +6,31 @@
 		</h4>
 	</div>
 	<div class="row">
-		<div class="col-sm-2">
+		<div class="col-sm-3">
 			<aside class="sidebar bg-lighter"
 				ng-controller="CateringBuscarController">
 				<div class="bg-light padder padder-v" style="padding-bottom: 5px;">
 					<span class="h4 col-lg-offset-1">Criterio de busquedas</span>
 				</div>
 				<ul class="list-group list-normal m-b-none">
-					<li class="list-group-item">Nombre <input type="text"
-						name="buscar" placeholder="Buscar..." data-required="true"
-						class="form-control input-sm">
+					<li class="list-group-item">
+						<!-- radio -->
+						<div class="radio">
+							<label class="col-lg"> <input
+								ng-model="criterioBusqueda" type="radio" name="radio"
+								value="1"> <b>Nombre</b>
+							</label>
+						</div> <input type="text" name="buscar" placeholder="Buscar..."
+						data-required="true" class="form-control input-sm">
 					</li>
+					<!-- radio -->
+					<div class="radio">
+						<label class="col-lg-2"> <input
+							ng-model="criterioBusqueda" type="radio" name="radio"
+							value="2"> <b>Localización</b>
+						</label>
+					</div>
+
 					<li class="list-group-item">Provincia <select
 						name="idProvincia" id="idProvincia" class="form-control"
 						ng-model="objCatering.idProvincia" ng-change="llenarCanton()"
@@ -35,12 +49,26 @@
 						ng-options="d.idDistrito as d.nombre for d in listaDistrito">
 					</select>
 					</li>
+					<li class="list-group-item">
+						<!-- radio -->
+						<div class="radio">
+							<label class="col-lg-14"> <input
+								ng-model="criterioBusqueda" type="radio" name="radio"
+								value="3"> <b>Tipo de Evento</b>
+							</label>
+						</div> <select name="idTipo" id="idTipo" class="form-control"
+						ng-model="objCatering.idTipoEvento"
+						ng-options="te.idTipo as te.nombre for te in listaTipoEvento"
+						required>
+					</select>
+					</li>
 					<li class="list-group-item pull-right">
 						<button type="submit" class="btn btn-primary">Buscar</button>
 					</li>
 				</ul>
 			</aside>
 		</div>
+
 		<div class="col-sm-6">
 			<section class="panel">
 				<header class="panel-heading">Lista de Catering Services</header>

@@ -43,6 +43,7 @@ App.controller('CateringBuscarController', function($scope, $http,$location, $up
 	    	$http.get('rest/protected/tipo/getTipoEvento')
 			.success(function(tipoResponse) {
 				$scope.listaTipoEvento = tipoResponse.tipos;
+				$scope.objCatering.idTipoEvento = $scope.listaTipoEvento[0].idTipo;
 			});
 	    	
 	    	//Obtiene la lista de provincias
