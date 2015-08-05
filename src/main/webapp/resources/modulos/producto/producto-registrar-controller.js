@@ -31,8 +31,7 @@ App.controller('ProductoRegistrarController', function($scope,$http, $modal) {
    
    $scope.cargarProducto = function() {
    	$scope.productos.length = 0;
-		$scope.productos = _.where(listaProductos, {categoria: $scope.objCategoria.idCategoria})
-		$scope.objCategoria.idCategoria =  $scope.listaCategorias[0].idCategoria;	
+		$scope.productos = _.where(listaProductos, {categoria: $scope.objCategoria.idCategoria});
 		
    };
    

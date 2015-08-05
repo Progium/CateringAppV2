@@ -12,10 +12,18 @@ App.controller('CateringBuscarController', function($scope, $http,$location, $up
 		$scope.tituloPagina = "Listar catering";
 		$scope.cateringLista = [];
 		$scope.listaProvincia = [];
+		$scope.listaCanton = [];
+		$scope.listaTipoEvento = [];
+		$scope.listaDistrito = [];
+		var listaCantones = [];
+		var cantones =  [];
+		var listaDistritos = [];
+		var distritos =  [];
+
 
 		//Setear cuantos catering va mostrar por pantalla y el primer número de página
-		$scope.requestObject = {};
-		$scope.requestObject.pageSize = 5;
+		$scope.objCatering = {};
+		$scope.objCatering .pageSize = 5;
 		$scope.currentPage = 1;
 
 		//Obtiene la pagina que selecciono y se la pasa al metodo que obtiene los datos del catering
@@ -30,11 +38,43 @@ App.controller('CateringBuscarController', function($scope, $http,$location, $up
 	  
 	    $scope.init = function() {
 	    	$scope.ObtenerListaCatering($scope.currentPage);
+	    	
+	    	//Obtiene los tipos de eventos
+	    	$http.get('rest/protected/tipo/getTipoEvento')
+			.success(function(tipoResponse) {
+				$scope.listaTipoEvento = tipoResponse.tipos;
+			});
+	    	
+	    	//Obtiene la lista de provincias
+	    	$http.get('rest/protected/provincia/getAll')
+			.success(function(provinciaResponse) {
+				$scope.listaProvincia = provinciaResponse.listaProvincia;
+				$scope.objCatering.idProvincia = $scope.listaProvincia[0].idProvincia;	
+			});
+	    	
+	    	//Obtiene la lista de cantones
+	    	$http.get('rest/protected/canton/getAll')
+			.success(function(cantonResponse) {
+				listaCantones = cantonResponse.listaCanton;
+				$scope.listaCanton = _.where(listaCantones, {provincia:$scope.objCatering.idProvincia})
+				$scope.objCatering.idCanton = $scope.listaCanton[0].idCanton;		
+			});
+	    	
+	    	//Obtiene la lista de distritos
+	    	$http.get('rest/protected/distrito/getAll')
+			.success(function(distritoResponse) {
+				listaDistritos = distritoResponse.listaDistrito;
+				$scope.listaDistrito =_.where(listaDistritos, {canton: $scope.objCatering.idCanton});
+				$scope.objCatering.idDistrito = $scope.listaDistrito[0].idDistrito;
+			});
+	    	
+	    	
 	    };
+	  	    
 	    //Funcion que obtiene la lista de todos los catering por paginación
 	    $scope.ObtenerListaCatering = function(pageNumber){
-	    	$scope.requestObject.pageNumber = pageNumber;
-	    	$http.post('rest/protected/catering/getAll', $scope.requestObject).success(function (contractCateringResponse){
+	    	$scope.objCatering.pageNumber = pageNumber;
+	    	$http.post('rest/protected/catering/getAll', $scope.objCatering).success(function (contractCateringResponse){
 				$scope.cantResult = contractCateringResponse.caterings.length;
 				$scope.cateringLista2 = contractCateringResponse.caterings;	
 				$scope.totalItems = contractCateringResponse.totalElements;
@@ -43,6 +83,22 @@ App.controller('CateringBuscarController', function($scope, $http,$location, $up
 	    
 	    $scope.init();
 	    
+	  //Trae los cantones de la provincia seleccionada
+	    $scope.llenarCanton = function() {
+	    	$scope.listaCanton.length = 0;
+			$scope.listaCanton = _.where(listaCantones, {provincia:$scope.objCatering.idProvincia})
+			$scope.objCatering.idCanton = $scope.listaCanton[0].idCanton;	
+			
+			$scope.llenarDistrito();
+	    };
+	    
+		//Trae los distritos del canton seleccionado
+	    $scope.llenarDistrito = function() {
+	    	$scope.listaDistrito.length = 0;
+			$scope.listaDistrito =_.where(listaDistritos, {canton: $scope.objCatering.idCanton});
+			$scope.objCatering.idDistrito = $scope.listaDistrito[0].idDistrito;
+	    };
+	        
 	    $scope.openModal = function(cateringSelec){
 
 		 	   var modalInstance = $modal.open({

@@ -17,23 +17,26 @@
 						name="buscar" placeholder="Buscar..." data-required="true"
 						class="form-control input-sm">
 					</li>
-					<li class="list-group-item">Provincia <select name="marca"
-						class="form-control input-sm">
-							<option value="0">Todas</option>
+					<li class="list-group-item">Provincia <select
+						name="idProvincia" id="idProvincia" class="form-control"
+						ng-model="objCatering.idProvincia" ng-change="llenarCanton()"
+						ng-options="p.idProvincia as p.nombre for p in listaProvincia">
 					</select>
 					</li>
-					<li class="list-group-item">Cantón <select name="modelo"
-						class="form-control input-sm">
-							<option value="0">Todos</option>
+					<li class="list-group-item">Cantón <select name="idCanton"
+						id="idCanton" class="form-control" ng-model="objCatering.idCanton"
+						ng-change="llenarDistrito()"
+						ng-options="c.idCanton as c.nombre for c in listaCanton">
 					</select>
 					</li>
-					<li class="list-group-item">Distrito <select name="modelo"
-						class="form-control input-sm">
-							<option value="0">Todos</option>
+					<li class="list-group-item">Distrito <select name="idDistrito"
+						id="idDistrito" class="form-control"
+						ng-model="objCatering.idDistrito"
+						ng-options="d.idDistrito as d.nombre for d in listaDistrito">
 					</select>
 					</li>
 					<li class="list-group-item pull-right">
-						<button type="submit" class="btn btn-info btn-xs">Buscar</button>
+						<button type="submit" class="btn btn-primary">Buscar</button>
 					</li>
 				</ul>
 			</aside>
