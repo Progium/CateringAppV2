@@ -16,36 +16,38 @@
 					<li class="list-group-item">
 						<!-- radio -->
 						<div class="radio">
-							<label class="col-lg"> <input
-								ng-model="criterioBusqueda" type="radio" name="radio"
-								value="1"> <b>Nombre</b>
+							<label class="col-lg"> <input ng-model="criterioBusqueda"
+								type="radio" name="radio" value="1"> <b>Nombre</b>
 							</label>
 						</div> <input type="text" name="buscar" placeholder="Buscar..."
-						data-required="true" class="form-control input-sm">
+						ng-disabled="criterioBusqueda != 1" data-required="true"
+						class="form-control input-sm">
 					</li>
 					<!-- radio -->
 					<div class="radio">
 						<label class="col-lg-2"> <input
-							ng-model="criterioBusqueda" type="radio" name="radio"
-							value="2"> <b>Localización</b>
+							ng-model="criterioBusqueda" type="radio" name="radio" value="2">
+							<b>Localización</b>
 						</label>
 					</div>
 
 					<li class="list-group-item">Provincia <select
 						name="idProvincia" id="idProvincia" class="form-control"
 						ng-model="objCatering.idProvincia" ng-change="llenarCanton()"
+						ng-disabled="criterioBusqueda != 2"
 						ng-options="p.idProvincia as p.nombre for p in listaProvincia">
 					</select>
 					</li>
 					<li class="list-group-item">Cantón <select name="idCanton"
 						id="idCanton" class="form-control" ng-model="objCatering.idCanton"
-						ng-change="llenarDistrito()"
+						ng-disabled="criterioBusqueda != 2" ng-change="llenarDistrito()"
 						ng-options="c.idCanton as c.nombre for c in listaCanton">
 					</select>
 					</li>
 					<li class="list-group-item">Distrito <select name="idDistrito"
 						id="idDistrito" class="form-control"
 						ng-model="objCatering.idDistrito"
+						ng-disabled="criterioBusqueda != 2"
 						ng-options="d.idDistrito as d.nombre for d in listaDistrito">
 					</select>
 					</li>
@@ -53,17 +55,19 @@
 						<!-- radio -->
 						<div class="radio">
 							<label class="col-lg-14"> <input
-								ng-model="criterioBusqueda" type="radio" name="radio"
-								value="3"> <b>Tipo de Evento</b>
+								ng-model="criterioBusqueda" type="radio" name="radio" value="3">
+								<b>Tipo de Evento</b>
 							</label>
 						</div> <select name="idTipo" id="idTipo" class="form-control"
 						ng-model="objCatering.idTipoEvento"
+						ng-disabled="criterioBusqueda != 3"
 						ng-options="te.idTipo as te.nombre for te in listaTipoEvento"
 						required>
 					</select>
 					</li>
 					<li class="list-group-item pull-right">
-						<button type="submit" class="btn btn-primary">Buscar</button>
+						<button type="submit" class="btn btn-primary"
+							ng-disabled="criterioBusqueda == 0" ng-click="buscarCaterings()">Buscar</button>
 					</li>
 				</ul>
 			</aside>
@@ -82,7 +86,7 @@
 								<th width="70"></th>
 							</tr>
 						</thead>
-						<tbody ng-repeat="catering in cateringLista2">
+						<tbody ng-repeat="catering in cateringLista">
 							<tr>
 								<td>{{catering.nombre}}</td>
 								<td>{{catering.direccion}}</td>

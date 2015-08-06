@@ -16,4 +16,7 @@ public static final int PAGE_SIZE = 5;
 	List<Eventocatering> findEventoCateringByCatering_idCatering
 	(Integer idCatering);
 	
+	Page<Eventocatering> findEventoCateringByTipo_idTipo
+	(Integer eventoId, Pageable pageable);
+	
 }
