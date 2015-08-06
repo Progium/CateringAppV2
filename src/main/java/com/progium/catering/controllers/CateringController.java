@@ -380,4 +380,55 @@ public class CateringController {
 			
 			return cateringResponse;		
 		}
+		
+		
+		@RequestMapping(value ="/getPorLocalizacion", method = RequestMethod.POST)
+		@Transactional
+		public CateringResponse getPorLocalizacion(@RequestBody CateringRequest cateringRequest){	
+			
+			cateringRequest.setPageNumber(cateringRequest.getPageNumber() - 1);
+			
+			CateringResponse cateringResponse = new CateringResponse();
+			
+			Page<Catering> caterings = cateringService.getCateringByIdDistrito(cateringRequest);
+			
+			cateringResponse.setCode(200);
+			cateringResponse.setCodeMessage("caterings fetch success");
+			cateringResponse.setTotalElements(caterings.getTotalElements());
+			cateringResponse.setTotalPages(caterings.getTotalPages());
+			
+			List<CateringPOJO> listaCateringPojo = new ArrayList<CateringPOJO>();
+			
+			caterings.getContent().forEach(catering->{
+				CateringPOJO nCatering = new CateringPOJO();
+				
+				nCatering.setIdCatering(catering.getIdCatering());
+				nCatering.setNombre(catering.getNombre());
+				nCatering.setCedulaJuridica(catering.getCedulaJuridica());
+				nCatering.setDireccion(catering.getDireccion());
+				nCatering.setTelefono1(catering.getTelefono1());
+				nCatering.setTelefono2(catering.getTelefono2());
+				nCatering.setHorario(catering.getHorario());
+				nCatering.setEstado(catering.getEstado());
+				nCatering.setFotografia(catering.getFotografia());
+				nCatering.setProvinciaId(catering.getProvinciaId());
+				nCatering.setCantonId(catering.getCantonId());
+				nCatering.setAdministradorId(catering.getUsuario().getIdUsuario());
+				nCatering.setDistritoId(catering.getDistrito().getIdDistrito());
+				
+				//Obtiene el id del tipo de evento que se agrego cuando se registro el catering
+				List<Eventocatering> eventoCatering =  eventoCateringService.getEventoCateringByIdCatering(catering.getIdCatering());
+				List<Integer> tipoEventoCatering = new ArrayList<Integer>();
+				for(int i = 0; i < eventoCatering.size(); i++){
+					tipoEventoCatering.add(eventoCatering.get(i).getTipo().getIdTipo());
+				}
+				nCatering.setTipoEvento(tipoEventoCatering);
+				
+				listaCateringPojo.add(nCatering);
+			});
+			
+			cateringResponse.setCaterings(listaCateringPojo);
+			
+			return cateringResponse;		
+		}
 }

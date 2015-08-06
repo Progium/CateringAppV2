@@ -34,6 +34,8 @@ public class Catering implements Serializable {
 
 	private int provinciaId;
 
+	private int distritoId;
+	
 	private String telefono1;
 
 	private String telefono2;
@@ -139,6 +141,15 @@ public class Catering implements Serializable {
 		this.provinciaId = provinciaId;
 	}
 
+	
+	public int getDistritoId() {
+		return this.distritoId;
+	}
+
+	public void setDistritoId(int distritoId) {
+		this.distritoId = distritoId;
+	}
+	
 	public String getTelefono1() {
 		return this.telefono1;
 	}

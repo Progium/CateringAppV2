@@ -82,12 +82,23 @@ App.controller('CateringBuscarController', function($scope, $http,$location, $up
 			});
 	    };
 	    
+	    //Funcion que obtiene lista de catering por localizacion
+	    $scope.ObtenerListaCateringPorLocalizacion = function(pageNumber){
+	    	$scope.objCatering.pageNumber = pageNumber;
+	    	$http.post('rest/protected/catering/getPorLocalización', $scope.objCatering).success(function (contractCateringResponse){
+				$scope.cantResult = contractCateringResponse.caterings.length;
+				$scope.cateringLista2 = contractCateringResponse.caterings;	
+				$scope.totalItems = contractCateringResponse.totalElements;
+			});
+	    };
+	    
+	    
 	    $scope.init();
 	    
 	  //Trae los cantones de la provincia seleccionada
 	    $scope.llenarCanton = function() {
 	    	$scope.listaCanton.length = 0;
-			$scope.listaCanton = _.where(listaCantones, {provincia:$scope.objCatering.idProvincia})
+			$scope.listaCanton = _.where(listaCantones, {provincia:$scope.$scope.objCatering.idCanton})
 			$scope.objCatering.idCanton = $scope.listaCanton[0].idCanton;	
 			
 			$scope.llenarDistrito();
