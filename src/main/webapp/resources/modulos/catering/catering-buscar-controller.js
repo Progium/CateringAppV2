@@ -85,7 +85,7 @@ App.controller('CateringBuscarController', function($scope, $http,$location, $up
 	    //Funcion que obtiene lista de catering por localizacion
 	    $scope.ObtenerListaCateringPorLocalizacion = function(pageNumber){
 	    	$scope.objCatering.pageNumber = pageNumber;
-	    	$http.post('rest/protected/catering/getPorLocalización', $scope.objCatering).success(function (contractCateringResponse){
+	    	$http.post('rest/protected/catering/getPorLocalizacion', $scope.objCatering).success(function (contractCateringResponse){
 				$scope.cantResult = contractCateringResponse.caterings.length;
 				$scope.cateringLista2 = contractCateringResponse.caterings;	
 				$scope.totalItems = contractCateringResponse.totalElements;
