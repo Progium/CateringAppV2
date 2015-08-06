@@ -22,14 +22,15 @@ App.controller('MainController', function($scope, $http, $route, $routeParams, $
 	 $scope.mostrarImagen = false;	
 	 $scope.init = function() {
 		 
-		 $scope.usuario.nombre = usuarioResponse.usuario.nombre;
+		 $scope.usuario.nombre = objUsuario.nombre;
 		 
-		 $scope.usuario.fotografia = usuarioResponse.usuario.fotografia;	
-			if(usuarioResponse.usuario.fotografia){
+		 $scope.usuario.fotografia = objUsuario.fotografia;	
+			if(objUsuario.fotografia){
 				$scope.mostrarImagen = true;
 			}
 	 }
-     	
+     
+	 $scope.init();
 });
 
 App.config(function($routeProvider, $locationProvider) {
