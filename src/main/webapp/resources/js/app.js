@@ -16,6 +16,20 @@ App.controller('MainController', function($scope, $http, $route, $routeParams, $
    			  window.location.href = "/catering/#/iniciar-sesion";
      	  });
      	};
+    
+     var objUsuario = $.jStorage.get("user");	
+     $scope.usuario = {};
+	 $scope.mostrarImagen = false;	
+	 $scope.init = function() {
+		 
+		 $scope.usuario.nombre = usuarioResponse.usuario.nombre;
+		 
+		 $scope.usuario.fotografia = usuarioResponse.usuario.fotografia;	
+			if(usuarioResponse.usuario.fotografia){
+				$scope.mostrarImagen = true;
+			}
+	 }
+     	
 });
 
 App.config(function($routeProvider, $locationProvider) {
