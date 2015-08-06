@@ -20,7 +20,7 @@
 								ng-model="criterioBusqueda" type="radio" name="radio"
 								value="1"> <b>Nombre</b>
 							</label>
-						</div> <input type="text" name="buscar" placeholder="Buscar..."
+						</div> <input type="text" name="buscar" ng-model="objCatering.nombre" placeholder="Buscar..."
 						data-required="true" class="form-control input-sm">
 					</li>
 					<!-- radio -->

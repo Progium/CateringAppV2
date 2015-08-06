@@ -82,6 +82,16 @@ App.controller('CateringBuscarController', function($scope, $http,$location, $up
 			});
 	    };
 	    
+	    //Funcion que obtiene la lista de catering por nombre
+	    $scope.ObtenerListaCateringPorNombre = function (pageNumber){
+	    	$scope.objCatering.pageNumber = pageNumber;
+	    	$http.post('rest/proteced/catering/getCateringPorNombre', objCatering).success(function (contractCateringResponse){
+	    	scope.cantResult = contractCateringResponse.caterings.length;
+			$scope.cateringLista2 = contractCateringResponse.caterings;	
+			$scope.totalItems = contractCateringResponse.totalElements;
+		});
+	    };
+	    
 	    $scope.init();
 	    
 	  //Trae los cantones de la provincia seleccionada

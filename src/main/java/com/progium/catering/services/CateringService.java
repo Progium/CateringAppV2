@@ -66,5 +66,20 @@ public class CateringService implements CateringServiceInterface{
 		
 	}
 
+	@Override
+	@Transactional
+	public Page<Catering> getCateringByNombre(CateringRequest cateringRequest) {
+	
+		PageRequest pr;
+		pr = new PageRequest(cateringRequest.getPageNumber(),
+				cateringRequest.getPageSize());
+	
+		Page<Catering> result;
+		String nombre = cateringRequest.getNombre();
+		result = cateringRepository.findByNombre(pr, nombre);
+		
+		return result;
+		
+	}
 	
 }

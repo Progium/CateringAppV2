@@ -18,5 +18,7 @@ public interface CateringServiceInterface {
 	List<Catering> getCateringByEstado(Boolean estado);
 	//Obtiene lista de catering
 	Page<Catering> getAll(CateringRequest cr);
+	//Obtiene lista de catering por nombre
+	Page<Catering> getCateringByNombre(CateringRequest cr);
 	
 }
