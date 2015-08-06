@@ -14,7 +14,7 @@ public interface CateringRepository extends CrudRepository<Catering,Integer> {
 	
 	Page<Catering> findAll(Pageable pageable);
 	
-	Page<Catering> findByDistritoID(Pageable pageable, Integer estado);
+	Page<Catering> findByDistritoID(Pageable pageable, Integer distritoId);
 	
 	Page<Catering> findCateringByEstado(Pageable pageable, Boolean estado);
 	
