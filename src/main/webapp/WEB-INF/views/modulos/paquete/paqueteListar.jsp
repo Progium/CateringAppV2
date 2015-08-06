@@ -1,4 +1,4 @@
-<section class="main padder" ng-controller="PaqueteListarController">
+<section class="main padder">
   <div class="clearfix">
     <h4><i class="fa fa-edit"></i>Paquetes</h4>
   </div>
