@@ -76,7 +76,7 @@ public class CateringService implements CateringServiceInterface{
 	
 		Page<Catering> result;
 		String nombre = cateringRequest.getNombre();
-		result = cateringRepository.findByNombre(pr, nombre);
+		result = cateringRepository.findByNombreContaining(pr, nombre);
 		
 		return result;
 		

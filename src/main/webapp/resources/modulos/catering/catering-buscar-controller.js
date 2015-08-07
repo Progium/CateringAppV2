@@ -15,10 +15,12 @@ App.controller('CateringBuscarController', function($scope, $http,$location, $up
 		$scope.listaCanton = [];
 		$scope.listaTipoEvento = [];
 		$scope.listaDistrito = [];
+		$scope.criterioBusqueda = 0;
 		var listaCantones = [];
 		var cantones =  [];
 		var listaDistritos = [];
 		var distritos =  [];
+	
 
 
 		//Setear cuantos catering va mostrar por pantalla y el primer número de página
@@ -31,10 +33,6 @@ App.controller('CateringBuscarController', function($scope, $http,$location, $up
 			$scope.ObtenerListaCatering(pageNo);
 			$scope.currentPage = pageNo;
 		};
-
-		$scope.maxSize = 5;
-		$scope.bigTotalItems = 50;
-		$scope.bigCurrentPage = 1;
 	  
 	    $scope.init = function() {
 	    	$scope.ObtenerListaCatering($scope.currentPage);
@@ -75,21 +73,24 @@ App.controller('CateringBuscarController', function($scope, $http,$location, $up
 	    //Funcion que obtiene la lista de todos los catering por paginación
 	    $scope.ObtenerListaCatering = function(pageNumber){
 	    	$scope.objCatering.pageNumber = pageNumber;
-	    	$http.post('rest/protected/catering/getAll', $scope.objCatering).success(function (contractCateringResponse){
-				$scope.cantResult = contractCateringResponse.caterings.length;
-				$scope.cateringLista2 = contractCateringResponse.caterings;	
-				$scope.totalItems = contractCateringResponse.totalElements;
-			});
-	    };
-	    
-	    //Funcion que obtiene la lista de catering por nombre
-	    $scope.ObtenerListaCateringPorNombre = function (pageNumber){
-	    	$scope.objCatering.pageNumber = pageNumber;
-	    	$http.post('rest/proteced/catering/getCateringPorNombre', objCatering).success(function (contractCateringResponse){
-	    	scope.cantResult = contractCateringResponse.caterings.length;
-			$scope.cateringLista2 = contractCateringResponse.caterings;	
-			$scope.totalItems = contractCateringResponse.totalElements;
-		});
+	    	//Obtiene todos los caterings
+	    	if($scope.criterioBusqueda == 0){
+		    	$http.post('rest/protected/catering/getAll', $scope.objCatering).success(function (contractCateringResponse){
+					$scope.cantResult = contractCateringResponse.caterings.length;
+					$scope.cateringLista = contractCateringResponse.caterings;	
+					$scope.totalItems = contractCateringResponse.totalElements;
+				});
+		    //Obtiene los catering por tipo de evento
+	    	}else if($scope.criterioBusqueda == 1){
+	    		 //Funcion que obtiene la lista de catering por nombre
+	    	    	$http.post('rest/protected/catering/getCateringPorNombre', $scope.objCatering).success(function (contractCateringResponse){
+	    	    	$scope.cantResult = contractCateringResponse.caterings.length;
+	    			$scope.cateringLista = contractCateringResponse.caterings;	
+	    			$scope.totalItems = contractCateringResponse.totalElements;
+	    		});
+	    	  
+	    	}
+
 	    };
 	    
 	    $scope.init();
@@ -109,7 +110,13 @@ App.controller('CateringBuscarController', function($scope, $http,$location, $up
 			$scope.listaDistrito =_.where(listaDistritos, {canton: $scope.objCatering.idCanton});
 			$scope.objCatering.idDistrito = $scope.listaDistrito[0].idDistrito;
 	    };
-	        
+	          
+	    $scope.buscarCaterings = function(){
+	    	
+	    	$scope.ObtenerListaCatering(1);
+	    		    	
+	    }
+	    
 	    $scope.openModal = function(cateringSelec){
 
 		 	   var modalInstance = $modal.open({
