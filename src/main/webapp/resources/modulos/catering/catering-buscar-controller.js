@@ -72,15 +72,15 @@ App.controller('CateringBuscarController', function($scope, $http,$location, $up
 	    //Funcion que obtiene la lista de todos los catering por paginación
 	    $scope.ObtenerListaCatering = function(pageNumber){
 	    	$scope.objCatering.pageNumber = pageNumber;
-	    	
+	    	//Obtiene todos los caterings
 	    	if($scope.criterioBusqueda == 0){
 		    	$http.post('rest/protected/catering/getAll', $scope.objCatering).success(function (contractCateringResponse){
 					$scope.cantResult = contractCateringResponse.caterings.length;
 					$scope.cateringLista = contractCateringResponse.caterings;	
 					$scope.totalItems = contractCateringResponse.totalElements;
 				});
+		    //Obtiene los catering por tipo de evento
 	    	}else if($scope.criterioBusqueda == 3){
-	    		console.log($scope.objCatering.idTipoEvento);
 	    		var tipoEventos = [];
 	    		tipoEventos[0] = $scope.objCatering.idTipoEvento;
 	    		
@@ -88,7 +88,6 @@ App.controller('CateringBuscarController', function($scope, $http,$location, $up
 		    	$http.post('rest/protected/catering/getCateringByTipoEvento', $scope.objCatering).success(function (contractCateringResponse){
 		    		$scope.cantResult = contractCateringResponse.caterings.length;
 					$scope.cateringLista = contractCateringResponse.caterings;	
-					console.log($scope.cateringLista);
 					$scope.totalItems = contractCateringResponse.totalElements;
 				});
 	    	}

@@ -47,6 +47,10 @@ import com.progium.catering.utils.PojoUtils;
 /**
  * Handles requests for the application home page.
  */
+/**
+ * @author Yuli
+ *
+ */
 @RestController
 @RequestMapping(value = "rest/protected/catering")
 public class CateringController {
@@ -387,7 +391,7 @@ public class CateringController {
 		public CateringResponse getCateringByTipoEvento(@RequestBody CateringRequest cateringRequest){	
 			
 			cateringRequest.setPageNumber(cateringRequest.getPageNumber() - 1);
-			
+			//Le pasa el catering request y obtiene todo los tipos de evento con el criterio de tipo de evento
 			Page<Eventocatering> eventoCaterings =  eventoCateringService.getEventoCateringByIdTipoEvento(cateringRequest);
 			
 			CateringResponse cateringResponse = new CateringResponse();
@@ -397,7 +401,7 @@ public class CateringController {
 			cateringResponse.setCodeMessage("caterings fetch success");
 			cateringResponse.setTotalElements(eventoCaterings.getTotalElements());
 			cateringResponse.setTotalPages(eventoCaterings.getTotalPages());
-			
+			//Recorre por cada tipo de evento obtiene el catering registrado y setea los datos al pojo de catering
 			eventoCaterings.getContent().forEach(eventoCatering->{
 				CateringPOJO nCatering = new CateringPOJO();
 				

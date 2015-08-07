@@ -7,12 +7,20 @@
 	</div>
 	<div class="row">
 		<div class="col-sm-3">
-			<aside class="sidebar bg-lighter"
-				ng-controller="CateringBuscarController">
+			<aside class="sidebar bg-lighter">
 				<div class="bg-light padder padder-v" style="padding-bottom: 5px;">
 					<span class="h4 col-lg-offset-1">Criterio de busquedas</span>
 				</div>
 				<ul class="list-group list-normal m-b-none">
+					<li class="list-group-item">
+						<!-- radio -->
+						<div class="radio">
+							<label class="col-lg"> <input ng-model="criterioBusqueda"
+								type="radio" name="radio" value="0"> <b>Todos los
+									caterings</b>
+							</label>
+						</div>
+					</li>
 					<li class="list-group-item">
 						<!-- radio -->
 						<div class="radio">
@@ -67,7 +75,7 @@
 					</li>
 					<li class="list-group-item pull-right">
 						<button type="submit" class="btn btn-primary"
-							ng-disabled="criterioBusqueda == 0" ng-click="buscarCaterings()">Buscar</button>
+							ng-click="buscarCaterings()">Buscar</button>
 					</li>
 				</ul>
 			</aside>
