@@ -75,7 +75,7 @@
 							<div class="col-lg-8">
 								<input ng-model="usuario.correo" type="email" id="email"
 									placeholder="marce@gmail.com" class="bg-focus form-control"
-									required />
+									required ng-disabled="true" />
 							</div>
 						</div>
 
@@ -127,7 +127,7 @@
 									<label class="control-label"> <input
 										ng-model="usuario.tipoUsuarioId" type="checkbox"
 										name="checkbox" ng-true-value="2" ng-false-value="1"
-										ng-disabled="true"> Quiero ser usuario administrador.
+										ng-disabled="true" readOnly="true"> Quiero ser usuario administrador.
 									</label>
 								</div>
 							</div>
