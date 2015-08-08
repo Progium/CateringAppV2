@@ -13,7 +13,5 @@
 			class="fa fa-th fa-lg"></i><span>Paquetes</span></a></li>
 	<li class="dropdown-submenu"><a href="#/subasta-listar"><i
 			class="fa fa-clipboard fa-lg"></i><span>Subasta</span></a></li>
-	<li><a href="#/cotizacion-registrar"> <i
-			class="fa fa-thumbs-o-up fa-lg"></i> <span>Cotizaciones</span>
-	</a></li>
+	
 </ul>
