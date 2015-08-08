@@ -25,8 +25,6 @@ public class Paquete implements Serializable {
 
 	private int descuento;
 
-	private String fotografia;
-
 	private BigDecimal montoTotal;
 
 	private String nombre;
@@ -84,14 +82,6 @@ public class Paquete implements Serializable {
 
 	public void setDescuento(int descuento) {
 		this.descuento = descuento;
-	}
-
-	public String getFotografia() {
-		return this.fotografia;
-	}
-
-	public void setFotografia(String fotografia) {
-		this.fotografia = fotografia;
 	}
 
 	public BigDecimal getMontoTotal() {
