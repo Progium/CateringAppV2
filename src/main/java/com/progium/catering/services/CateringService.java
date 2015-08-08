@@ -76,7 +76,7 @@ public class CateringService implements CateringServiceInterface{
 	
 		Page<Catering> result;
 		Integer distritoId = cateringRequest.getDistritoId();
-		result = cateringRepository.findByDistritoID(pr, distritoId);
+		result = cateringRepository.findCateringByDistrito_idDistrito(distritoId, pr);
 		
 		return result;
 		
