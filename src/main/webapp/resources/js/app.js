@@ -47,7 +47,7 @@ App.config(function($routeProvider, $locationProvider) {
 			templateUrl: 'modulos/seguridad-usuario-admin',
 			controller: 'UsuarioModificarController'
 		})
-		.when('/usuario-perfil-mostrar', {
+		.when('/usuario-perfil', {
 			templateUrl: 'modulos/seguridad-usuario-perfil',
 			controller: 'UsuarioPerfilController'
 		})

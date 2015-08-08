@@ -85,64 +85,108 @@ public class UsuarioController {
 	}
 	
 	//Obtiene los parametros que le envia el controller por medio del metodo post.
-		@RequestMapping(value = "/registrar", method = RequestMethod.POST)
-		@Transactional
-		public UsuarioResponse registrar(@RequestBody UsuarioRequest usuarioRequest)throws NoSuchAlgorithmException {
-			//Crea un nuevo usuario response le setea los datos y le pasa el objeto de usuario al servicio de usuario
-			UsuarioResponse us = new UsuarioResponse();
-			Tipo objTipo = generalService.getTipoById(usuarioRequest.getTipoUsuarioId());
+	@RequestMapping(value = "/registrar", method = RequestMethod.POST)
+	@Transactional
+	public UsuarioResponse registrar(@RequestBody UsuarioRequest usuarioRequest)throws NoSuchAlgorithmException {
+		//Crea un nuevo usuario response le setea los datos y le pasa el objeto de usuario al servicio de usuario
+		UsuarioResponse us = new UsuarioResponse();
+		Tipo objTipo = generalService.getTipoById(usuarioRequest.getTipoUsuarioId());
 
-			Usuario objNuevoUsuario = new Usuario();
-			objNuevoUsuario.setNombre(usuarioRequest.getNombre());
-			objNuevoUsuario.setApellido1(usuarioRequest.getApellido1());
-			objNuevoUsuario.setApellido2(usuarioRequest.getApellido2());
-			objNuevoUsuario.setCorreo(usuarioRequest.getCorreo());
-			objNuevoUsuario.setTelefono1(usuarioRequest.getTelefono1());
-			objNuevoUsuario.setTelefono2(usuarioRequest.getTelefono2());
-			objNuevoUsuario.setTipo(objTipo);
-			objNuevoUsuario.setContrasenna(GeneradorContrasennaUtil
-					.encriptarContrasenna(usuarioRequest.getContrasenna()));
+		Usuario objNuevoUsuario = new Usuario();
+		objNuevoUsuario.setNombre(usuarioRequest.getNombre());
+		objNuevoUsuario.setApellido1(usuarioRequest.getApellido1());
+		objNuevoUsuario.setApellido2(usuarioRequest.getApellido2());
+		objNuevoUsuario.setCorreo(usuarioRequest.getCorreo());
+		objNuevoUsuario.setTelefono1(usuarioRequest.getTelefono1());
+		objNuevoUsuario.setTelefono2(usuarioRequest.getTelefono2());
+		objNuevoUsuario.setTipo(objTipo);
+		objNuevoUsuario.setContrasenna(GeneradorContrasennaUtil
+				.encriptarContrasenna(usuarioRequest.getContrasenna()));
 
-			Boolean state = usuarioService.saveUsuario(objNuevoUsuario);
+		Boolean state = usuarioService.saveUsuario(objNuevoUsuario);
 
-			if (state) {
-				us.setCode(200);
-				us.setCodeMessage("user created succesfully");
-				us.setIdUsuario(objNuevoUsuario.getIdUsuario());
+		if (state) {
+			us.setCode(200);
+			us.setCodeMessage("user created succesfully");
+			us.setIdUsuario(objNuevoUsuario.getIdUsuario());
 
-				String mensaje = "Para ingresar al sistema debe utilizar las siguientes credenciales: "
-						+ "Correo: "
-						+ objNuevoUsuario.getCorreo()
-						+ "</br>"
-						+ " Contraseña: " + usuarioRequest.getContrasenna().toString();
-				SendEmail.sendEmail("Bienvenido a Catering App!",
-						objNuevoUsuario.getCorreo(), "Nuevo Usuario",
-						"Bienvenido a Catering App", mensaje);
+			String mensaje = "Para ingresar al sistema debe utilizar las siguientes credenciales: "
+					+ "Correo: "
+					+ objNuevoUsuario.getCorreo()
+					+ "</br>"
+					+ " Contraseña: " + usuarioRequest.getContrasenna().toString();
+			SendEmail.sendEmail("Bienvenido a Catering App!",
+					objNuevoUsuario.getCorreo(), "Nuevo Usuario",
+					"Bienvenido a Catering App", mensaje);
 
-			}else{
-				us.setCode(401);
-				us.setErrorMessage("Unauthorized User");
-			}
-			return us;
+		}else{
+			us.setCode(401);
+			us.setErrorMessage("Unauthorized User");
 		}
+		return us;
+	}
+	
+	//Para mostrar el perfil del usuario
+	@RequestMapping(value ="/perfilUsuario", method = RequestMethod.GET)
+	public UsuarioResponse PerfilUsuario(){
 		
-		//Para mostrar el perfil del usuario
-		@RequestMapping(value ="/perfilUsuario", method = RequestMethod.GET)
-		public UsuarioResponse PerfilUsuario(){
-			
-			UsuarioResponse usuarioResponse = new UsuarioResponse();
-			
-			HttpSession currentSession = request.getSession();
-			int idUsuario = (int) currentSession.getAttribute("idUsuario");	
-						
-			Usuario usuario = usuarioService.getUsuarioById(idUsuario);
-			UsuarioPOJO usuarioPojo = new UsuarioPOJO();
-			
-			PojoUtils.pojoMappingUtility(usuarioPojo,usuario);
-			
-			usuarioResponse.setUsuario(usuarioPojo);
-			
-			return usuarioResponse;
+		UsuarioResponse usuarioResponse = new UsuarioResponse();
 		
+		HttpSession currentSession = request.getSession();
+		int idUsuario = (int) currentSession.getAttribute("idUsuario");	
+					
+		Usuario usuario = usuarioService.getUsuarioById(idUsuario);
+		UsuarioPOJO usuarioPojo = new UsuarioPOJO();
+		
+		PojoUtils.pojoMappingUtility(usuarioPojo,usuario);
+		
+		usuarioResponse.setUsuario(usuarioPojo);
+		
+		return usuarioResponse;
+	
+	}
+	
+	//Obtiene los parametros que le envia el controller por medio del metodo post.
+	@RequestMapping(value = "/modificar", method = RequestMethod.POST)
+	@Transactional
+	public UsuarioResponse modificar(@RequestBody UsuarioRequest usuarioRequest)throws NoSuchAlgorithmException {
+		//Modifica los datos del usuario.
+		UsuarioResponse us = new UsuarioResponse();
+		
+		Tipo objTipo = generalService.getTipoById(usuarioRequest.getTipoUsuarioId());
+
+		Usuario objUsuario = usuarioService.getUsuarioById(usuarioRequest.getIdUsuario());
+		
+		objUsuario.setNombre(usuarioRequest.getNombre());
+		objUsuario.setApellido1(usuarioRequest.getApellido1());
+		objUsuario.setApellido2(usuarioRequest.getApellido2());
+		objUsuario.setCorreo(usuarioRequest.getCorreo());
+		objUsuario.setTelefono1(usuarioRequest.getTelefono1());
+		objUsuario.setTelefono2(usuarioRequest.getTelefono2());
+		objUsuario.setTipo(objTipo);
+		//objUsuario.setContrasenna(GeneradorContrasennaUtil
+		//		.encriptarContrasenna(usuarioRequest.getContrasenna()));
+
+		Boolean state = usuarioService.saveUsuario(objUsuario);
+
+		if (state) {
+			us.setCode(200);
+			us.setCodeMessage("user created succesfully");
+			us.setIdUsuario(objUsuario.getIdUsuario());
+
+//				String mensaje = "Para ingresar al sistema debe utilizar las siguientes credenciales: "
+//						+ "Correo: "
+//						+ objUsuario.getCorreo()
+//						+ "</br>"
+//						+ " Contraseña: " + usuarioRequest.getContrasenna().toString();
+//				SendEmail.sendEmail("Bienvenido a Catering App!",
+//						objUsuario.getCorreo(), "Datos modificados del usuario",
+//						"Bienvenido a Catering App", mensaje);
+
+		}else{
+			us.setCode(401);
+			us.setErrorMessage("Unauthorized User");
+		}
+		return us;
 	}
 }

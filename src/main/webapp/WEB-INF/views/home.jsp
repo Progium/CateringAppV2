@@ -88,11 +88,11 @@
 	        <li class="dropdown">
 	            <a href="" class="dropdown-toggle" data-toggle="dropdown">
 	                <span class="hidden-xs-only">Bienvenido! {{usuario.nombre}}</span>
-                        <span class="thumb-small avatar inline"><img ng-src="usuario.fotografia" class= "usuario.fotografia" ></span>
+                        <span class="thumb-small avatar inline"><img ng-src={{usuario.fotografia}}  class= "usuario.fotografia" ></span>
 	                <b class="caret hidden-xs-only"></b>
 	            </a>
 	            <ul class="dropdown-menu">
-	                <li><a href="#/usuario-perfil-mostrar">Perfil</a></li>
+	                <li><a href="#/usuario-perfil">Perfil</a></li>
 	              	<li class="divider"></li>
 	                <li><a ng-click="cerrarSesion()">Salir</a></li>
 	            </ul>

@@ -5,7 +5,7 @@
 		</h4>
 	</div>
 	<div class="row">
-		<form class="form-horizontal" name="PerfilUsuario"
+		<form class="form-horizontal" name="perfilUsuario"
 			data-validate="parsley">
 
 			<div class="col-sm-6">
@@ -26,16 +26,22 @@
 										class="fa inline fa fa-light fa fa-3x m-t-large"><img
 										ng-src={{usuario.fotografia}} /></i>
 								</div>
-								
+								<div class="media-body">
+									<input ng-file-select="onFileSelect($files)" type="file"
+										name="foto" title="Examinar"
+										class="btn btn-sm btn-info m-b-small" /> <br>
+								</div>
 							</div>
 						</div>
-
 						<!-- Nombre -->
 						<div class="form-group">
 							<label class="col-lg-3 control-label">Nombre</label>
 							<div class="col-lg-8">
 								<input ng-model="usuario.nombre" type="text" name="nombre"
-									class="form-control" ng-disabled="true" />
+									placeholder="Marcela" class="form-control" required
+									ng-pattern="/^(\D)+$/" /> <span class="error-message"
+									ng-show="perfilUsuario.nombre.$error.pattern">Debe
+									ingresar solo letras</span>
 							</div>
 						</div>
 
@@ -44,7 +50,10 @@
 							<label class="col-lg-3 control-label">Primer Apellido</label>
 							<div class="col-lg-8">
 								<input ng-model="usuario.apellido1" type="text" name="apellido1"
-									class="form-control" ng-disabled="true" />
+									placeholder="Leandro" class="form-control" required
+									ng-pattern="/^(\D)+$/" /> <span class="error-message"
+									ng-show="perfilUsuario.apellido1.$error.pattern">Debe
+									ingresar solo letras</span>
 							</div>
 						</div>
 
@@ -53,7 +62,10 @@
 							<label class="col-lg-3 control-label">Segundo Apellido</label>
 							<div class="col-lg-8">
 								<input ng-model="usuario.apellido2" type="text" name="apellido2"
-									class="form-control" ng-disabled="true" />
+									placeholder="Picado" class="form-control"
+									ng-pattern="/^(\D)+$/" /> <span class="error-message"
+									ng-show="perfilUsuario.apellido2.$error.pattern">Debe
+									ingresar solo letras</span>
 							</div>
 						</div>
 
@@ -62,25 +74,36 @@
 							<label class="col-lg-3 control-label">Correo</label>
 							<div class="col-lg-8">
 								<input ng-model="usuario.correo" type="email" id="email"
-									class="form-control" ng-disabled="true" />
+									placeholder="marce@gmail.com" class="bg-focus form-control"
+									required />
 							</div>
 						</div>
 
 						<!-- Teléfono1 -->
 						<div class="form-group">
-							<label class="col-lg-3 control-label">Teléfono1</label>
+							<label class="col-lg-3 control-label">Teléfono</label>
 							<div class="col-lg-8">
 								<input ng-model="usuario.telefono1" type="text" name="telefono1"
-									class="form-control" ng-disabled="true" />
+									placeholder="2574-5432" class="form-control"
+									ng-pattern="/^\d{4}-?\d{4}$/" required /> <span
+									class="error-message"
+									ng-show="perfilUsuario.telefono1.$error.pattern">Debe
+									ingresar solo números, el formato de télefono es ####-####,
+									debe ingresar 8 números.</span>
 							</div>
 						</div>
 
 						<!-- Teléfono2 -->
 						<div class="form-group">
-							<label class="col-lg-3 control-label">Teléfono2</label>
+							<label class="col-lg-3 control-label">Teléfono
+								alternativo</label>
 							<div class="col-lg-8">
 								<input ng-model="usuario.telefono2" type="text" name="telefono2"
-									class="form-control" ng-disabled="true" />
+									placeholder="4051-7645" class="form-control"
+									ng-pattern="/^\d{4}-?\d{4}$/" /> <span class="error-message"
+									ng-show="perfilUsuario.telefono2.$error.pattern">Debe
+									ingresar solo números, el formato de télefono es ####-####,
+									debe ingresar 8 números.</span>
 							</div>
 						</div>
 					</div>
@@ -103,8 +126,8 @@
 								<div class="checkbox">
 									<label class="control-label"> <input
 										ng-model="usuario.tipoUsuarioId" type="checkbox"
-										name="checkbox" ng-true-value="2" ng-false-value="1" ng-disabled="true">
-										Quiero ser usuario administrador.
+										name="checkbox" ng-true-value="2" ng-false-value="1"
+										ng-disabled="true"> Quiero ser usuario administrador.
 									</label>
 								</div>
 							</div>
@@ -116,7 +139,7 @@
 							<div class="col-lg-8">
 								<input ng-model="usuario.contrasenna" type="password"
 									name="password" placeholder="Password"
-									class="form-control" ng-disabled="true" />
+									class="bg-focus form-control" required />
 							</div>
 						</div>
 						<div class="form-group"></div>
@@ -126,7 +149,7 @@
 							<div class="col-lg-8">
 								<input ng-model="usuario.repetirContrasenna" type="password"
 									name="password" placeholder="Password"
-									class="form-control" ng-disabled="true"/>
+									class="bg-focus form-control" required />
 							</div>
 						</div>
 						<div class="form-group"></div>
@@ -134,9 +157,9 @@
 						<div class="form-group"></div>
 						<div class="form-group">
 							<div class="col-lg-9 col-lg-offset-7">
-								<button type="submit" class="btn btn-white" ng-show="false"
+								<button type="submit" class="btn btn-white"
 									ng-click="cancelar()">Cancelar</button>
-								<button type="submit" class="btn btn-info" ng-show="false" ng-click="guardar()">Guardar</button>
+								<button type="submit" class="btn btn-info" ng-click="guardar()">Guardar</button>
 							</div>
 						</div>
 						<div class="form-group"></div>
