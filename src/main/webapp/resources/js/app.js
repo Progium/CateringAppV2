@@ -23,7 +23,7 @@ App.controller('MainController', function($scope, $http, $route, $routeParams, $
 	 $scope.init = function() {
 		 
 		 $scope.usuario.nombre = objUsuario.nombre;
-		 
+		
 		 $scope.usuario.fotografia = objUsuario.fotografia;	
 			if(objUsuario.fotografia){
 				$scope.mostrarImagen = true;
@@ -43,8 +43,8 @@ App.config(function($routeProvider, $locationProvider) {
 			templateUrl: 'modulos/seguridad-usuario-admin',
 			controller: 'UsuarioRegistrarController'
 		})
-		.when('/usuario-modificar/:pidUsuario', {
-			templateUrl: 'modulos/seguridad-usuario-admin',
+		.when('/usuario-modificar', {
+			templateUrl: 'modulos/seguridad-usuario-modificar',
 			controller: 'UsuarioModificarController'
 		})
 		.when('/usuario-perfil-mostrar', {

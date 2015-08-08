@@ -110,6 +110,11 @@ public class LayoutController {
 		return "modulos/seguridad/usuarioPerfil";
 	}
 	
+	@RequestMapping(value = "/seguridad-usuario-modificar")
+	public String getSeguridadUsuarioModificar()
+	{
+		return "modulos/seguridad/usuarioModificar";
+	}
 	//-------------------------------------------------------
 	//Subasta
 	//-------------------------------------------------------

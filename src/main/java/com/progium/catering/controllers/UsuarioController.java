@@ -145,4 +145,56 @@ public class UsuarioController {
 			return usuarioResponse;
 		
 	}
+		
+		@RequestMapping(value ="/getUsuarioById", method = RequestMethod.POST)
+		public UsuarioResponse getUsuarioById(@RequestBody UsuarioRequest usuarioRequest)throws NoSuchAlgorithmException {
+			
+			UsuarioResponse usuarioResponse = new UsuarioResponse();
+			
+			Usuario usuario = usuarioService.getUsuarioById(usuarioRequest.getIdUsuario());
+
+			UsuarioPOJO nUsuario = new UsuarioPOJO();
+			nUsuario.setIDUsuario(usuario.getIdUsuario());
+			nUsuario.setNombre(usuario.getNombre());
+			nUsuario.setApellido1(usuario.getApellido1());
+			nUsuario.setApellido2(usuario.getApellido2());
+			nUsuario.setCorreo(usuario.getCorreo());
+			nUsuario.setTelefono1(usuario.getTelefono1());
+			nUsuario.setTelefono2(usuario.getTelefono2());
+			nUsuario.setContrasenna(usuario.getContrasenna());
+			nUsuario.setFotografia(usuario.getFotografia());
+							
+			usuarioResponse.setUsuario(nUsuario);
+			
+			return usuarioResponse;	
+			
+		}	
+		
+		//Obtiene los parametros que le envia el controller por medio del metodo post.
+				@RequestMapping(value = "/modificarUsuario", method = RequestMethod.POST)
+				@Transactional
+				public UsuarioResponse ModificarUsuario(@RequestBody UsuarioRequest usuarioRequest)throws NoSuchAlgorithmException {
+					//Crea un nuevo usuario response le setea los datos y lo pasa al servicio de usuario
+					UsuarioResponse us = new UsuarioResponse();
+					
+					Usuario objUsuario = usuarioService.getUsuarioById(usuarioRequest.getIdUsuario());
+					Tipo objTipo = generalService.getTipoById(usuarioRequest.getTipoUsuarioId());
+					
+					objUsuario.setNombre(usuarioRequest.getNombre());
+					objUsuario.setApellido1(usuarioRequest.getApellido1());
+					objUsuario.setApellido2(usuarioRequest.getApellido2());
+					objUsuario.setCorreo(usuarioRequest.getCorreo());
+					objUsuario.setTelefono1(usuarioRequest.getTelefono1());
+					objUsuario.setTelefono2(usuarioRequest.getTelefono2());
+					objUsuario.setTipo(objTipo);
+					objUsuario.setContrasenna(GeneradorContrasennaUtil
+					.encriptarContrasenna(usuarioRequest.getContrasenna()));
+					
+					Boolean state = usuarioService.saveUsuario(objUsuario);
+		
+					us.setCodeMessage("usuario updated succesfully");
+				
+				
+				return us;
+			}
 }

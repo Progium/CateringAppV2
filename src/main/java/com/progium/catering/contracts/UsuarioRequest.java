@@ -4,6 +4,7 @@ import com.progium.catering.pojo.UsuarioPOJO;
 
 public class UsuarioRequest extends BasePagingRequest {
 
+	private int idUsuario;
 	private String nombre;
 	private String apellido1;
 	private String apellido2;
@@ -18,10 +19,11 @@ public class UsuarioRequest extends BasePagingRequest {
 		super();
 	}
 	
-	public UsuarioRequest(String nombre, String apellido1, String apellido2,
+	public UsuarioRequest(int idUsuario, String nombre, String apellido1, String apellido2,
 			String correo, String telefono1, String telefono2,
 			int tipoUsuarioId, String contrasenna, String needAccess) {
 		super();
+		this.idUsuario = idUsuario;
 		this.nombre = nombre;
 		this.apellido1 = apellido1;
 		this.apellido2 = apellido2;
@@ -31,6 +33,15 @@ public class UsuarioRequest extends BasePagingRequest {
 		this.tipoUsuarioId = tipoUsuarioId;
 		this.contrasenna = contrasenna;
 		this.needAccess = needAccess;
+	}
+
+	
+	public int getIdUsuario() {
+		return idUsuario;
+	}
+
+	public void setIdUsuario(int idUsuario) {
+		this.idUsuario = idUsuario;
 	}
 
 	public String getNombre() {
