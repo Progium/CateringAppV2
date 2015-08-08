@@ -65,6 +65,37 @@ public class CateringService implements CateringServiceInterface{
 		return result;
 		
 	}
+	
+	@Override
+	@Transactional
+	public Page<Catering> getCateringByIdDistrito(CateringRequest cateringRequest) {
+		
+		PageRequest pr;
+		pr = new PageRequest(cateringRequest.getPageNumber(),
+				cateringRequest.getPageSize());
+	
+		Page<Catering> result;
+		Integer distritoId = cateringRequest.getDistritoId();
+		result = cateringRepository.findCateringByDistrito_idDistrito(distritoId, pr);
+		
+		return result;
+		
+	}
 
+	@Override
+	@Transactional
+	public Page<Catering> getCateringByNombre(CateringRequest cateringRequest) {
+	
+		PageRequest pr;
+		pr = new PageRequest(cateringRequest.getPageNumber(),
+				cateringRequest.getPageSize());
+	
+		Page<Catering> result;
+		String nombre = cateringRequest.getNombre();
+		result = cateringRepository.findByNombreContaining(pr, nombre);
+		
+		return result;
+		
+	}
 	
 }

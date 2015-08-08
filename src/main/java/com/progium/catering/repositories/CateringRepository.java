@@ -20,4 +20,6 @@ public interface CateringRepository extends CrudRepository<Catering,Integer> {
 	
 	Page<Catering> findCateringByDistrito_idDistrito(Integer distritoId, Pageable pageable);
 	
+	Page<Catering> findByNombreContaining(Pageable pageable, String nombre);
+	
 }

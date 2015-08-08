@@ -27,9 +27,9 @@
 							<label class="col-lg"> <input ng-model="criterioBusqueda"
 								type="radio" name="radio" value="1"> <b>Nombre</b>
 							</label>
-						</div> <input type="text" name="buscar" placeholder="Buscar..."
-						ng-disabled="criterioBusqueda != 1" data-required="true"
-						class="form-control input-sm">
+						</div> <input type="text" ng-model="objCatering.nombre" name="buscar"
+						placeholder="Buscar..." ng-disabled="criterioBusqueda != 1"
+						data-required="true" class="form-control input-sm">
 					</li>
 					<!-- radio -->
 					<div class="radio">
@@ -54,7 +54,7 @@
 					</li>
 					<li class="list-group-item">Distrito <select name="idDistrito"
 						id="idDistrito" class="form-control"
-						ng-model="objCatering.idDistrito"
+						ng-model="objCatering.distritoId"
 						ng-disabled="criterioBusqueda != 2"
 						ng-options="d.idDistrito as d.nombre for d in listaDistrito">
 					</select>
