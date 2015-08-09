@@ -1,6 +1,8 @@
 package com.progium.catering.controllers;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -16,12 +18,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.progium.catering.contracts.CatalogoProductoRequest;
 import com.progium.catering.contracts.CatalogoProductoResponse;
-import com.progium.catering.contracts.CateringResponse;
 import com.progium.catering.ejb.Catalogoproducto;
 import com.progium.catering.ejb.Producto;
 import com.progium.catering.ejb.Catering;
+import com.progium.catering.pojo.CatalogoProductoPOJO;
 import com.progium.catering.services.CataloProductoServiceInterface;
 import com.progium.catering.services.GeneralServiceInterface;
+import com.progium.catering.utils.PojoUtils;
 import com.progium.catering.utils.Utils;
 
 /**
@@ -125,4 +128,30 @@ public class CatalogoProductoController {
 	}
 	
 	
+	/**
+	* Este  metodo se encarga de retornar un tipo de evento.
+	*
+	* @param  tipoRequest
+	* 
+	* @return TipoResponse
+	*
+	*/
+	@RequestMapping(value ="/getCatalogoByCatering", method = RequestMethod.POST)
+	public CatalogoProductoResponse getTipo(@RequestBody CatalogoProductoRequest catalogoProductoRequest)throws NoSuchAlgorithmException {
+		
+		CatalogoProductoResponse catalogoProductoResponse = new CatalogoProductoResponse();
+		
+		List<Catalogoproducto> listaCatalogoproducto = catalogoProductoService.getCatalogoProductoByIdCatering(catalogoProductoRequest.getCateringId().get(0));
+		List<CatalogoProductoPOJO> listaCatalogoProductoPOJO = new ArrayList<CatalogoProductoPOJO>();
+		
+		for (Catalogoproducto catProd : listaCatalogoproducto){
+			CatalogoProductoPOJO nCatalogoProd = new CatalogoProductoPOJO();
+			PojoUtils.pojoMappingUtility(nCatalogoProd,catProd);
+			listaCatalogoProductoPOJO.add(nCatalogoProd);
+		}
+		
+		catalogoProductoResponse.setCatalogos(listaCatalogoProductoPOJO);
+		
+		return catalogoProductoResponse;
+	}
 }

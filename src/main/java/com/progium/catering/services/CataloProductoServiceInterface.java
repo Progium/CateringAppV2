@@ -1,5 +1,7 @@
 package com.progium.catering.services;
 
+import java.util.List;
+
 import com.progium.catering.ejb.Catalogoproducto;
 
 /**
@@ -14,4 +16,7 @@ public interface CataloProductoServiceInterface {
 	
 		Boolean saveCatalogoProducto(Catalogoproducto objCatalogoProducto);
 		Catalogoproducto getCatalogoProductoById(Integer idCatalogoProducto);
+
+		//Obtiene el catalogo de producto del catering
+		List<Catalogoproducto> getCatalogoProductoByIdCatering(Integer idCatering);
 }

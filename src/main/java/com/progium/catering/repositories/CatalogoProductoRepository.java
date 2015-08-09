@@ -17,8 +17,11 @@ import com.progium.catering.ejb.Catalogoproducto;
 * @since   2015/08/08
 */
 public interface CatalogoProductoRepository extends CrudRepository<Catalogoproducto,Integer> {
+public static final int PAGE_SIZE = 5;
 	
+	Page<Catalogoproducto> findAll(Pageable pageable);
 	
-	
+	List<Catalogoproducto> findCatalogoProductoByCatering_idCatering
+	(Integer idCatering);
 	
 }
