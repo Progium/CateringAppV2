@@ -5,9 +5,13 @@ import javax.persistence.*;
 
 
 /**
- * The persistent class for the categoriasubasta database table.
- * 
- */
+* Esta clase con anotaciones para la crear la entidadad en
+* la base de datos
+*
+* @author  Progium<progiump3@gmail.com>
+* @version 1.0
+* @since   2015/08/08
+*/
 @Entity
 @NamedQuery(name="Categoriasubasta.findAll", query="SELECT c FROM Categoriasubasta c")
 public class Categoriasubasta implements Serializable {

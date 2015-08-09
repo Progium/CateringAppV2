@@ -24,6 +24,14 @@ import com.progium.catering.services.CataloProductoServiceInterface;
 import com.progium.catering.services.GeneralServiceInterface;
 import com.progium.catering.utils.Utils;
 
+/**
+* Esta clase se encarga de crear el controlador
+* para el manejo de las diferentes funcionalidades 
+*
+* @author  Progium<progiump3@gmail.com>
+* @version 1.0
+* @since   2015/08/08
+*/
 @RestController
 @RequestMapping(value = "rest/protected/catalogo")
 public class CatalogoProductoController {
@@ -44,7 +52,14 @@ public class CatalogoProductoController {
 		// TODO Auto-generated constructor stub
 	}
 	
-	
+	/**
+	* Este  metodo se encarga de registrar un catalogo producto.
+	*
+	* @param  catalogoProductoRequest
+	* 
+	* @return CatalogoProductoResponse
+	*
+	*/
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	@Transactional
 	public CatalogoProductoResponse create(@RequestBody CatalogoProductoRequest catalogoProductoRequest)throws NoSuchAlgorithmException {
@@ -77,6 +92,15 @@ public class CatalogoProductoController {
 		return cs;
 	}
 	
+	/**
+	* Este  metodo se encarga de registrar una fotogarfia 
+	*
+	* @param  file
+	* @param  idCatalogoProducto
+	* 
+	* @return CatalogoProductoResponse
+	*
+	*/
 	@RequestMapping(value = "/subirFoto", method = RequestMethod.POST)
 	@Transactional
 	public CatalogoProductoResponse subirFoto(@RequestParam("file") MultipartFile file,

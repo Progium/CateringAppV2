@@ -5,9 +5,13 @@ import javax.persistence.*;
 
 
 /**
- * The persistent class for the reservapaquete database table.
- * 
- */
+* Esta clase con anotaciones para la crear la entidadad en
+* la base de datos
+*
+* @author  Progium<progiump3@gmail.com>
+* @version 1.0
+* @since   2015/08/08
+*/
 @Entity
 @NamedQuery(name="Reservapaquete.findAll", query="SELECT r FROM Reservapaquete r")
 public class Reservapaquete implements Serializable {

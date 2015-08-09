@@ -23,14 +23,15 @@ import com.progium.catering.pojo.DistritoPOJO;
 import com.progium.catering.services.GeneralServiceInterface;
 import com.progium.catering.utils.PojoUtils;
 
-/**
- * @author Yuli
- *
- */
 
 /**
- * Handles requests for the application home page.
- */
+* Esta clase se encarga de crear el controlador
+* para el manejo de las diferentes funcionalidades 
+*
+* @author  Progium<progiump3@gmail.com>
+* @version 1.0
+* @since   2015/08/08
+*/
 @RestController
 @RequestMapping(value = "rest/protected/distrito")
 public class DistritoController {
@@ -38,10 +39,16 @@ public class DistritoController {
 	@Autowired
 	GeneralServiceInterface generalService;
 	
+	/**
+	* Este  metodo se encarga de mostrar todos los distritos
+	*
+	* @return DistritoResponse
+	*
+	*/
 	@RequestMapping(value ="/getAll", method = RequestMethod.GET)
 	public DistritoResponse getAll(){
 		
-		DistritoResponse distrito = new DistritoResponse();
+		DistritoResponse distritoResponse = new DistritoResponse();
 		
 		List<Distrito> listaDistrito = generalService.getAllDistrito();
 		List<DistritoPOJO> listaDistritoPojo = new ArrayList<DistritoPOJO>();
@@ -52,11 +59,19 @@ public class DistritoController {
 			listaDistritoPojo.add(nDistrito);
 		}
 		
-		distrito.setListaDistrito(listaDistritoPojo);
+		distritoResponse.setListaDistrito(listaDistritoPojo);
 		
-		return distrito;		
+		return distritoResponse;		
 	}
 	
+	/**
+	* Este  metodo se encarga de retornar un distrito por un determinado id distrito
+	*
+	* @param  distritoRequest
+	* 
+	* @return DistritoResponse
+	*
+	*/
 	@RequestMapping(value ="/getDistrito", method = RequestMethod.POST)
 	public DistritoResponse getDistrito(@RequestBody DistritoRequest distritoRequest)throws NoSuchAlgorithmException {
 		

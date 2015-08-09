@@ -47,10 +47,15 @@ import com.progium.catering.utils.PojoUtils;
 /**
  * Handles requests for the application home page.
  */
+
 /**
- * @author Yuli
- *
- */
+* Esta clase se encarga de crear el controlador
+* para el manejo de las diferentes funcionalidades 
+*
+* @author  Progium<progiump3@gmail.com>
+* @version 1.0
+* @since   2015/08/08
+*/
 @RestController
 @RequestMapping(value = "rest/protected/catering")
 public class CateringController {
@@ -77,11 +82,15 @@ public class CateringController {
 		// TODO Auto-generated constructor stub
 	}
 	
-	/**Obtiene los parámetros que le envía el controller por medio del método post.
-	 * @param file 
-	 * @param idCatering
-	 * @return cateringResponse
-	 */
+	/**
+	* Este  metodo se encarga de registrar una fotogarfia 
+	*
+	* @param  file
+	* @param  idCatering
+	* 
+	* @return CateringResponse
+	*
+	*/
 	@RequestMapping(value = "/registrarFoto", method = RequestMethod.POST)
 	@Transactional
 	public CateringResponse registrarFoto(@RequestParam("file") MultipartFile file,
@@ -105,10 +114,14 @@ public class CateringController {
 		return cs;
 	}
 
-	/**Obtiene los parámetros que le envía el controller por medio del método post.
-	 * @param cateringRequest 
-	 * @return cateringResponse
-	 */
+	/**
+	* Este  metodo se encarga de registrar un catering 
+	*
+	* @param  CateringRequest
+	* 
+	* @return CateringResponse
+	*
+	*/
 	@RequestMapping(value = "/registrar", method = RequestMethod.POST)
 	@Transactional
 	public CateringResponse registrar(@RequestBody CateringRequest cateringRequest)throws NoSuchAlgorithmException {
@@ -151,9 +164,12 @@ public class CateringController {
 		return cs;
 	}
 	
-	/**Devuelve la lista de catering por administrador.
-	 * @return cateringResponse
-	 */
+	/**
+	* Este metodo se encarga de mostrar la lista de catering por administrador
+	* 
+	* @return CateringResponse
+	*
+	*/
 	@RequestMapping(value ="/getCaterigLista", method = RequestMethod.GET)
 	public CateringResponse getCaterigLista(){
 		
@@ -197,10 +213,14 @@ public class CateringController {
 		
 	}
 	
-	/**Devuelve un catering.
-	 * @param cateringRequest
-	 * @return cateringResponse
-	 */
+	/**
+	* Este  metodo se encarga de retornar un determinado catering
+	*
+	* @param  CateringRequest
+	* 
+	* @return CateringResponse
+	*
+	*/
 	@RequestMapping(value ="/getCaterigById", method = RequestMethod.POST)
 	public CateringResponse getCaterigById(@RequestBody CateringRequest cateringRequest)throws NoSuchAlgorithmException {
 		
@@ -237,9 +257,13 @@ public class CateringController {
 		
 	}
 	
-	/**Función que modifica los datos del catering.
-	 * @param cateringRequest
-	 * @return cateringResponse
+    /**
+	 * Este  método se encarga de modificar los datos de un catering 
+	 *
+	 * @param  CateringRequest
+	 * 
+	 * @return CateringResponse
+	 *
 	 */
 	@RequestMapping(value = "/modificar", method = RequestMethod.POST)
 	@Transactional
@@ -317,47 +341,14 @@ public class CateringController {
 		}
 		return cs;
 	}
-	
-//	/**Función que btiene todos los catering.
-//	 * @param cateringRequest
-//	 * @return cateringResponse
-//	 */
-//	@RequestMapping(value ="/getAll", method = RequestMethod.GET)
-//	public CateringResponse getAll(){
-//		
-//		CateringResponse catering = new CateringResponse();
-//		
-//		List<Catering> listaCatering = cateringService.getCateringByEstado(false);
-//		List<CateringPOJO> listaCateringPojo = new ArrayList<CateringPOJO>();
-//		
-//		for (Catering cat : listaCatering){
-//			CateringPOJO nCatering = new CateringPOJO();
-//			nCatering.setIdCatering(cat.getIdCatering());
-//			nCatering.setNombre(cat.getNombre());
-//			nCatering.setCedulaJuridica(cat.getCedulaJuridica());
-//			nCatering.setDireccion(cat.getDireccion());
-//			nCatering.setTelefono1(cat.getTelefono1());
-//			nCatering.setTelefono2(cat.getTelefono2());
-//			nCatering.setHorario(cat.getHorario());
-//			nCatering.setEstado(cat.getEstado());
-//			nCatering.setFotografia(cat.getFotografia());
-//			nCatering.setProvinciaId(cat.getProvinciaId());
-//			nCatering.setCantonId(cat.getCantonId());
-//			nCatering.setAdministradorId(cat.getUsuario().getIdUsuario());
-//			nCatering.setDistritoId(cat.getDistrito().getIdDistrito());
-//			listaCateringPojo.add(nCatering);
-//		}
-//		
-//		catering.setCaterings(listaCateringPojo);
-//		
-//		return catering;	
-//		
-//	}
-	
-	/**Función que obtiene todos los catering por paginación.
-	 * @param cateringRequest
-	 * @return cateringResponse
-	 */
+		
+	/**
+	* Este  metodo se encarga de devolver los catering almacenados
+	*
+	* 
+	* @return CateringResponse
+	*
+	*/
 	@RequestMapping(value ="/getAll", method = RequestMethod.POST)
 	@Transactional
 	public CateringResponse getAll(@RequestBody CateringRequest cateringRequest){	
@@ -408,10 +399,14 @@ public class CateringController {
 		return cateringResponse;		
 	}
 		
-	/**Función que obtiene todos los catering por tipo de evento por paginación.
-	 * @param cateringRequest
-	 * @return cateringResponse
-	 */
+	/**
+	* Este metodo se encarga de listar catering por tipo de evento
+	*
+	* @param  CateringRequest
+	* 
+	* @return CateringResponse
+	*
+	*/
 	@RequestMapping(value ="/getCateringByTipoEvento", method = RequestMethod.POST)
 	@Transactional
 	public CateringResponse getCateringByTipoEvento(@RequestBody CateringRequest cateringRequest){	
@@ -462,10 +457,14 @@ public class CateringController {
 		return cateringResponse;		
 	}
 	
-	/**Función que obtiene todos los catering por localización por paginación.
-	 * @param cateringRequest
-	 * @return cateringResponse
-	 */
+	/**
+	* Este metodo se encarga de listar catering por localizacion
+	*
+	* @param  CateringRequest
+	* 
+	* @return CateringResponse
+	*
+	*/
 	@RequestMapping(value ="/getCateringByLocalizacion", method = RequestMethod.POST)
 	@Transactional
 	public CateringResponse getPorLocalizacion(@RequestBody CateringRequest cateringRequest){	
@@ -516,10 +515,14 @@ public class CateringController {
 		return cateringResponse;		
 	}
 	
-	/**Función que obtiene todos los catering por nombre por paginación.
-	 * @param cateringRequest
-	 * @return cateringResponse
-	 */
+	/**
+	* Este metodo se encarga de listar catering por nombre
+	*
+	* @param  CateringRequest
+	* 
+	* @return CateringResponse
+	*
+	*/
 	@RequestMapping(value ="/getCateringByNombre", method = RequestMethod.POST)
 	@Transactional
 	public CateringResponse getCateringPorNombre(@RequestBody CateringRequest cateringRequest){	

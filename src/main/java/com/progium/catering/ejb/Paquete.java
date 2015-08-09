@@ -7,9 +7,13 @@ import java.util.List;
 
 
 /**
- * The persistent class for the paquete database table.
- * 
- */
+* Esta clase con anotaciones para la crear la entidadad en
+* la base de datos
+*
+* @author  Progium<progiump3@gmail.com>
+* @version 1.0
+* @since   2015/08/08
+*/
 @Entity
 @NamedQuery(name="Paquete.findAll", query="SELECT p FROM Paquete p")
 public class Paquete implements Serializable {

@@ -10,6 +10,15 @@ import com.progium.catering.contracts.PaqueteResponse;
 import com.progium.catering.ejb.Paquete;
 import com.progium.catering.repositories.PaqueteRepository;
 
+/**
+* Esta clase se encarga dar el comportamiento a las diferentes 
+* funcioalidades 
+*
+* @author  Progium<progiump3@gmail.com>
+* @version 1.0
+* @since   2015/08/08
+*/
+
 @Service
 public class PaqueteService implements PaqueteServiceInterface{
 

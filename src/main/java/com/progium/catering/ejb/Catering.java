@@ -4,11 +4,14 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
 
-
 /**
- * The persistent class for the catering database table.
- * 
- */
+* Esta clase con anotaciones para la crear la entidadad en
+* la base de datos
+*
+* @author  Progium<progiump3@gmail.com>
+* @version 1.0
+* @since   2015/08/08
+*/
 @Entity
 @NamedQuery(name="Catering.findAll", query="SELECT c FROM Catering c")
 public class Catering implements Serializable {
