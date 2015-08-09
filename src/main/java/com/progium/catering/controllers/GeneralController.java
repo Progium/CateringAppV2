@@ -13,8 +13,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 /**
- * Handles requests for the application home page.
- */
+* Esta clase se encarga de crear el controlador
+* para el manejo de las diferentes funcionalidades 
+*
+* @author  Progium<progiump3@gmail.com>
+* @version 1.0
+* @since   2015/08/08
+*/
 @Controller
 @RequestMapping(value = "/")
 public class GeneralController {

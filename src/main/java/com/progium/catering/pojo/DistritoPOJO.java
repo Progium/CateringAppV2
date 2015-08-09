@@ -2,6 +2,13 @@ package com.progium.catering.pojo;
 
 import com.progium.catering.ejb.Canton;
 
+/**
+* Esta clase se encarga de crear el objeto distrito
+*
+* @author  Progium<progiump3@gmail.com>
+* @version 1.0
+* @since   2015/08/08
+*/
 public class DistritoPOJO {
 	
 	private int idDistrito;

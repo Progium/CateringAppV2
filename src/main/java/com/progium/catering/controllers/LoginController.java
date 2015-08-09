@@ -24,6 +24,14 @@ import com.progium.catering.contracts.IniciarSesionResponse;
 import com.progium.catering.services.IniciarSesionServiceInterface;
 import com.progium.catering.utils.GeneradorContrasennaUtil;
 
+/**
+* Esta clase se encarga de crear el controlador
+* para el manejo de las diferentes funcionalidades 
+*
+* @author  Progium<progiump3@gmail.com>
+* @version 1.0
+* @since   2015/08/08
+*/
 @RestController
 @RequestMapping(value = "rest/iniciarsesion/")
 public class LoginController {
@@ -34,6 +42,14 @@ public class LoginController {
 	@Autowired
 	HttpServletRequest request;	
 	
+	/**
+	* Este  metodo se encarga de verificar si los datos sumisnistrados para iniciar sesion son correctos.
+	*
+	* @param  iniciarSesionRequest
+	* 
+	* @return IniciarSesionResponse
+	*
+	*/
 	@RequestMapping(value = "/verificarusuario", method = RequestMethod.POST)
 	@Transactional
 	public BaseResponse verificarusuario(@RequestBody IniciarSesionRequest iniciarSesionRequest) throws NoSuchAlgorithmException{	
@@ -64,7 +80,12 @@ public class LoginController {
 		return iniciarSesionResponse;
 	}	
 	
-	
+	/**
+	* Este metodo se encarga de setear los datos del usuario en una sesion actual.
+	*
+	* @param  idUsuario
+	* 
+	*/
 	@RequestMapping(value = "/setusuario", method = RequestMethod.POST)
 	@Transactional
 	public void setusuario(){

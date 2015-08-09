@@ -6,9 +6,13 @@ import java.math.BigDecimal;
 
 
 /**
- * The persistent class for the otrocargo database table.
- * 
- */
+* Esta clase con anotaciones para la crear la entidadad en
+* la base de datos
+*
+* @author  Progium<progiump3@gmail.com>
+* @version 1.0
+* @since   2015/08/08
+*/
 @Entity
 @NamedQuery(name="Otrocargo.findAll", query="SELECT o FROM Otrocargo o")
 public class Otrocargo implements Serializable {

@@ -25,7 +25,14 @@ import com.progium.catering.services.ProductoServiceInterface;
 import com.progium.catering.pojo.ProductoPOJO;
 import com.progium.catering.utils.PojoUtils;
 
-
+/**
+* Esta clase se encarga de crear el controlador
+* para el manejo de las diferentes funcionalidades 
+*
+* @author  Progium<progiump3@gmail.com>
+* @version 1.0
+* @since   2015/08/08
+*/
 @RestController
 @RequestMapping(value = "rest/protected/producto")
 public class ProductoController {
@@ -36,6 +43,12 @@ public class ProductoController {
 	@Autowired
 	HttpServletRequest request;	
 	
+	/**
+	* Este  metodo se encarga de retornar todos los productos.
+	*
+	* @return ProductoResponse
+	*
+	*/
 	@RequestMapping(value = "/getAll", method = RequestMethod.GET)
 	@Transactional
 	public ProductoResponse getAll(){	
@@ -61,7 +74,14 @@ public class ProductoController {
 		return entityResponse;
 	}	
 	
-	
+	/**
+	* Este  metodo se encarga de retornar un producto de un determinado idproducto.
+	*
+	* @param  productoRequest
+	* 
+	* @return ProductoResponse
+	*
+	*/
 	@RequestMapping(value = "/findOne", method = RequestMethod.POST)
 	@Transactional
 	public ProductoResponse findOne(@RequestBody ProductoRequest entityRequest){	
@@ -89,8 +109,5 @@ public class ProductoController {
 		return entityResponse;
 		
 	}	
-	
-	
-	
 	
 }

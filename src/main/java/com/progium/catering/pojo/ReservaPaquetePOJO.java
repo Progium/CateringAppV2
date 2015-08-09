@@ -1,5 +1,12 @@
 package com.progium.catering.pojo;
 
+/**
+* Esta clase se encarga de crear el objeto reserva paquete
+*
+* @author  Progium<progiump3@gmail.com>
+* @version 1.0
+* @since   2015/08/08
+*/
 public class ReservaPaquetePOJO {
 	
 	private int idResevaPaquete;

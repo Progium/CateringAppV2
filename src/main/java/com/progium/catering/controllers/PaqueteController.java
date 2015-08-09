@@ -25,6 +25,14 @@ import com.progium.catering.services.PaqueteServiceInterface;
 import com.progium.catering.pojo.PaquetePOJO;
 import com.progium.catering.utils.PojoUtils;
 
+/**
+* Esta clase se encarga de crear el controlador
+* para el manejo de las diferentes funcionalidades 
+*
+* @author  Progium<progiump3@gmail.com>
+* @version 1.0
+* @since   2015/08/08
+*/
 @RestController
 @RequestMapping(value = "rest/protected/paquete")
 public class PaqueteController {
