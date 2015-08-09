@@ -24,8 +24,9 @@ App.controller('UsuarioOlvidarContrasennaController', function($scope, $http, $l
 			$http.post('rest/protected/usuario/olvidoContrasenna', datosUsuario).success(function (baseResponse){
 				if(baseResponse.code == 200){
 					services.noty('Se ha enviado una nueva contraseña al correo que usted ha proporcionado', 'success');
+					$location.path('/iniciar-sesion');
 				}else{
-					services.noty('Acción inválida.', 'error');
+					services.noty('El correo proporcionado no existe', 'error');
 				}
 			})
 			.error(function(baseResponse){

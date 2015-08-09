@@ -12,6 +12,8 @@ public interface UsuarioRepository extends CrudRepository<Usuario,Integer> {
 	
 	Usuario findByCorreoAndContrasenna(String email, String password);
 	
+	Usuario findByCorreo(String correo);
+	
 	Page<Usuario> findAll(Pageable pageable);
 	
 	Page<Usuario> findByNombreContaining(String nombre, Pageable pageable);
