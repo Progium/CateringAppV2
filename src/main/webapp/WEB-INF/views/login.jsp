@@ -64,6 +64,7 @@
     <!--Controladores-->
     <script src="resources/modulos/seguridad/iniciar-sesion-controller.js"></script>
     <script src="resources/modulos/seguridad/usuario-controller.js"></script>
+    <script src="resources/modulos/seguridad/usuario-olvidar-controller.js"></script>
     <script src="resources/modulos/catering/catering-controller.js"></script>
     <script src="resources/modulos/catering/catering-buscar-controller.js"></script>
     <script src="resources/modulos/catering/catering-listar-controller.js"></script>
