@@ -33,30 +33,41 @@ App.controller('UsuarioRegistrarController', function($scope, $http, $location, 
 					needAccess: "false"
 			}
 			
-			$http.post('rest/protected/usuario/registrar', datosUsuario).success(function (contractUsuarioResponse){
+			$http.post('rest/protected/usuario/registrar', datosUsuario)
+			.success(function (contractUsuarioResponse){
 				if(contractUsuarioResponse.code == 200){
-					if(usuarioFoto){
-						//Guarda la información en variables y se las pasa al controlador de usuario de java.
-						$scope.upload = $upload.upload({
-							url : 'rest/protected/usuario/registrarFoto',
-							data : {
-								idUsuario : contractUsuarioResponse.idUsuario
-							},
-							file : usuarioFoto
-						}).success(function(usuarioResponse, status, headers, config) {
-							//Muestra un mensaje si el usuario es registrado satisfactoriamente en el sistema.
-							if(contractUsuarioResponse.code == 200){
-								services.noty('El usuario se registro correctamente.', 'success');
-								$location.path('/iniciar-sesion');
-							}
-						});
-					}else{
-						services.noty('El usuario se registro correctamente.', 'success');
-						$location.path('/iniciar-sesion');
-					}
-				}else{
+					try{
+					
+						if(usuarioFoto){
+							//Guarda la información en variables y se las pasa al controlador de usuario de java.
+							$scope.upload = $upload.upload({
+								url : 'rest/protected/usuario/registrarFoto',
+								data : {
+									idUsuario : contractUsuarioResponse.idUsuario
+								},
+								file : usuarioFoto
+							}).success(function(usuarioResponse, status, headers, config) {
+								//Muestra un mensaje si el usuario es registrado satisfactoriamente en el sistema.
+								if(contractUsuarioResponse.code == 200){
+									services.noty('El usuario se registro correctamente.', 'success');
+									$location.path('/iniciar-sesion');
+								}
+							});
+						}else{
+							services.noty('El usuario se registro correctamente.', 'success');
+							$location.path('/iniciar-sesion');
+						}
+				}catch(error){
 					services.noty('No se pudo registrar el usuario.', 'error');
 				}
+				}else{
+					services.noty('El usuario se registro correctamente.', 'success');
+					$location.path('/iniciar-sesion');
+				}
+			})
+			.error(function (contractUsuarioResponse){
+				console.log(contractUsuarioResponse);
+				services.noty('No se pudo registrar el usuario.', 'error');
 			});
 		}
 		
