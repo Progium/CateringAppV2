@@ -7,6 +7,14 @@ import org.springframework.web.multipart.MultipartFile;
 //import com.progium.catering.ejb.Catering;
 import com.progium.catering.pojo.CateringPOJO;
 
+/**
+* Esta clase se encarga de setear las variables que
+* se le envan al controlador de javaascript.
+*
+* @author  Progium<progiump3@gmail.com>
+* @version 1.0
+* @since   2015/08/08
+*/
 public class CateringResponse extends BaseResponse {
 
 	private List<CateringPOJO> caterings;

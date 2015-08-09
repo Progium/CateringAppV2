@@ -45,8 +45,13 @@ import com.progium.catering.utils.Utils;
 import com.progium.catering.utils.PojoUtils;
 
 /**
- * Handles requests for the application home page.
- */
+* Esta clase se encarga de crear el controlador
+* para el manejo de las diferentes funcionalidades 
+*
+* @author  Progium<progiump3@gmail.com>
+* @version 1.0
+* @since   2015/08/08
+*/
 @RestController
 @RequestMapping(value = "rest/protected/catering")
 public class CateringController {
@@ -68,12 +73,20 @@ public class CateringController {
 	
 	@Autowired
 	HttpServletRequest request;	
-
+	
 	public CateringController() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	//Obtiene los parametros que le envia el controller por medio del metodo post.
+	/**
+	* Este  metodo se encarga de registrar una fotogarfia 
+	*
+	* @param  file
+	* @param  idCatering
+	* 
+	* @return CateringResponse
+	*
+	*/
 	@RequestMapping(value = "/registrarFoto", method = RequestMethod.POST)
 	@Transactional
 	public CateringResponse registrarFoto(@RequestParam("file") MultipartFile file,
@@ -97,8 +110,14 @@ public class CateringController {
 		return cs;
 	}
 
-	
-	//Obtiene los parametros que le envia el controller por medio del metodo post.
+	/**
+	* Este  metodo se encarga de registrar un catering 
+	*
+	* @param  CateringRequest
+	* 
+	* @return CateringResponse
+	*
+	*/
 	@RequestMapping(value = "/registrar", method = RequestMethod.POST)
 	@Transactional
 	public CateringResponse registrar(@RequestBody CateringRequest cateringRequest)throws NoSuchAlgorithmException {
@@ -141,7 +160,12 @@ public class CateringController {
 		return cs;
 	}
 	
-	
+	/**
+	* Este metodo se encarga de mostrar la lista de catering por administrador
+	* 
+	* @return CateringResponse
+	*
+	*/
 	@RequestMapping(value ="/getCaterigLista", method = RequestMethod.GET)
 	public CateringResponse getCaterigLista(){
 		
@@ -185,6 +209,14 @@ public class CateringController {
 		
 	}
 	
+	/**
+	* Este  metodo se encarga de retornar un determinado catering
+	*
+	* @param  CateringRequest
+	* 
+	* @return CateringResponse
+	*
+	*/
 	@RequestMapping(value ="/getCaterigById", method = RequestMethod.POST)
 	public CateringResponse getCaterigById(@RequestBody CateringRequest cateringRequest)throws NoSuchAlgorithmException {
 		
@@ -221,6 +253,14 @@ public class CateringController {
 		
 	}
 	
+     /**
+	 * Este  metodo se encarga de modificar los datos de un catering 
+	 *
+	 * @param  CateringRequest
+	 * 
+	 * @return CateringResponse
+	 *
+	 */
 	//Obtiene los parametros que le envia el controller por medio del metodo post.
 		@RequestMapping(value = "/modificar", method = RequestMethod.POST)
 		@Transactional
@@ -299,38 +339,13 @@ public class CateringController {
 			return cs;
 		}
 		
-		@RequestMapping(value ="/getAll", method = RequestMethod.GET)
-		public CateringResponse getAll(){
-			
-			CateringResponse catering = new CateringResponse();
-			
-			List<Catering> listaCatering = cateringService.getCateringByEstado(false);
-			List<CateringPOJO> listaCateringPojo = new ArrayList<CateringPOJO>();
-			
-			for (Catering cat : listaCatering){
-				CateringPOJO nCatering = new CateringPOJO();
-				nCatering.setIdCatering(cat.getIdCatering());
-				nCatering.setNombre(cat.getNombre());
-				nCatering.setCedulaJuridica(cat.getCedulaJuridica());
-				nCatering.setDireccion(cat.getDireccion());
-				nCatering.setTelefono1(cat.getTelefono1());
-				nCatering.setTelefono2(cat.getTelefono2());
-				nCatering.setHorario(cat.getHorario());
-				nCatering.setEstado(cat.getEstado());
-				nCatering.setFotografia(cat.getFotografia());
-				nCatering.setProvinciaId(cat.getProvinciaId());
-				nCatering.setCantonId(cat.getCantonId());
-				nCatering.setAdministradorId(cat.getUsuario().getIdUsuario());
-				nCatering.setDistritoId(cat.getDistrito().getIdDistrito());
-				listaCateringPojo.add(nCatering);
-			}
-			
-			catering.setCaterings(listaCateringPojo);
-			
-			return catering;	
-			
-		}
-		
+		/**
+		* Este  metodo se encarga de devolver los catering almacenados
+		*
+		* 
+		* @return CateringResponse
+		*
+		*/
 		@RequestMapping(value ="/getAll", method = RequestMethod.POST)
 		@Transactional
 		public CateringResponse getAll(@RequestBody CateringRequest cateringRequest){	
@@ -381,7 +396,14 @@ public class CateringController {
 			return cateringResponse;		
 		}
 		
-		
+		/**
+		* Este metodo se encarga de listar catering por localizacion
+		*
+		* @param  CateringRequest
+		* 
+		* @return CateringResponse
+		*
+		*/
 		@RequestMapping(value ="/getPorLocalizacion", method = RequestMethod.POST)
 		@Transactional
 		public CateringResponse getPorLocalizacion(@RequestBody CateringRequest cateringRequest){	
