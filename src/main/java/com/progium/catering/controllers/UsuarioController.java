@@ -36,8 +36,14 @@ import com.progium.catering.utils.Utils;
 import com.progium.catering.utils.SendEmail;
 
 /**
- * Handles requests for the application home page.
- */
+* Esta clase se encarga de crear el controlador
+* para el manejo de las diferentes funcionalidades 
+*
+* @author  Progium<progiump3@gmail.com>
+* @version 1.0
+* @since   2015/08/08
+*/
+
 @RestController
 @RequestMapping(value = "rest/protected/usuario")
 public class UsuarioController {
@@ -57,6 +63,16 @@ public class UsuarioController {
 	public UsuarioController() {
 		// TODO Auto-generated constructor stub
 	}
+	
+	/**
+	* Este  método se encarga de registrar una fotografia 
+	*
+	* @param  file
+	* @param  idUsuario
+	* 
+	* @return UsuarioResponse
+	*
+	*/
 	//Obtiene los parametros que le envia el controller por medio del metodo post.
 	@RequestMapping(value = "/registrarFoto", method = RequestMethod.POST)
 	@Transactional
@@ -83,6 +99,15 @@ public class UsuarioController {
 		}
 		return us;
 	}
+	
+	/**
+	* Este  metodo se encarga de registrar un usuario 
+	*
+	* @param  UsuarioRequest
+	* 
+	* @return UsuarioResponse
+	*
+	*/
 	
 	//Obtiene los parametros que le envia el controller por medio del metodo post.
 	@RequestMapping(value = "/registrar", method = RequestMethod.POST)
@@ -125,8 +150,15 @@ public class UsuarioController {
 		}
 		return us;
 	}
-	
-	//Para mostrar el perfil del usuario
+		
+	/**
+	 * Este  método se encarga de mostrar los datos de un usuario 
+	 *
+	 * @param  UsuarioRequest
+	 * 
+	 * @return UsuarioResponse
+	 *
+	 */
 	@RequestMapping(value ="/perfilUsuario", method = RequestMethod.GET)
 	public UsuarioResponse PerfilUsuario(){
 		
@@ -146,7 +178,14 @@ public class UsuarioController {
 	
 	}
 	
-	//Obtiene los parametros que le envia el controller por medio del metodo post.
+	/**
+	 * Este  método se encarga de modificar los datos de un usuario 
+	 *
+	 * @param  UsuarioRequest
+	 * 
+	 * @return UsuarioResponse
+	 *
+	 */
 	@RequestMapping(value = "/modificar", method = RequestMethod.POST)
 	@Transactional
 	public UsuarioResponse modificar(@RequestBody UsuarioRequest usuarioRequest)throws NoSuchAlgorithmException {

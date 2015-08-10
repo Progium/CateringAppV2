@@ -1,5 +1,14 @@
 package com.progium.catering.contracts;
 
+/**
+* Esta clase se encarga de setear las variables 
+* para realizar peticiones al controlador.
+*
+* @author  Progium<progiump3@gmail.com>
+* @version 1.0
+* @since   2015/08/08
+*/
+
 import com.progium.catering.pojo.UsuarioPOJO;
 
 public class UsuarioRequest extends BasePagingRequest {

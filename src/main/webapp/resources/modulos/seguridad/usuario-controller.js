@@ -144,7 +144,7 @@ App.controller('UsuarioPerfilController', function($scope, $http, $location, $up
 						telefono1: $scope.usuario.telefono1,
 						telefono2: $scope.usuario.telefono2,
 						tipoUsuarioId: $scope.usuario.tipoUsuarioId,
-						//contrasenna: $scope.usuario.contrasenna,
+						contrasenna: $scope.usuario.contrasenna,
 						needAccess: "false"
 				}
 				
@@ -183,10 +183,10 @@ App.controller('UsuarioPerfilController', function($scope, $http, $location, $up
 	    
 	    function validarDatos(usuario){
 	    	var isOk = true;
-	    	/*if(usuario.contrasenna != usuario.repetirContrasenna){
+	    	if(usuario.contrasenna != usuario.repetirContrasenna){
 	    		isOk = false;
 	    		services.noty('El campo de repetir contraseña tiene que ser igual a la contraseña.', 'warning');
-	    	}*/
+	    	}
 	    	
 	    	return isOk;
 	    }
