@@ -14,6 +14,7 @@ import com.progium.catering.pojo.ProductoPOJO;
 public class ProductoResponse extends BaseResponse{
 	
 	private List<ProductoPOJO> productos;
+	private ProductoPOJO producto;
 	
 	public ProductoResponse() {
 		super();
@@ -26,6 +27,14 @@ public class ProductoResponse extends BaseResponse{
 
 	public void setProductos(List<ProductoPOJO> productos) {
 		this.productos = productos;
+	}
+
+	public ProductoPOJO getProducto() {
+		return producto;
+	}
+
+	public void setProducto(ProductoPOJO producto) {
+		this.producto = producto;
 	}
 	
 	

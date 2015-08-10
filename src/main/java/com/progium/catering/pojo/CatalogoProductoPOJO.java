@@ -17,7 +17,6 @@ public class CatalogoProductoPOJO {
 	private String fotografia;
 	private Integer cateringId;
 	private Integer productoId;
-	private Producto producto;
 	
 	public CatalogoProductoPOJO() {
 		super();
@@ -72,12 +71,4 @@ public class CatalogoProductoPOJO {
 		this.productoId = productoId;
 	}
 
-	public Producto getProducto() {
-		return producto;
-	}
-
-	public void setProducto(Producto producto) {
-		this.producto = producto;
-	}
-	
 }

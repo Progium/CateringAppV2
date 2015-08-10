@@ -3,6 +3,7 @@ package com.progium.catering.controllers;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -11,14 +12,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.progium.catering.ejb.Producto;
-import com.progium.catering.contracts.BaseResponse;
 import com.progium.catering.contracts.ProductoResponse;
 import com.progium.catering.contracts.ProductoRequest;
 import com.progium.catering.services.ProductoServiceInterface;
@@ -74,14 +73,14 @@ public class ProductoController {
 		return entityResponse;
 	}	
 	
-	/**
+/*	*//**
 	* Este  metodo se encarga de retornar un producto de un determinado idproducto.
 	*
 	* @param  productoRequest
 	* 
 	* @return ProductoResponse
 	*
-	*/
+	*//*
 	@RequestMapping(value = "/findOne", method = RequestMethod.POST)
 	@Transactional
 	public ProductoResponse findOne(@RequestBody ProductoRequest entityRequest){	
@@ -108,6 +107,31 @@ public class ProductoController {
 		}
 		return entityResponse;
 		
-	}	
+	}	*/
 	
+	
+	/**
+	* Este  metodo se encarga de retornar un producto de un determinado idproducto.
+	*
+	* @param  productoRequest
+	* 
+	* @return ProductoResponse
+	*
+	*/
+	@RequestMapping(value = "/getProducto", method = RequestMethod.POST)
+	@Transactional
+	public ProductoResponse getProducto(@RequestBody ProductoRequest productoRequest)throws NoSuchAlgorithmException {	
+		
+		ProductoResponse productoResponse = new ProductoResponse();
+		
+		Producto producto = productoService.getProductoById(productoRequest.getIdProducto());
+		ProductoPOJO productoPojo = new ProductoPOJO();
+		
+		PojoUtils.pojoMappingUtility(productoPojo,producto);
+		
+		productoResponse.setProducto(productoPojo);
+		
+		return productoResponse;
+		
+	}	
 }

@@ -1,7 +1,5 @@
 package com.progium.catering.contracts;
 
-import com.progium.catering.pojo.ProductoPOJO;
-
 /**
 * Esta clase se encarga de setear las variables 
 * para realizar peticiones al controlador.
@@ -11,27 +9,26 @@ import com.progium.catering.pojo.ProductoPOJO;
 * @since   2015/08/08
 */
 public class ProductoRequest extends BaseResponse {
-	 private ProductoPOJO producto;
-
-	 
-	 
-	 public ProductoRequest() {
+	private int idProducto;
+	
+	public ProductoRequest() {
 		super();
-		// TODO Auto-generated constructor stub
-	 }
-
-	public ProductoPOJO getProducto() {
-		return producto;
-	 }
-
-	 public void setProducto(ProductoPOJO producto) {
-		this.producto = producto;
-	 }
-
+	 	// TODO Auto-generated constructor stub
+	}
+	
+	public ProductoRequest(int idProducto) {
+		super();
+		this.setIdProducto(idProducto);
+	}
 	
 
-	
+	public int getIdProducto() {
+		return idProducto;
+	}
 
-	 
-	 
+	public void setIdProducto(int idProducto) {
+		this.idProducto = idProducto;
+	}
+
+ 
 }

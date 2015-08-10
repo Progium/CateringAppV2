@@ -140,13 +140,19 @@ public class CatalogoProductoController {
 	public CatalogoProductoResponse getTipo(@RequestBody CatalogoProductoRequest catalogoProductoRequest)throws NoSuchAlgorithmException {
 		
 		CatalogoProductoResponse catalogoProductoResponse = new CatalogoProductoResponse();
-		
-		List<Catalogoproducto> listaCatalogoproducto = catalogoProductoService.getCatalogoProductoByIdCatering(catalogoProductoRequest.getCateringId().get(0));
+		int idCat = catalogoProductoRequest.getCateringId().get(0);
+		List<Catalogoproducto> listaCatalogoProducto = catalogoProductoService.getCatalogoProductoByIdCatering(catalogoProductoRequest.getCateringId().get(0));
 		List<CatalogoProductoPOJO> listaCatalogoProductoPOJO = new ArrayList<CatalogoProductoPOJO>();
 		
-		for (Catalogoproducto catProd : listaCatalogoproducto){
+		for (Catalogoproducto catProd : listaCatalogoProducto){
 			CatalogoProductoPOJO nCatalogoProd = new CatalogoProductoPOJO();
-			PojoUtils.pojoMappingUtility(nCatalogoProd,catProd);
+			
+			nCatalogoProd.setIdCatalogoProducto(catProd.getIdCatalogoProducto());
+			nCatalogoProd.setCateringId(catProd.getCatering().getIdCatering());
+			nCatalogoProd.setProductoId(catProd.getProducto().getIdProducto());
+			nCatalogoProd.setPrecio(catProd.getPrecio());
+			
+			//PojoUtils.pojoMappingUtility(nCatalogoProd,catProd);
 			listaCatalogoProductoPOJO.add(nCatalogoProd);
 		}
 		
