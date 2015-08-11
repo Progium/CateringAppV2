@@ -29,13 +29,13 @@ public class Paquete implements Serializable {
 
 	private String descripcion;
 
-	private int descuento;
+	private double descuento;
 
-	private BigDecimal montoTotal;
+	private double montoTotal;
 
 	private String nombre;
 
-	private BigDecimal precio;
+	private double precio;
 
 	//bi-directional many-to-one association to Catering
 	@ManyToOne
@@ -86,19 +86,19 @@ public class Paquete implements Serializable {
 		this.descripcion = descripcion;
 	}
 
-	public int getDescuento() {
+	public double getDescuento() {
 		return this.descuento;
 	}
 
-	public void setDescuento(int descuento) {
+	public void setDescuento(double descuento) {
 		this.descuento = descuento;
 	}
 
-	public BigDecimal getMontoTotal() {
+	public double getMontoTotal() {
 		return this.montoTotal;
 	}
 
-	public void setMontoTotal(BigDecimal montoTotal) {
+	public void setMontoTotal(double montoTotal) {
 		this.montoTotal = montoTotal;
 	}
 
@@ -110,11 +110,11 @@ public class Paquete implements Serializable {
 		this.nombre = nombre;
 	}
 
-	public BigDecimal getPrecio() {
+	public double getPrecio() {
 		return this.precio;
 	}
 
-	public void setPrecio(BigDecimal precio) {
+	public void setPrecio(double precio) {
 		this.precio = precio;
 	}
 

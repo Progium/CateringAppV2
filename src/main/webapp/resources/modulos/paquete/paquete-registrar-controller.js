@@ -63,6 +63,7 @@ App.controller('PaqueteRegistrarController', function($scope, $http,$location, $
 						var objProd = {};
 						objProd.idProducto = $scope.listaCatalogos[i].productoId;
 						objProd.precio = $scope.listaCatalogos[i].precio; 
+						objProd.idCatalogoProducto = $scope.listaCatalogos[i].idCatalogoProducto;
 						//Guarda en un objeto producto los datos de ese producto
 						$scope.objProducto.push(objProd);
 						$http.post('rest/protected/producto/getProducto', objProd)
@@ -154,10 +155,10 @@ App.controller('PaqueteRegistrarController', function($scope, $http,$location, $
 	    //Selecciona los productos y los suma
 	    $scope.productoSeleccionado = function(producto){
 	    	if(producto.done == 2){
-	    		$scope.productosSelecc.push(producto);
+	    		$scope.productosSelecc.push(producto.idCatalogoProducto);
 	    		sumaProducto += producto.precio;
 	    	}else{
-	    		$scope.productosSelecc.splice($scope.productosSelecc.indexOf(producto), 1);
+	    		$scope.productosSelecc.splice($scope.productosSelecc.indexOf(producto.idCatalogoProducto), 1);
 	    		sumaProducto -= producto.precio;
 	    	}
 	    	//Inicializa de nuevo los importes si no tiene ningun producto seleccionado
@@ -185,25 +186,24 @@ App.controller('PaqueteRegistrarController', function($scope, $http,$location, $
 	    
 	  //Guarda los datos ingresados por el usuario.
 		$scope.guardar = function() {
-			/*if(validarDatos($scope.productosSelecc) && this.crearPaquete.$valid){
+			console.log($scope.productosSelecc);
+			if(validarDatos($scope.productosSelecc) && this.crearPaquete.$valid){
 				var datosPaquete = {};
-				datosCatering = {
-					administradorId: objUsuario.idUsuario,
-					nombre: $scope.objCatering.nombre,
-					cedulaJuridica : $scope.objCatering.cedula,
-					direccion: $scope.objCatering.direccion,
-					telefono1: $scope.objCatering.telefono1,
-					telefono2: $scope.objCatering.telefono2,
-					horario: $scope.objCatering.horarioAtencion,
-					provinciaId: $scope.objCatering.idProvincia,
-					cantonId: $scope.objCatering.idCanton,
-					distritoId: $scope.objCatering.idDistrito,
-					tipoEvento: $scope.productosSelecc
+				datosPaquete = {
+					nombre: $scope.objPaquete.nombre,
+					descripcion: $scope.objPaquete.descripcion,
+					cantidadPersonas: $scope.objPaquete.cantidadPersonas,
+					precio: $scope.objPaquete.precio,
+					descuento: $scope.objPaquete.descuento,
+					montoTotal: $scope.objPaquete.montoTotal,
+					cateringId: $scope.objPaquete.idCatering,
+					eventoId: $scope.objPaquete.idTipoEvento,
+					catalogoProducto: $scope.productosSelecc
 				}
 				
-				$http.post('rest/protected/catering/registrar', datosCatering).success(function (contractCateringResponse){
-					if(contractCateringResponse.code == 200){
-						
+				console.log(datosPaquete);
+				$http.post('rest/protected/paquete/registrar', datosPaquete).success(function (contractPaqueteResponse){
+					if(contractPaqueteResponse.code == 200){
 						services.noty('El paquete se registro correctamente.', 'success');
 						$location.path('/catering-listar');
 						
@@ -211,7 +211,7 @@ App.controller('PaqueteRegistrarController', function($scope, $http,$location, $
 						services.noty('No se pudo registrar el paquete.', 'error');
 					}
 				});
-			}*/
+			}
 			
 		}
 		

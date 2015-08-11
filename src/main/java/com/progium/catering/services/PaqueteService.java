@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.progium.catering.contracts.PaqueteResponse;
 import com.progium.catering.ejb.Paquete;
 import com.progium.catering.repositories.PaqueteRepository;
 
@@ -24,6 +23,26 @@ public class PaqueteService implements PaqueteServiceInterface{
 
 	@Autowired
 	PaqueteRepository paqueteRepository;
+	
+	/**
+	* Este  metodo se encarga de registrar un paquete 
+	*
+	* @param  Paquete
+	* 
+	* @return Boolean
+	*
+	*/
+	@Override
+	public Boolean savePaquete(Paquete objPaquete) {
+		Paquete objDBPaquete = paqueteRepository.save(objPaquete);
+		
+		Boolean result = true;
+		if(objDBPaquete == null){
+			result = false;
+		}
+		return result;
+		
+	}
 	
 	@Override
 	public List<Paquete> findAll() {

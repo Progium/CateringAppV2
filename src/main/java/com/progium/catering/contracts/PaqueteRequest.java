@@ -1,5 +1,7 @@
 package com.progium.catering.contracts;
 
+import java.util.List;
+
 /**
 * Esta clase se encarga de setear las variables 
 * para realizar peticiones al controlador.
@@ -14,16 +16,19 @@ public class PaqueteRequest extends BaseResponse {
 	private String nombre;
 	private String descripcion;
 	private int cantidadPersonas;
-	private float precio;
-	private int descuento;
-	private float montoTotal;
-
+	private double precio;
+	private double descuento;
+	private double montoTotal;
+	private List<Integer> catalogoProducto;
+	private int cateringId;
+	private int eventoId;
 	public PaqueteRequest() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	 
-	public PaqueteRequest(String nombre, String descripcion, int cantidadPersonas, float precio, int descuento, float montoTotal) {
+	public PaqueteRequest(String nombre, String descripcion, int cantidadPersonas, double precio, double descuento, double montoTotal,
+							List<Integer> catalogoProducto, int cateringId, int eventoId) {
 		super();
 		this.setNombre(nombre);
 		this.setDescripcion(descripcion);
@@ -31,6 +36,9 @@ public class PaqueteRequest extends BaseResponse {
 		this.setPrecio(precio);
 		this.setDescuento(descuento);
 		this.setMontoTotal(montoTotal);
+		this.setCatalogoProducto(catalogoProducto);
+		this.setCateringId(cateringId);
+		this.setEventoId(eventoId);
 	}
 	
 	public int getIdPaquete() {
@@ -65,28 +73,52 @@ public class PaqueteRequest extends BaseResponse {
 		this.cantidadPersonas = cantidadPersonas;
 	}
 
-	public float getPrecio() {
+	public double getPrecio() {
 		return precio;
 	}
 
-	public void setPrecio(float precio) {
+	public void setPrecio(double precio) {
 		this.precio = precio;
 	}
 
-	public int getDescuento() {
+	public double getDescuento() {
 		return descuento;
 	}
 
-	public void setDescuento(int descuento) {
+	public void setDescuento(double descuento) {
 		this.descuento = descuento;
 	}
 
-	public float getMontoTotal() {
+	public double getMontoTotal() {
 		return montoTotal;
 	}
 
-	public void setMontoTotal(float montoTotal) {
+	public void setMontoTotal(double montoTotal) {
 		this.montoTotal = montoTotal;
+	}
+
+	public List<Integer> getCatalogoProducto() {
+		return catalogoProducto;
+	}
+
+	public void setCatalogoProducto(List<Integer> catalogoProducto) {
+		this.catalogoProducto = catalogoProducto;
+	}
+
+	public int getCateringId() {
+		return cateringId;
+	}
+
+	public void setCateringId(int cateringId) {
+		this.cateringId = cateringId;
+	}
+
+	public int getEventoId() {
+		return eventoId;
+	}
+
+	public void setEventoId(int eventoId) {
+		this.eventoId = eventoId;
 	}
 
 

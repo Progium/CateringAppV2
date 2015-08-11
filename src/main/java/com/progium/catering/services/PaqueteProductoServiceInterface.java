@@ -2,7 +2,7 @@ package com.progium.catering.services;
 
 import java.util.List;
 
-import com.progium.catering.ejb.Paquete;
+import com.progium.catering.ejb.Paqueteproducto;
 
 /**
 * Esta clase se encarga de exponer las funcionalidades 
@@ -10,14 +10,9 @@ import com.progium.catering.ejb.Paquete;
 *
 * @author  Progium<progiump3@gmail.com>
 * @version 1.0
-* @since   2015/08/08
+* @since   2015/08/11
 */
-public interface PaqueteServiceInterface {
+public interface PaqueteProductoServiceInterface {
 
-	List<Paquete> findAll();
-	
-	Boolean savePaquete(Paquete objPaquete);
-	
-	Paquete getPaqueteById(int idPaquete);
-	
+	Boolean savePaqueteProducto(Paqueteproducto objPaqueteProducto);
 }
