@@ -28,7 +28,7 @@
 									<input type="text" class="input-sm spinner-input form-control"
 										name="spinner" maxlength="3"
 										ng-model="objPaquete.cantidadPersonas" min="1" max="99"
-										required>
+										required />
 									<div class="btn-group btn-group-vertical input-group-btn">
 										<button type="button" class="btn btn-white spinner-up">
 											<i class="fa fa-chevron-up"></i>
@@ -89,7 +89,7 @@
 								<select name="idCategoria" id="idCategoria" class="form-control"
 									ng-model="objPaquete.idCategoria"
 									ng-options="lc.idCategoria as lc.nombre for lc in listaCategorias"
-									required>
+									ng-change="llenarProducto()" required>
 								</select>
 							</div>
 						</div>
@@ -105,11 +105,11 @@
 											<th>Seleccionar</th>
 										</tr>
 									</thead>
-									<tbody ng-repeat="producto in productos">
+									<tbody ng-repeat="producto in listaProductos">
 										<tr>
 											<td>{{producto.nombre}}</td>
-											<td>{{producto.costo}}</td>
-											<td><i class="fa fa-check-square"></i></td>
+											<td>{{producto.precio}}</td>
+											<td><input type="checkbox" ng-model="producto.done"></td>
 										</tr>
 									</tbody>
 								</table>
