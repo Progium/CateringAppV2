@@ -1,5 +1,6 @@
 package com.progium.catering.contracts;
 
+import java.util.List;
 /**
 * Esta clase se encarga de setear las variables 
 * para realizar peticiones al controlador.
@@ -10,6 +11,7 @@ package com.progium.catering.contracts;
 */
 public class ProductoRequest extends BaseResponse {
 	private int idProducto;
+	private List<Integer> idProductos;
 	
 	public ProductoRequest() {
 		super();
@@ -28,6 +30,14 @@ public class ProductoRequest extends BaseResponse {
 
 	public void setIdProducto(int idProducto) {
 		this.idProducto = idProducto;
+	}
+
+	public List<Integer> getIdProductos() {
+		return idProductos;
+	}
+
+	public void setIdProductos(List<Integer> idProductos) {
+		this.idProductos = idProductos;
 	}
 
  

@@ -18,6 +18,11 @@ App.controller('MainController', function($scope, $http, $route, $routeParams, $
      	};
     
      var objUsuario = $.jStorage.get("user");	
+     
+     if(objUsuario == null){
+    	 window.location.href = "/catering/#/iniciar-sesion";
+     }
+     
      $scope.usuario = {};
 	 $scope.mostrarImagen = false;	
 	 $scope.init = function() {
