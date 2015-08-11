@@ -24,20 +24,10 @@
 							<label class="col-lg-3 control-label">Cantidad de
 								personas</label>
 							<div class="col-lg-8">
-								<div id="MySpinner" class="spinner input-group m-b">
-									<input type="text" class="input-sm spinner-input form-control"
-										name="spinner" maxlength="3"
-										ng-model="objPaquete.cantidadPersonas" min="1" max="99"
-										required />
-									<div class="btn-group btn-group-vertical input-group-btn">
-										<button type="button" class="btn btn-white spinner-up">
-											<i class="fa fa-chevron-up"></i>
-										</button>
-										<button type="button" class="btn btn-white spinner-down">
-											<i class="fa fa-chevron-down"></i>
-										</button>
-									</div>
-								</div>
+								<input type="number" class="input-sm spinner-input form-control"
+									name="cantidadPersonas" maxlength="3"
+									ng-model="objPaquete.cantidadPersonas" min="1" max="99"
+									required />
 							</div>
 						</div>
 						<!--Descripción-->
@@ -105,11 +95,13 @@
 											<th>Seleccionar</th>
 										</tr>
 									</thead>
-									<tbody ng-repeat="producto in listaProductos">
+									<tbody ng-repeat="producto in listaProductos"
+										ng-click="productoSeleccionado(producto)">
 										<tr>
 											<td>{{producto.nombre}}</td>
 											<td>{{producto.precio}}</td>
-											<td><input type="checkbox" ng-model="producto.done"></td>
+											<td><input type="checkbox" ng-model="producto.done"
+												ng-true-value="2" ng-false-value="1" /></td>
 										</tr>
 									</tbody>
 								</table>
@@ -124,16 +116,25 @@
 									ng-readonly="true" required />
 							</div>
 						</div>
+						<!-- Total del paquete sin descuento -->
+						<div class="form-group">
+							<label class="col-lg-3 control-label">Total</label>
+							<div class="col-lg-8">
+								<input ng-model="total" type="text" name="total"
+									placeholder="100000" class="form-control" data-trigger="keyup"
+									ng-readonly="true" required />
+							</div>
+						</div>
 						<!-- Descuento -->
 						<div class="form-group">
 							<label class="col-lg-3 control-label">Descuento</label>
 							<div class="col-lg-8">
 								<input ng-model="objPaquete.descuento" type="text"
 									name="descuento" placeholder="10000" class="form-control"
-									data-trigger="keyup" required />
+									data-trigger="keyup" />
 							</div>
 						</div>
-						<!-- Monto total -->
+						<!-- Monto total con el descuento-->
 						<div class="form-group">
 							<label class="col-lg-3 control-label">Monto total</label>
 							<div class="col-lg-8">

@@ -16,9 +16,16 @@ App.controller('PaqueteRegistrarController', function($scope, $http,$location, $
 		$scope.listaProductos = [];
 		$scope.objProducto = [];
 		$scope.objPaquete = {
-				cantidadPersonas : 1
+				cantidadPersonas : 1,
+				descuento : 0
 		};
 		$scope.objCatalogoProducto = {};
+		$scope.total = 0;
+		
+		var sumaProducto = 0;
+		var descuento = 0;
+		var montoDescuento = 0;
+		$scope.productosSelecc = [];
 		var caterings = [];
 		
 		$scope.init = function() {	
@@ -93,6 +100,17 @@ App.controller('PaqueteRegistrarController', function($scope, $http,$location, $
 		
 		//Trae el catalogo del producto del catering seleccionado
 	    $scope.llenarCatalogoProducto = function(idCatering) {
+	    	//inicializa la lista de productos y objeto producto
+	    	$scope.listaProductos.length = 0;
+	    	$scope.objProducto.length = 0;
+	    	//Inicializa de nuevo los montos a 0
+			$scope.total = 0;
+			sumaProducto = 0;
+			descuento = 0;
+			montoDescuento = 0;
+	    	$scope.objPaquete.precio = 0;
+	    	$scope.objPaquete.montoTotal =  0;
+	    	
 	    	//Cuando se cambia de catering selecciona de nuevo la primer categoria
 	    	$scope.objPaquete.idCategoria = $scope.listaCategorias[0].idCategoria;
 	    	caterings[0] = idCatering;
@@ -117,6 +135,7 @@ App.controller('PaqueteRegistrarController', function($scope, $http,$location, $
 						j--;
 						$scope.objProducto[j].nombre = productoResponse.producto.nombre;
 						$scope.objProducto[j].categoria = productoResponse.producto.categoria;
+						$scope.objProducto[j].done = 1;
 						if(j == 0){
 							$scope.listaProductos = _.where($scope.objProducto, {categoria: $scope.objPaquete.idCategoria});
 						}
@@ -131,11 +150,80 @@ App.controller('PaqueteRegistrarController', function($scope, $http,$location, $
 	    	$scope.listaProductos.length = 0;
 	    	$scope.listaProductos = _.where($scope.objProducto, {categoria: $scope.objPaquete.idCategoria});
 	    };
-	    //Selecciona los productos
-	    $scope.seleccionado = function(item){
-	    	console.log(item);
+	    
+	    //Selecciona los productos y los suma
+	    $scope.productoSeleccionado = function(producto){
+	    	if(producto.done == 2){
+	    		$scope.productosSelecc.push(producto);
+	    		sumaProducto += producto.precio;
+	    	}else{
+	    		$scope.productosSelecc.splice($scope.productosSelecc.indexOf(producto), 1);
+	    		sumaProducto -= producto.precio;
+	    	}
+	    	//Inicializa de nuevo los importes si no tiene ningun producto seleccionado
+	    	if($scope.productosSelecc == ""){
+		    	//Inicializa de nuevo los montos a 0
+				$scope.total = 0;
+				sumaProducto = 0;
+				descuento = 0;
+				montoDescuento = 0;
+		    	$scope.objPaquete.precio = 0;
+		    	$scope.objPaquete.montoTotal =  0;
+	    	}
+	    	//le agrega a la variable el precio por persona
+	    	$scope.objPaquete.precio = sumaProducto;
+	    	//calcula en decimal el porcentale en descuento
+	    	descuento = $scope.objPaquete.descuento / 100;
+	    	//calcula el total del precio por la cantidad de personas
+	    	$scope.total = sumaProducto * $scope.objPaquete.cantidadPersonas;
+	    	//calcula cuanto es el monto que tiene que descontar
+	    	montoDescuento =  $scope.total  * descuento;
+	    	//el monto total con el descuento aplicado
+	    	$scope.objPaquete.montoTotal =  $scope.total - montoDescuento;
 	    };
 		   
+	    
+	  //Guarda los datos ingresados por el usuario.
+		$scope.guardar = function() {
+			/*if(validarDatos($scope.productosSelecc) && this.crearPaquete.$valid){
+				var datosPaquete = {};
+				datosCatering = {
+					administradorId: objUsuario.idUsuario,
+					nombre: $scope.objCatering.nombre,
+					cedulaJuridica : $scope.objCatering.cedula,
+					direccion: $scope.objCatering.direccion,
+					telefono1: $scope.objCatering.telefono1,
+					telefono2: $scope.objCatering.telefono2,
+					horario: $scope.objCatering.horarioAtencion,
+					provinciaId: $scope.objCatering.idProvincia,
+					cantonId: $scope.objCatering.idCanton,
+					distritoId: $scope.objCatering.idDistrito,
+					tipoEvento: $scope.productosSelecc
+				}
+				
+				$http.post('rest/protected/catering/registrar', datosCatering).success(function (contractCateringResponse){
+					if(contractCateringResponse.code == 200){
+						
+						services.noty('El paquete se registro correctamente.', 'success');
+						$location.path('/catering-listar');
+						
+					}else{
+						services.noty('No se pudo registrar el paquete.', 'error');
+					}
+				});
+			}*/
+			
+		}
+		
+	    function validarDatos(productosSeleccionados){
+	    	var isOk = true;
+	    	if(productosSeleccionados == ""){
+	    		isOk = false;
+	    		services.noty('Debe seleccionar al menos un producto para poder registrar el paquete.', 'warning');
+	    	}
+	    	
+	    	return isOk;
+	    }
 	}else{
 		var path = "/catering/#/iniciar-sesion";
 		window.location.href = path;

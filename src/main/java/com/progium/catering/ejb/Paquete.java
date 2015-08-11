@@ -1,7 +1,9 @@
 package com.progium.catering.ejb;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -45,6 +47,10 @@ public class Paquete implements Serializable {
 	@JoinColumn(name="eventoId")
 	private Tipo tipo;
 
+	//bi-directional many-to-one association to Paqueteproducto
+	@OneToMany(mappedBy="paquete")
+	private List<Paqueteproducto> paqueteproducto;
+	
 	//bi-directional many-to-one association to Propuestasubasta
 	@OneToMany(mappedBy="paquete")
 	private List<Propuestasubasta> propuestasubastas;
@@ -128,6 +134,28 @@ public class Paquete implements Serializable {
 		this.tipo = tipo;
 	}
 
+	public List<Paqueteproducto> getPaqueteproducto() {
+		return this.paqueteproducto;
+	}
+
+	public void setPaqueteproducto(List<Paqueteproducto> paqueteproducto) {
+		this.paqueteproducto = paqueteproducto;
+	}
+	
+	public Paqueteproducto addPaqueteproducto(Paqueteproducto paqueteproducto) {
+		getPaqueteproducto().add(paqueteproducto);
+		paqueteproducto.setPaquete(this);
+
+		return paqueteproducto;
+	}
+
+	public Paqueteproducto removePaqueteproducto(Paqueteproducto paqueteproducto) {
+		getPaqueteproducto().remove(paqueteproducto);
+		paqueteproducto.setPaquete(null);
+
+		return paqueteproducto;
+	}
+	
 	public List<Propuestasubasta> getPropuestasubastas() {
 		return this.propuestasubastas;
 	}

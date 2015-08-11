@@ -16,7 +16,6 @@ public class PaquetePOJO{
 	private float precio;
 	private int descuento;
 	private float montoTotal;
-	private String fotografia;
 	
 	
 	public PaquetePOJO() {
@@ -79,12 +78,4 @@ public class PaquetePOJO{
 		this.montoTotal = montoTotal;
 	}
 
-	public String getFotografia() {
-		return fotografia;
-	}
-
-	public void setFotografia(String fotografia) {
-		this.fotografia = fotografia;
-	}
-	
 }

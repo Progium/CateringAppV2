@@ -25,6 +25,11 @@ public class Paqueteproducto implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="productoId")
 	private Catalogoproducto catalogoproducto;
+	
+	//bi-directional many-to-one association to Paquete
+	@ManyToOne
+	@JoinColumn(name="paqueteId")
+	private Paquete paquete;
 
 	public Paqueteproducto() {
 	}
@@ -45,4 +50,11 @@ public class Paqueteproducto implements Serializable {
 		this.catalogoproducto = catalogoproducto;
 	}
 
+	public Paquete getPaquete() {
+		return this.paquete;
+	}
+
+	public void setPaquete(Paquete paquete) {
+		this.paquete = paquete;
+	}
 }
