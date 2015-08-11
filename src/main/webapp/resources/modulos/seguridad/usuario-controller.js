@@ -132,6 +132,7 @@ App.controller('UsuarioPerfilController', function($scope, $http, $location, $up
 		 
 		//Guarda los datos ingresados por el usuario.
 		$scope.guardar = function() {
+			//console.log($scope.usuario.contrasenna);
 			if(validarDatos($scope.usuario) && this.perfilUsuario.$valid){
 				var usuarioFoto = $scope.files[0];
 				var datosUsuario = {};
