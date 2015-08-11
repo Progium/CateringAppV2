@@ -203,8 +203,8 @@ public class UsuarioController {
 		objUsuario.setTelefono1(usuarioRequest.getTelefono1());
 		objUsuario.setTelefono2(usuarioRequest.getTelefono2());
 		objUsuario.setTipo(objTipo);
-		//objUsuario.setContrasenna(GeneradorContrasennaUtil
-		//		.encriptarContrasenna(usuarioRequest.getContrasenna()));
+		//System.out.println(usuarioRequest.getContrasenna());
+		objUsuario.setContrasenna(GeneradorContrasennaUtil.encriptarContrasenna(usuarioRequest.getContrasenna()));
 
 		Boolean state = usuarioService.saveUsuario(objUsuario);
 
@@ -213,14 +213,14 @@ public class UsuarioController {
 			us.setCodeMessage("user created succesfully");
 			us.setIdUsuario(objUsuario.getIdUsuario());
 
-//				String mensaje = "Para ingresar al sistema debe utilizar las siguientes credenciales: "
-//						+ "Correo: "
-//						+ objUsuario.getCorreo()
-//						+ "</br>"
-//						+ " Contraseña: " + usuarioRequest.getContrasenna().toString();
-//				SendEmail.sendEmail("Bienvenido a Catering App!",
-//						objUsuario.getCorreo(), "Datos modificados del usuario",
-//						"Bienvenido a Catering App", mensaje);
+				String mensaje = "Notificación: "
+						+ "<p></p>"
+						+ objUsuario.getNombre()
+						+ " sus datos han sido cambiados satisfactoriamente";
+						
+				SendEmail.sendEmail("Cambio datos Catering App!",
+						objUsuario.getCorreo(), "Usuario",
+						"Gracias por usar Catering App", mensaje);
 
 		}else{
 			us.setCode(401);
