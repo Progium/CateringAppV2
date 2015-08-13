@@ -29,7 +29,7 @@ public class Paquete implements Serializable {
 
 	private String descripcion;
 
-	private double descuento;
+	private int descuento;
 
 	private double montoTotal;
 
@@ -86,11 +86,11 @@ public class Paquete implements Serializable {
 		this.descripcion = descripcion;
 	}
 
-	public double getDescuento() {
+	public int getDescuento() {
 		return this.descuento;
 	}
 
-	public void setDescuento(double descuento) {
+	public void setDescuento(int descuento) {
 		this.descuento = descuento;
 	}
 

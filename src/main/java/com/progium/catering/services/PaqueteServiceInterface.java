@@ -2,6 +2,8 @@ package com.progium.catering.services;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import com.progium.catering.contracts.PaqueteRequest;
 import com.progium.catering.ejb.Paquete;
 
 /**
@@ -19,5 +21,9 @@ public interface PaqueteServiceInterface {
 	Boolean savePaquete(Paquete objPaquete);
 	
 	Paquete getPaqueteById(int idPaquete);
+	
+	Page<Paquete> getPaqueteByCateringByIdAdministrador(PaqueteRequest pr, Integer idAdministrador);
+	
+	List<Paquete> getPaqueteByCateringByIdCatering(Integer idCatering);
 	
 }

@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
+
+import com.progium.catering.ejb.Catering;
 import com.progium.catering.ejb.Paquete;
 
 /**
@@ -22,4 +24,14 @@ public interface PaqueteRepository extends CrudRepository<Paquete,Integer> {
 	public List<Paquete> findAll();
 	
 	Paquete findOne(Integer idPaquete);
+	
+//	Page<Paquete> findPaqueteByCatering_Usuario_idUsuario
+//	(Integer idAdministrador);
+	
+	Page<Paquete> findPaqueteByCatering_Usuario_idUsuario
+	(Integer idAdministrador, Pageable pageable);
+	
+	List<Paquete> findPaqueteByCatering_idCatering
+	(Integer idCatering);
+	
 }

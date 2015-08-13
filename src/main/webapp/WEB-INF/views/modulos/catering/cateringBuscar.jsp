@@ -6,7 +6,7 @@
 		</h4>
 	</div>
 	<div class="row">
-		<div class="col-sm-3">
+		<div class="col-sm-2">
 			<aside class="sidebar bg-lighter">
 				<div class="bg-light padder padder-v" style="padding-bottom: 5px;">
 					<span class="h4 col-lg-offset-1">Criterio de busquedas</span>
@@ -81,7 +81,7 @@
 			</aside>
 		</div>
 
-		<div class="col-sm-6">
+		<div class="col-sm-5">
 			<section class="panel">
 				<header class="panel-heading">Lista de Catering Services</header>
 				<div class="table-responsive">
@@ -90,8 +90,8 @@
 							<tr>
 								<th>Nombre</th>
 								<th>Ubicacion</th>
-								<th width="70"></th>
-								<th width="70"></th>
+								<th width="50"></th>
+								<th width="50"></th>
 							</tr>
 						</thead>
 						<tbody ng-repeat="catering in cateringLista">
@@ -107,7 +107,7 @@
 								<td class="text-right">
 									<div class="btn-group">
 										<button type="button" class="btn btn-primary"
-											ng-click="openModal(catering)">Ver paquetes</button>
+											ng-click="listarPaqueteEvento(catering)">Ver paquetes</button>
 									</div>
 								</td>
 							</tr>
@@ -131,6 +131,37 @@
 						</div>
 					</div>
 				</footer>
+			</section>
+		</div>
+
+		<div class="col-sm-5">
+			<section class="panel">
+				<header class="panel-heading">Lista de Paquetes del Catering</header>
+				<div class="table-responsive">
+					<table class="table table-striped b-t text-small">
+						<thead>
+							<tr>
+								<th>Nombre Paquete</th>
+								<th>Tipo Evento</th>
+								<th>Costo</th>
+								<th width="70"></th>
+							</tr>
+						</thead>
+						<tbody ng-repeat="paquete in paquetesLista">
+							<tr>
+								<td>{{paquete.nombre}}</td>
+								<td>{{paquete.nombreTipoEvento}}</td>
+								<td>{{paquete.montoTotal}}</td>
+								<td class="text-right">
+									<div class="btn-group">
+										<button type="button" class="btn btn-primary"
+											ng-click="openModalPaquete(paquete)">Mostrar Detalle</button>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 			</section>
 		</div>
 	</div>

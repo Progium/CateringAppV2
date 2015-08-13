@@ -20,15 +20,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
-import com.progium.catering.contracts.TipoResponse;
 import com.progium.catering.contracts.CateringResponse;
 import com.progium.catering.contracts.CateringRequest;
-import com.progium.catering.contracts.UsuarioResponse;
-import com.progium.catering.contracts.ProvinciaResponse;
-import com.progium.catering.contracts.CantonResponse;
-import com.progium.catering.contracts.DistritoResponse;
-import com.progium.catering.ejb.Provincia;
-import com.progium.catering.ejb.Canton;
 import com.progium.catering.ejb.Distrito;
 import com.progium.catering.ejb.Catering;
 import com.progium.catering.ejb.Tipo;

@@ -10,14 +10,14 @@ import java.util.List;
 * @version 1.0
 * @since   2015/08/08
 */
-public class PaqueteRequest extends BaseResponse {
+public class PaqueteRequest extends BasePagingRequest {
 	 
 	private int idPaquete;
 	private String nombre;
 	private String descripcion;
 	private int cantidadPersonas;
 	private double precio;
-	private double descuento;
+	private int descuento;
 	private double montoTotal;
 	private List<Integer> catalogoProducto;
 	private int cateringId;
@@ -27,7 +27,7 @@ public class PaqueteRequest extends BaseResponse {
 		// TODO Auto-generated constructor stub
 	}
 	 
-	public PaqueteRequest(String nombre, String descripcion, int cantidadPersonas, double precio, double descuento, double montoTotal,
+	public PaqueteRequest(String nombre, String descripcion, int cantidadPersonas, double precio, int descuento, double montoTotal,
 							List<Integer> catalogoProducto, int cateringId, int eventoId) {
 		super();
 		this.setNombre(nombre);
@@ -81,11 +81,11 @@ public class PaqueteRequest extends BaseResponse {
 		this.precio = precio;
 	}
 
-	public double getDescuento() {
+	public int getDescuento() {
 		return descuento;
 	}
 
-	public void setDescuento(double descuento) {
+	public void setDescuento(int descuento) {
 		this.descuento = descuento;
 	}
 

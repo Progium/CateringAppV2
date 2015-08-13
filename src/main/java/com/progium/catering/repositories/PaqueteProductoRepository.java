@@ -22,6 +22,8 @@ public interface PaqueteProductoRepository extends CrudRepository<Paqueteproduct
 
 	public List<Paqueteproducto> findAll();
 	
+	public List<Paqueteproducto> findPaqueteProductoByPaquete_idPaquete
+	(Integer idPaquete);
 
 
 }

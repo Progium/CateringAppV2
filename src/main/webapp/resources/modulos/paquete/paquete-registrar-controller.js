@@ -225,18 +225,17 @@ App.controller('PaqueteRegistrarController', function($scope, $http,$location, $
 					descripcion: $scope.objPaquete.descripcion,
 					cantidadPersonas: $scope.objPaquete.cantidadPersonas,
 					precio: $scope.objPaquete.precio,
-					descuento: ($scope.objPaquete.descuento != null) ? $scope.objPaquete.descuento : 0,
+					descuento: ($scope.objPaquete.descuento != null) ? Math.round($scope.objPaquete.descuento) : 0,
 					montoTotal: $scope.objPaquete.montoTotal,
 					cateringId: $scope.objPaquete.idCatering,
 					eventoId: $scope.objPaquete.idTipoEvento,
 					catalogoProducto: $scope.productosSelecc
 				}
 				
-				console.log(datosPaquete);
 				$http.post('rest/protected/paquete/registrar', datosPaquete).success(function (contractPaqueteResponse){
 					if(contractPaqueteResponse.code == 200){
 						services.noty('El paquete se registro correctamente.', 'success');
-						$location.path('/catering-listar');
+						$location.path('/paquete-listar');
 						
 					}else{
 						services.noty('No se pudo registrar el paquete.', 'error');

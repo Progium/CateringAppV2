@@ -15,4 +15,7 @@ import com.progium.catering.ejb.Paqueteproducto;
 public interface PaqueteProductoServiceInterface {
 
 	Boolean savePaqueteProducto(Paqueteproducto objPaqueteProducto);
+	
+	//Obtiene la lista de paquetes producto por paquete
+	List<Paqueteproducto> getPaqueteProductoByIdPaquete(Integer idPaquete);
 }

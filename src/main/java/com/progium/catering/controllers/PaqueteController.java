@@ -30,7 +30,6 @@ import com.progium.catering.services.PaqueteServiceInterface;
 import com.progium.catering.services.PaqueteProductoServiceInterface;
 import com.progium.catering.services.CataloProductoServiceInterface;
 import com.progium.catering.pojo.PaquetePOJO;
-import com.progium.catering.utils.PojoUtils;
 
 /**
 * Esta clase se encarga de crear el controlador
@@ -110,5 +109,116 @@ public class PaqueteController {
 		return pr;
 	}
 	
+	/**
+	* Este metodo se encarga de mostrar la lista de paquetes por administrador
+	* 
+	* @return PaqueteResponse
+	*
+	*/
+	@RequestMapping(value ="/getPaqueteByAdministrador", method = RequestMethod.POST)
+	public PaqueteResponse getPqueteByAdministrador(@RequestBody PaqueteRequest paqueteRequest){
+		
+		PaqueteResponse paqueteResponse = new PaqueteResponse();
+		
+		HttpSession currentSession = request.getSession();
+		int idUsuario = (int) currentSession.getAttribute("idUsuario");	
+		
+		paqueteRequest.setPageNumber(paqueteRequest.getPageNumber() - 1);
+		//Le pasa el catering request y obtiene todo los tipos de evento con el criterio de tipo de evento
+		Page<Paquete> paquetes =   paqueteService.getPaqueteByCateringByIdAdministrador(paqueteRequest,idUsuario);
+
+		List<PaquetePOJO> listaPaquetePojo = new ArrayList<PaquetePOJO>();
+		
+		paqueteResponse.setCode(200);
+		paqueteResponse.setCodeMessage("paquetes fetch success");
+		paqueteResponse.setTotalElements(paquetes.getTotalElements());
+		paqueteResponse.setTotalPages(paquetes.getTotalPages());
+		//Recorre por cada paquete obtiene y setea los datos en el pojo.
+		paquetes.getContent().forEach(paquete->{
+			
+			PaquetePOJO nPaquete = new PaquetePOJO();
+			
+			nPaquete.setIdPaquete(paquete.getIdPaquete());
+			nPaquete.setNombre(paquete.getNombre());
+			nPaquete.setDescripcion(paquete.getDescripcion());
+			nPaquete.setCantidadPersonas(paquete.getCantidadPersonas());
+			nPaquete.setIdCatering(paquete.getCatering().getIdCatering());
+			nPaquete.setNombreCatering(paquete.getCatering().getNombre());
+			nPaquete.setIdTipoEvento(paquete.getTipo().getIdTipo());
+			nPaquete.setNombreTipoEvento(paquete.getTipo().getNombre());
+			nPaquete.setPrecio(paquete.getPrecio());
+			nPaquete.setDescuento(paquete.getDescuento());
+			nPaquete.setMontoTotal(paquete.getMontoTotal());
+			
+			//Obtiene el id del catalogo del producto del paquete producto por paquete de evento
+			List<Paqueteproducto> paqueteProductos =  paqueteProductoService.getPaqueteProductoByIdPaquete(paquete.getIdPaquete());
+			List<Integer> idCatalogoProductos = new ArrayList<Integer>();
+			for(int i = 0; i < paqueteProductos.size(); i++){
+				idCatalogoProductos.add(paqueteProductos.get(i).getCatalogoproducto().getIdCatalogoProducto());
+			}
+			
+			nPaquete.setCatalogoProducto(idCatalogoProductos);
+			
+			listaPaquetePojo.add(nPaquete);
+		});
+		
+		paqueteResponse.setPaquetes(listaPaquetePojo);
+		
+		return paqueteResponse;	
+		
+	}
 	
+	/**
+	* Este metodo se encarga de mostrar la lista de paquetes por catering
+	* 
+	* @return PaqueteResponse
+	*
+	*/
+	@RequestMapping(value ="/getPaqueteByCatering", method = RequestMethod.POST)
+	public PaqueteResponse getPqueteByCatering(@RequestBody PaqueteRequest paqueteRequest){
+		
+		PaqueteResponse paqueteResponse = new PaqueteResponse();
+		
+		//Le pasa el catering request y obtiene todo los tipos de evento con el criterio de tipo de evento
+		List<Paquete> listaPaquete =   paqueteService.getPaqueteByCateringByIdCatering(paqueteRequest.getCateringId());
+
+		List<PaquetePOJO> listaPaquetePojo = new ArrayList<PaquetePOJO>();
+		
+		paqueteResponse.setCode(200);
+		paqueteResponse.setCodeMessage("paquetes fetch success");
+		
+		//Recorre por cada paquete obtiene y setea los datos en el pojo.
+		for (Paquete paquete : listaPaquete){
+			
+			PaquetePOJO nPaquete = new PaquetePOJO();
+			
+			nPaquete.setIdPaquete(paquete.getIdPaquete());
+			nPaquete.setNombre(paquete.getNombre());
+			nPaquete.setDescripcion(paquete.getDescripcion());
+			nPaquete.setCantidadPersonas(paquete.getCantidadPersonas());
+			nPaquete.setIdCatering(paquete.getCatering().getIdCatering());
+			nPaquete.setNombreCatering(paquete.getCatering().getNombre());
+			nPaquete.setIdTipoEvento(paquete.getTipo().getIdTipo());
+			nPaquete.setNombreTipoEvento(paquete.getTipo().getNombre());
+			nPaquete.setPrecio(paquete.getPrecio());
+			nPaquete.setDescuento(paquete.getDescuento());
+			nPaquete.setMontoTotal(paquete.getMontoTotal());
+			
+			//Obtiene el id del catalogo del producto del paquete producto por paquete de evento
+			List<Paqueteproducto> paqueteProductos =  paqueteProductoService.getPaqueteProductoByIdPaquete(paquete.getIdPaquete());
+			List<Integer> idCatalogoProductos = new ArrayList<Integer>();
+			for(int i = 0; i < paqueteProductos.size(); i++){
+				idCatalogoProductos.add(paqueteProductos.get(i).getCatalogoproducto().getIdCatalogoProducto());
+			}
+			
+			nPaquete.setCatalogoProducto(idCatalogoProductos);
+			
+			listaPaquetePojo.add(nPaquete);
+		};
+		
+		paqueteResponse.setPaquetes(listaPaquetePojo);
+		
+		return paqueteResponse;	
+		
+	}
 }

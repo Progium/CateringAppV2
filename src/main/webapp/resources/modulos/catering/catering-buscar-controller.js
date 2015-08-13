@@ -26,6 +26,7 @@ App.controller('CateringBuscarController', function($scope, $http,$location, $up
 		$scope.objCatering = {};
 		$scope.objCatering .pageSize = 5;
 		$scope.currentPage = 1;
+		
 
 		//Obtiene la pagina que selecciono y se la pasa al metodo que obtiene los datos del catering
 		$scope.setPage = function (pageNo) {
@@ -153,10 +154,10 @@ App.controller('CateringBuscarController', function($scope, $http,$location, $up
 		 				   obj.telefono2 = cateringSelec.telefono2;
 		 				   obj.horario = cateringSelec.horario;
 		 				   obj.fotografia = cateringSelec.fotografia;
-		 				  obj.provinciaId = cateringSelec.provinciaId;
-		 				  obj.cantonId = cateringSelec.cantonId;
-		 				 obj.distritoId = cateringSelec.distritoId;
-		 				obj.tipoEvento = cateringSelec.tipoEvento;
+		 				   obj.provinciaId = cateringSelec.provinciaId;
+		 				   obj.cantonId = cateringSelec.cantonId;
+		 				   obj.distritoId = cateringSelec.distritoId;
+		 				   obj.tipoEvento = cateringSelec.tipoEvento;
 		 				   var param = obj;
 		 			   return param;
 		 			   }
@@ -165,6 +166,22 @@ App.controller('CateringBuscarController', function($scope, $http,$location, $up
 		 	      
 		    };
 		   
+		    $scope.listarPaqueteEvento = function(cateringSelec){
+
+				$scope.paquetesLista = [];
+				//Setear cuantos paquetes va mostrar por pantalla y el primer número de página
+				$scope.objPaquete = {};
+				
+				$scope.objPaquete.cateringId = cateringSelec.idCatering
+		    	console.log(cateringSelec.idCatering);
+		    	
+		    	$http.post('rest/protected/paquete/getPaqueteByCatering', $scope.objPaquete).success(function (contractPaqueteResponse){
+					$scope.paquetesLista = contractPaqueteResponse.paquetes;
+					console.log($scope.paquetesLista);
+		    	});
+			 	      
+		    };
+			       
 		    var ModalInstanceViewCtrl = function($scope, $http, $modalInstance,$log, $location, $upload, param){
 		    	
 				$scope.catering = {};
@@ -221,7 +238,46 @@ App.controller('CateringBuscarController', function($scope, $http,$location, $up
 				$scope.cancel = function(){
 					$modalInstance.dismiss('cancel');
 				};
-		   };	   
+		   };	
+		   
+		  /* var ModalInstanceViewDetallePaqueteCtrl = function($scope, $http, $modalInstance,$log, $location, $upload, param){
+		    	
+			   $scope.paquetesLista = [];
+				//Setear cuantos paquetes va mostrar por pantalla y el primer número de página
+				$scope.objPaquete = {};
+				$scope.objPaquete .pageSize = 5;
+				$scope.currentPage = 1;
+
+				//Obtiene la pagina que selecciono y se la pasa al metodo que obtiene los datos del paquete
+				$scope.setPage = function (pageNo) {
+					$scope.ObtenerListaPaquetes(pageNo);
+					$scope.currentPage = pageNo;
+				};
+			  
+			    $scope.init = function() {
+			    	$scope.objPaquete.cateringId = param.idCatering;
+			    	console.log(param.idCatering);
+			    	$scope.ObtenerListaPaquetes($scope.currentPage);
+			    	
+			    };
+			    
+			    //Funcion que obtiene la lista de todos los paquetes por paginación
+			    $scope.ObtenerListaPaquetes = function(pageNumber){
+			    	$scope.objPaquete.pageNumber = pageNumber;
+			    	$http.post('rest/protected/paquete/getPaqueteByCatering', $scope.objPaquete).success(function (contractPaqueteResponse){
+						$scope.cantResult = contractPaqueteResponse.paquetes.length;
+						$scope.paquetesLista = contractPaqueteResponse.paquetes;
+						console.log($scope.paquetesLista);
+						$scope.totalItems = contractPaqueteResponse.totalElements;
+			    	});
+			    };	 	    
+			   
+			    $scope.init();
+				
+				$scope.cancel = function(){
+					$modalInstance.dismiss('cancel');
+				};
+		   };	*/   
 		
 	}else{
 		var path = "/catering/#/iniciar-sesion";

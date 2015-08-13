@@ -43,4 +43,18 @@ public class PaqueteProductoService implements PaqueteProductoServiceInterface{
 		return result;
 		
 	}
+	
+	/**
+	* Este  metodo se encarga de retornar la lista de productos del paquete
+	*
+	* @param  idPaquete
+	* 
+	* @return List <Paqueteproducto>
+	*
+	*/
+	@Override
+	@Transactional
+	public List<Paqueteproducto> getPaqueteProductoByIdPaquete(Integer idPaquete) {
+		return paqueteProductoRepository.findPaqueteProductoByPaquete_idPaquete(idPaquete);
+	}
 }
