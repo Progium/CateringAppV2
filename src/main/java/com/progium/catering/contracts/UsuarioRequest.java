@@ -23,6 +23,7 @@ public class UsuarioRequest extends BasePagingRequest {
 	private int tipoUsuarioId;
 	private String contrasenna;
 	private String needAccess;
+	private String cambio;
 		
 	public UsuarioRequest() {
 		super();
@@ -105,4 +106,14 @@ public class UsuarioRequest extends BasePagingRequest {
 	public void setNeedAccess(String needAccess) {
 		this.needAccess = needAccess;
 	}
+
+	public String getCambio() {
+		return cambio;
+	}
+
+	public void setCambio(String cambio) {
+		this.cambio = cambio;
+	}
+	
+	
 }

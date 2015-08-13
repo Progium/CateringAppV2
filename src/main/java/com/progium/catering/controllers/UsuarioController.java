@@ -203,8 +203,10 @@ public class UsuarioController {
 		objUsuario.setTelefono1(usuarioRequest.getTelefono1());
 		objUsuario.setTelefono2(usuarioRequest.getTelefono2());
 		objUsuario.setTipo(objTipo);
-		//System.out.println(usuarioRequest.getContrasenna());
-		objUsuario.setContrasenna(GeneradorContrasennaUtil.encriptarContrasenna(usuarioRequest.getContrasenna()));
+		//Valida que si la contraseña es igual a la anterior no la encripte
+		if(usuarioRequest.getCambio().equals("true")){
+			objUsuario.setContrasenna(GeneradorContrasennaUtil.encriptarContrasenna(usuarioRequest.getContrasenna()));
+		}
 
 		Boolean state = usuarioService.saveUsuario(objUsuario);
 

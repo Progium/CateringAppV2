@@ -116,6 +116,7 @@ App.controller('UsuarioPerfilController', function($scope, $http, $location, $up
 				$scope.usuario.telefono2 = usuarioResponse.usuario.telefono2;
 				$scope.usuario.tipoUsuarioId = objUsuario.tipo;
 				$scope.usuario.contrasenna = usuarioResponse.usuario.contrasenna;
+				$scope.usuario.contrasennaOriginal = usuarioResponse.usuario.contrasenna;
 				$scope.usuario.repetirContrasenna = usuarioResponse.usuario.contrasenna;
 				$scope.usuario.fotografia = usuarioResponse.usuario.fotografia;	
 				if(usuarioResponse.usuario.fotografia){
@@ -132,22 +133,43 @@ App.controller('UsuarioPerfilController', function($scope, $http, $location, $up
 		 
 		//Guarda los datos ingresados por el usuario.
 		$scope.guardar = function() {
-			//console.log($scope.usuario.contrasenna);
+			
 			if(validarDatos($scope.usuario) && this.perfilUsuario.$valid){
 				var usuarioFoto = $scope.files[0];
 				var datosUsuario = {};
-				datosUsuario = {
-						idUsuario: objUsuario.idUsuario,
-						nombre: $scope.usuario.nombre,
-						apellido1: $scope.usuario.apellido1,
-						apellido2: $scope.usuario.apellido2,
-						correo: $scope.usuario.correo,
-						telefono1: $scope.usuario.telefono1,
-						telefono2: $scope.usuario.telefono2,
-						tipoUsuarioId: $scope.usuario.tipoUsuarioId,
-						contrasenna: $scope.usuario.contrasenna,
-						needAccess: "false"
+				//console.log("Contrasena original:  " + $scope.usuario.contrasennaOriginal);
+				//console.log("Contrasena nueva:  " + $scope.usuario.contrasenna)
+				//valida si la contrasena es igual a la anterior 
+				if($scope.usuario.contrasennaOriginal == $scope.usuario.contrasenna){
+							datosUsuario = {
+							idUsuario: objUsuario.idUsuario,
+							nombre: $scope.usuario.nombre,
+							apellido1: $scope.usuario.apellido1,
+							apellido2: $scope.usuario.apellido2,
+							correo: $scope.usuario.correo,
+							telefono1: $scope.usuario.telefono1,
+							telefono2: $scope.usuario.telefono2,
+							tipoUsuarioId: $scope.usuario.tipoUsuarioId,
+							contrasenna: $scope.usuario.contrasenna,
+							needAccess: "false",
+							cambio: "false"
+					}
+				} else{
+							datosUsuario = {
+							idUsuario: objUsuario.idUsuario,
+							nombre: $scope.usuario.nombre,
+							apellido1: $scope.usuario.apellido1,
+							apellido2: $scope.usuario.apellido2,
+							correo: $scope.usuario.correo,
+							telefono1: $scope.usuario.telefono1,
+							telefono2: $scope.usuario.telefono2,
+							tipoUsuarioId: $scope.usuario.tipoUsuarioId,
+							contrasenna: $scope.usuario.contrasenna,
+							needAccess: "false",
+							cambio: "true"
+					}
 				}
+				
 				
 				$http.post('rest/protected/usuario/modificar', datosUsuario).success(function (contractUsuarioResponse){
 					if(contractUsuarioResponse.code == 200){
@@ -160,7 +182,7 @@ App.controller('UsuarioPerfilController', function($scope, $http, $location, $up
 								},
 								file : usuarioFoto
 							}).success(function(usuarioResponse, status, headers, config) {
-								//Muestra un mensaje si el usuario es registrado satisfactoriamente en el sistema.
+							//Muestra un mensaje si el usuario es registrado satisfactoriamente en el sistema.
 								if(contractUsuarioResponse.code == 200){
 									services.noty('Los datos del usuario fueron modificados correctamente.', 'success');
 								}
