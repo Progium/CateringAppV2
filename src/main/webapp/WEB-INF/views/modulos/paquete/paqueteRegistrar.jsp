@@ -26,8 +26,11 @@
 							<div class="col-lg-8">
 								<input type="number" class="input-sm spinner-input form-control"
 									name="cantidadPersonas" maxlength="3"
-									ng-model="objPaquete.cantidadPersonas" min="1" max="99"
-									required />
+									ng-change="actualizarFormulas()" ng-pattern="/^\d*$/"
+									ng-model="objPaquete.cantidadPersonas" min="1" max="5000"
+									required /><span class="error-message"
+									ng-show="crearPaquete.cantidadPersonas.$error.pattern">Debe
+									ingresar solo números.</span>
 							</div>
 						</div>
 						<!--Descripción-->
@@ -127,11 +130,16 @@
 						</div>
 						<!-- Descuento -->
 						<div class="form-group">
-							<label class="col-lg-3 control-label">Descuento</label>
+							<label class="col-lg-3 control-label">Porcentaje de
+								descuento</label>
 							<div class="col-lg-8">
 								<input ng-model="objPaquete.descuento" type="text"
-									name="descuento" placeholder="10000" class="form-control"
-									data-trigger="keyup" />
+									ng-change="actualizarFormulas()" name="descuento"
+									placeholder="30" class="form-control"
+									ng-pattern="/^((0|[1-9]\d?)(\.\d{1,2})?|100)$/"
+									data-trigger="keyup" /><span class="error-message"
+									ng-show="crearPaquete.descuento.$error.pattern">Debe
+									ingresar solo números, el porcentaje va del 0 al 100.</span>
 							</div>
 						</div>
 						<!-- Monto total con el descuento-->

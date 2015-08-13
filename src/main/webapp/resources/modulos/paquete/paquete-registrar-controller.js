@@ -16,8 +16,7 @@ App.controller('PaqueteRegistrarController', function($scope, $http,$location, $
 		$scope.listaProductos = [];
 		$scope.objProducto = [];
 		$scope.objPaquete = {
-				cantidadPersonas : 1,
-				descuento : 0
+				cantidadPersonas : 1
 		};
 		$scope.objCatalogoProducto = {};
 		$scope.total = 0;
@@ -29,6 +28,7 @@ App.controller('PaqueteRegistrarController', function($scope, $http,$location, $
 		var caterings = [];
 		
 		$scope.init = function() {	
+						
 			//Lista de caterings del administrador en sesión
 			$http.get('rest/protected/catering/getCaterigLista')
 			.success(function(cateringResponse){
@@ -54,11 +54,9 @@ App.controller('PaqueteRegistrarController', function($scope, $http,$location, $
 				$http.post('rest/protected/catalogo/getCatalogoByCatering', $scope.objCatalogoProducto)
 				.success(function(CatalogoResponse) {
 					var i = 0;
-	
+					var j = 0;
+					var f = 0;
 					$scope.listaCatalogos = CatalogoResponse.catalogos;
-					
-					var j = $scope.listaCatalogos.length;
-					
 					for (i = 0; i <= $scope.listaCatalogos.length-1; i++) {
 						var objProd = {};
 						objProd.idProducto = $scope.listaCatalogos[i].productoId;
@@ -68,12 +66,17 @@ App.controller('PaqueteRegistrarController', function($scope, $http,$location, $
 						$scope.objProducto.push(objProd);
 						$http.post('rest/protected/producto/getProducto', objProd)
 						.success(function(productoResponse){
-							j--;
-							$scope.objProducto[j].nombre = productoResponse.producto.nombre;
-							$scope.objProducto[j].categoria = productoResponse.producto.categoria;
-							if(j == 0){
+							for(j = 0; j <=$scope.objProducto.length-1; j++){
+								if(productoResponse.producto.idProducto == $scope.objProducto[j].idProducto ){
+									$scope.objProducto[j].nombre = productoResponse.producto.nombre;
+									$scope.objProducto[j].categoria = productoResponse.producto.categoria;
+								}
+							}
+
+							if(f == $scope.listaCatalogos.length-1){
 								$scope.listaProductos = _.where($scope.objProducto, {categoria: $scope.objPaquete.idCategoria});
 							}
+							f++;
 						});
 					}
 
@@ -120,26 +123,29 @@ App.controller('PaqueteRegistrarController', function($scope, $http,$location, $
 			$http.post('rest/protected/catalogo/getCatalogoByCatering', $scope.objCatalogoProducto)
 			.success(function(CatalogoResponse) {
 				var i = 0;
-
+				var j = 0;
+				var f = 0;
 				$scope.listaCatalogos = CatalogoResponse.catalogos;
-				
-				var j = $scope.listaCatalogos.length;
-				
 				for (i = 0; i <= $scope.listaCatalogos.length-1; i++) {
 					var objProd = {};
 					objProd.idProducto = $scope.listaCatalogos[i].productoId;
 					objProd.precio = $scope.listaCatalogos[i].precio; 
+					objProd.idCatalogoProducto = $scope.listaCatalogos[i].idCatalogoProducto;
 					//Guarda en un objeto producto los datos de ese producto
 					$scope.objProducto.push(objProd);
 					$http.post('rest/protected/producto/getProducto', objProd)
 					.success(function(productoResponse){
-						j--;
-						$scope.objProducto[j].nombre = productoResponse.producto.nombre;
-						$scope.objProducto[j].categoria = productoResponse.producto.categoria;
-						$scope.objProducto[j].done = 1;
-						if(j == 0){
+						for(j = 0; j <=$scope.objProducto.length-1; j++){
+							if(productoResponse.producto.idProducto == $scope.objProducto[j].idProducto ){
+								$scope.objProducto[j].nombre = productoResponse.producto.nombre;
+								$scope.objProducto[j].categoria = productoResponse.producto.categoria;
+							}
+						}
+
+						if(f == $scope.listaCatalogos.length-1){
 							$scope.listaProductos = _.where($scope.objProducto, {categoria: $scope.objPaquete.idCategoria});
 						}
+						f++;
 					});
 				}
 			});
@@ -174,7 +180,7 @@ App.controller('PaqueteRegistrarController', function($scope, $http,$location, $
 	    	//le agrega a la variable el precio por persona
 	    	$scope.objPaquete.precio = sumaProducto;
 	    	//calcula en decimal el porcentale en descuento
-	    	descuento = $scope.objPaquete.descuento / 100;
+	    	descuento = ($scope.objPaquete.descuento != null) ? ($scope.objPaquete.descuento / 100) : 0;
 	    	//calcula el total del precio por la cantidad de personas
 	    	$scope.total = sumaProducto * $scope.objPaquete.cantidadPersonas;
 	    	//calcula cuanto es el monto que tiene que descontar
@@ -183,8 +189,33 @@ App.controller('PaqueteRegistrarController', function($scope, $http,$location, $
 	    	$scope.objPaquete.montoTotal =  $scope.total - montoDescuento;
 	    };
 		   
+	    	    
+	    //Selecciona los productos y los suma
+	    $scope.actualizarFormulas = function(){
+
+	    	//Inicializa de nuevo los importes si no tiene ningun producto seleccionado
+	    	if($scope.productosSelecc == ""){
+		    	//Inicializa de nuevo los montos a 0
+				$scope.total = 0;
+				sumaProducto = 0;
+				descuento = 0;
+				montoDescuento = 0;
+		    	$scope.objPaquete.precio = 0;
+		    	$scope.objPaquete.montoTotal =  0;
+	    	}
+	    	//le agrega a la variable el precio por persona
+	    	$scope.objPaquete.precio = sumaProducto;
+	    	//calcula en decimal el porcentale en descuento
+	    	descuento = ($scope.objPaquete.descuento != null) ? ($scope.objPaquete.descuento / 100) : 0;
+	    	//calcula el total del precio por la cantidad de personas
+	    	$scope.total = sumaProducto * $scope.objPaquete.cantidadPersonas;
+	    	//calcula cuanto es el monto que tiene que descontar
+	    	montoDescuento =  $scope.total  * descuento;
+	    	//el monto total con el descuento aplicado
+	    	$scope.objPaquete.montoTotal =  $scope.total - montoDescuento;
+	    };
 	    
-	  //Guarda los datos ingresados por el usuario.
+	    //Guarda los datos ingresados por el usuario.
 		$scope.guardar = function() {
 			console.log($scope.productosSelecc);
 			if(validarDatos($scope.productosSelecc) && this.crearPaquete.$valid){
@@ -194,7 +225,7 @@ App.controller('PaqueteRegistrarController', function($scope, $http,$location, $
 					descripcion: $scope.objPaquete.descripcion,
 					cantidadPersonas: $scope.objPaquete.cantidadPersonas,
 					precio: $scope.objPaquete.precio,
-					descuento: $scope.objPaquete.descuento,
+					descuento: ($scope.objPaquete.descuento != null) ? $scope.objPaquete.descuento : 0,
 					montoTotal: $scope.objPaquete.montoTotal,
 					cateringId: $scope.objPaquete.idCatering,
 					eventoId: $scope.objPaquete.idTipoEvento,
