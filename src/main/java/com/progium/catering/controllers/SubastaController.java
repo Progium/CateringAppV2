@@ -143,6 +143,54 @@ public class SubastaController {
 		return subastaResponse;		
 	}
 
+	/**
+	* Este metodo se encarga de mostrar la lista de subastas.
+	* 
+	* @param SubastaRequest
+	* @return SubastaResponse
+	*
+	*/
+	@RequestMapping(value ="/getSubastaByUsuario", method = RequestMethod.POST)
+	public SubastaResponse getSubastaByUsuario(@RequestBody SubastaRequest subastaRequest){
+		
+		SubastaResponse subastaResponse = new SubastaResponse();
+		
+		subastaRequest.setPageNumber(subastaRequest.getPageNumber() - 1);
+		
+		HttpSession currentSession = request.getSession();
+		int idUsuario = (int) currentSession.getAttribute("idUsuario");	
+		
+		Page<Subasta> listaSubasta = subastaService.getSubastaByUsuario(subastaRequest, idUsuario);
+		List<SubastaPOJO> listaSubastagPojo = new ArrayList<SubastaPOJO>();
+		
+		subastaResponse.setCode(200);
+		subastaResponse.setCodeMessage("paquetes fetch success");
+		subastaResponse.setTotalElements(listaSubasta.getTotalElements());
+		subastaResponse.setTotalPages(listaSubasta.getTotalPages());
+		
+		//Recorre por cada subasta obtiene y setea los datos en el pojo.
+		listaSubasta.getContent().forEach(subasta->{
+			
+			String fechaEvento = new SimpleDateFormat("MM-dd-yyyy").format(subasta.getFechaEvento());
+
+			SubastaPOJO nSubasta = new SubastaPOJO();
+			nSubasta.setIdSubasta(subasta.getIdSubasta());
+			nSubasta.setNombre(subasta.getNombre());
+			nSubasta.setFechaEvento(fechaEvento);
+			nSubasta.setCantidadPersonas(subasta.getCantidadPersonas());
+			nSubasta.setMontoMaximo(subasta.getMontoMaximo());
+			nSubasta.setDescripcion(subasta.getDescripcion());
+			nSubasta.setIdTipoEvento(subasta.getTipo().getIdTipo());
+			nSubasta.setNombreTipoEvento(subasta.getTipo().getNombre());
+			nSubasta.setClienteId(subasta.getUsuario().getIdUsuario());
+			
+			listaSubastagPojo.add(nSubasta);
+		});
+		
+		subastaResponse.setSubastas(listaSubastagPojo);
+		
+		return subastaResponse;		
+	}
 }
 
 

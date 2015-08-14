@@ -69,4 +69,27 @@ public class SubastaService implements SubastaServiceInterface{
 		
 		return result;
 	}
+	
+	/**
+	* Este  metodo se encarga de retornar los todas las subastas dependiendo su estado 
+	*
+	* @param  Boolean
+	* 
+	* @return Page<Subasta>
+	*
+	*/
+	@Override
+	public Page<Subasta> getSubastaByUsuario(SubastaRequest sub, Integer idUsuario) {
+		
+		PageRequest pr;
+		pr = new PageRequest(sub.getPageNumber(),
+				sub.getPageSize());
+	
+		Page<Subasta> result;
+		
+		result = subastaRepository.findSubastaByUsuario_idUsuario(pr, idUsuario); 
+		
+		return result;
+	}
+	
 }

@@ -57,6 +57,8 @@
 					</footer>
 				</div>
 			</section>
+			<button ng-show="mostrarBoton" type="submit" class="btn btn-primary"
+				ng-click="registrar()">Registrar Subasta</button>
 		</div>
 	</div>
 </section>

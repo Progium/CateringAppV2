@@ -23,5 +23,8 @@ public interface SubastaServiceInterface {
 	
 	//obtiene la subasta por el estado
 	Page<Subasta> getSubastaByEstado(SubastaRequest sub,Boolean estado);
+	
+	//obtiene la subasta por el id usuario cliente
+	Page<Subasta> getSubastaByUsuario(SubastaRequest sub, Integer idUsuario);
 		
 }
