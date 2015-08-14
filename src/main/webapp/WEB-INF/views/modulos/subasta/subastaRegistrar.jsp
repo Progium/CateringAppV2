@@ -15,7 +15,7 @@
 								interesado</label>
 							<div class="col-lg-8">
 								<input ng-model="objSubasta.nombre" type="text" name="nombre"
-									placeholder="Pedro" class="form-control" required />
+									class="form-control" ng-readonly="true"  required />
 							</div>
 						</div>
 						<div class="form-group">
@@ -39,8 +39,13 @@
 							<label class="col-lg-3 control-label">Cantidad de
 								personas</label>
 							<div class="col-lg-8">
-								<input class="input-sm form-control" type="text"
-									placeholder="50" ng-model="objSubasta.CantPersonas" required />
+								<input type="number" class="input-sm spinner-input form-control"
+									name="cantidadPersonas" maxlength="3"
+									ng-change="actualizarFormulas()" ng-pattern="/^\d*$/"
+									ng-model="objPaquete.cantidadPersonas" min="1" max="5000"
+									required /><span class="error-message"
+									ng-show="crearSubasta.cantidadPersonas.$error.pattern">Debe
+									ingresar solo números.</span>
 							</div>
 						</div>
 						<div class="form-group">
@@ -58,8 +63,11 @@
 						<div class="form-group">
 							<label class="col-lg-3 control-label">Monto máximo</label>
 							<div class="col-lg-8">
-								<input class="input-sm form-control" type="text"
-									ng-model="objSubasta.montoMaximo" placeholder="250000" required />
+								<input class="input-sm form-control" type="text" name ="montoMaximo"
+									ng-model="objSubasta.montoMaximo" placeholder="250000" ng-pattern="/^\d*$/"
+									data-trigger="keyup" required/> <span class="error-message"
+									ng-show="crearSubasta.montoMaximo.$error.pattern">Debe
+									ingresar solo números.</span>
 							</div>
 						</div>
 						<div class="form-group"></div>

@@ -7,9 +7,12 @@
 
 App.controller('SubastaRegistrarController', function($scope, $http, $location, services) {
 	var objUsuario = $.jStorage.get("user");
+	
 	if(objUsuario){
 		_ScopeContainer['MainController'].esAdministrador = false;	
 		$scope.objSubasta = {};
+		var nombre= objUsuario.nombre;
+		$scope.objSubasta.nombre = nombre;
 		$scope.tituloPagina = "Crear Subasta";
 		$scope.listaTipoEvento = [];
 		$scope.init = function(){
