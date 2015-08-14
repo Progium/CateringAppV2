@@ -44,4 +44,5 @@ public interface GeneralServiceInterface {
 	//Obtiene la lista de catering y catering en especifico
 	List<Catering> getAllCatering();
 	Catering getCateringById(Integer idCatering);
+	
 }
