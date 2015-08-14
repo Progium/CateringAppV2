@@ -20,16 +20,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.progium.catering.contracts.BaseResponse;
-import com.progium.catering.contracts.CateringResponse;
-import com.progium.catering.contracts.TipoResponse;
 import com.progium.catering.contracts.UsuarioResponse;
 import com.progium.catering.contracts.UsuarioRequest;
-import com.progium.catering.ejb.Catering;
-import com.progium.catering.ejb.Provincia;
 import com.progium.catering.ejb.Tipo;
 import com.progium.catering.ejb.Usuario;
-import com.progium.catering.pojo.CateringPOJO;
-import com.progium.catering.pojo.ProvinciaPOJO;
 import com.progium.catering.pojo.UsuarioPOJO;
 import com.progium.catering.services.GeneralServiceInterface;
 import com.progium.catering.services.UsuarioServiceInterface;

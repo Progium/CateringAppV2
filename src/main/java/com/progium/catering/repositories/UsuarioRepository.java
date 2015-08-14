@@ -26,7 +26,7 @@ public interface UsuarioRepository extends CrudRepository<Usuario,Integer> {
 	
 	Usuario findByCorreo(String correo);
 	
-	List<Usuario> findByTipo(Integer idTipo);
+	List<Usuario> findByTipo_idTipo(Integer idTipo);
 	
 	Page<Usuario> findAll(Pageable pageable);
 	

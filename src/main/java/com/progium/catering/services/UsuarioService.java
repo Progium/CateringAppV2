@@ -81,7 +81,7 @@ public class UsuarioService implements UsuarioServiceInterface{
 	*/
 	@Override
 	public List<Usuario> findByTipoUsuario(Integer idTipo){
-		return usuarioRepository.findByTipo(idTipo);
+		return usuarioRepository.findByTipo_idTipo(idTipo);
 	}
 
 	

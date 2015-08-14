@@ -1,7 +1,8 @@
 package com.progium.catering.controllers;
 
 import java.security.NoSuchAlgorithmException;
-import java.sql.Date;
+import java.util.Date;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,22 +20,16 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.progium.catering.ejb.Producto;
-import com.progium.catering.ejb.Provincia;
 import com.progium.catering.ejb.Subasta;
 import com.progium.catering.ejb.Tipo;
 import com.progium.catering.ejb.Usuario;
-import com.progium.catering.contracts.BaseResponse;
-import com.progium.catering.contracts.ProvinciaResponse;
 import com.progium.catering.contracts.SubastaRequest;
 import com.progium.catering.contracts.SubastaResponse;
 import com.progium.catering.services.SubastaServiceInterface;
 import com.progium.catering.services.GeneralServiceInterface;
 import com.progium.catering.services.UsuarioServiceInterface;
-import com.progium.catering.pojo.ProvinciaPOJO;
 import com.progium.catering.pojo.SubastaPOJO;
 import com.progium.catering.pojo.UsuarioPOJO;
-import com.progium.catering.utils.PojoUtils;
 import com.progium.catering.utils.SendEmail;
 
 /**
@@ -143,6 +138,8 @@ public class SubastaController {
 		
 		subastaRequest.setPageNumber(subastaRequest.getPageNumber() - 1);
 		
+		cambiarEstadoSubasta();
+		
 		Page<Subasta> listaSubasta = subastaService.getSubastaByEstado(subastaRequest, false);
 		List<SubastaPOJO> listaSubastagPojo = new ArrayList<SubastaPOJO>();
 		
@@ -222,6 +219,30 @@ public class SubastaController {
 		subastaResponse.setSubastas(listaSubastagPojo);
 		
 		return subastaResponse;		
+	}
+	
+	/**
+	* Este metodo se encarga de cambiar de estado a todos las subastas que tienen fecha evento 
+	* menor a la fecha actual y estado 0
+	* 
+	* @param 
+	* @return 
+	*
+	*/
+	private void cambiarEstadoSubasta(){
+	   DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+	   //get current date time with Date()
+	   Date date = new Date();
+	   System.out.println(dateFormat.format(date));
+	   
+	   List<Subasta> listaSubasta = subastaService.getSubastaByEstadoAndFechaEvento(false, date);
+		
+		//Recorre por cada paquete obtiene y setea los datos en el pojo.
+		for (Subasta subasta : listaSubasta){
+			subasta.setEstado(true);	
+			Boolean state = subastaService.saveSubasta(subasta);
+			
+		}
 	}
 }
 
