@@ -1,6 +1,7 @@
 package com.progium.catering.repositories;
 
-
+import java.util.Date;
+import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
@@ -23,5 +24,7 @@ public interface SubastaRepository extends CrudRepository<Subasta,Integer> {
 	Page<Subasta> findSubastaByEstado(Pageable pageable, Boolean estado);
 	
 	Page<Subasta> findSubastaByUsuario_idUsuario(Pageable pageable, Integer idUsuario);
+	
+	List<Subasta> findSubastaByEstadoAndFechaEventoLessThan(Boolean estado, Date fechaEvento);
 
 }

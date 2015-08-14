@@ -1,5 +1,7 @@
 package com.progium.catering.services;
 
+import java.util.List;
+import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,5 +28,8 @@ public interface SubastaServiceInterface {
 	
 	//obtiene la subasta por el id usuario cliente
 	Page<Subasta> getSubastaByUsuario(SubastaRequest sub, Integer idUsuario);
+	
+	//obtiene la subasta con fecha menor a la fecha actual y estado 0.
+	List<Subasta> getSubastaByEstadoAndFechaEvento(Boolean estado, Date fechaEvento);
 		
 }

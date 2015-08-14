@@ -39,6 +39,7 @@ App.controller('SubastaRegistrarController', function($scope, $http, $location, 
 				.success(function(response){
 					if(response.code===200){
 						services.noty('Se ha registrado la subasta', 'success');
+						$location.path('/subasta-cliente-listar');
 					}else{
 						services.noty('error al crear la subasta', 'error');			
 					}				

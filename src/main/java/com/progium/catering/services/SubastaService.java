@@ -1,6 +1,7 @@
 package com.progium.catering.services;
 
 import java.util.List;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -51,6 +52,7 @@ public class SubastaService implements SubastaServiceInterface{
 	/**
 	* Este  metodo se encarga de retornar los todas las subastas dependiendo su estado 
 	*
+	* @param SubastaRequest
 	* @param  Boolean
 	* 
 	* @return Page<Subasta>
@@ -71,9 +73,10 @@ public class SubastaService implements SubastaServiceInterface{
 	}
 	
 	/**
-	* Este  metodo se encarga de retornar los todas las subastas dependiendo su estado 
+	* Este  metodo se encarga de retornar los todas las subastas del cliente
 	*
-	* @param  Boolean
+	* @param SubastaRequest
+	* @param Integer
 	* 
 	* @return Page<Subasta>
 	*
@@ -90,6 +93,20 @@ public class SubastaService implements SubastaServiceInterface{
 		result = subastaRepository.findSubastaByUsuario_idUsuario(pr, idUsuario); 
 		
 		return result;
+	}
+	
+	/**
+	* Este  metodo se encarga de retornar los todas las subastas con fecha evento menor a la fecha actual y estado 0
+	*
+	* @param  Boolean
+	* 
+	* @return List<Subasta>
+	*
+	*/
+	@Override
+	public List<Subasta> getSubastaByEstadoAndFechaEvento(Boolean estado, Date fechaEvento) {
+		
+		return subastaRepository.findSubastaByEstadoAndFechaEventoLessThan(estado, fechaEvento);
 	}
 	
 }

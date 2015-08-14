@@ -90,6 +90,7 @@ App.controller('PaqueteRegistrarController', function($scope, $http,$location, $
 	    
 		//Trae los tipos de evento del catering seleccionado
 	    $scope.llenarTipoEvento = function() {
+	    	$scope.productosSelecc.length = 0;
 	    	//Agrega los datos del catering seleccionado en el select de lista de caterings
 	    	var catering = _.where($scope.listaCaterings, {idCatering: $scope.objPaquete.idCatering});
 			//Obtiene los tipos de eventos
@@ -217,7 +218,6 @@ App.controller('PaqueteRegistrarController', function($scope, $http,$location, $
 	    
 	    //Guarda los datos ingresados por el usuario.
 		$scope.guardar = function() {
-			console.log($scope.productosSelecc);
 			if(validarDatos($scope.productosSelecc) && this.crearPaquete.$valid){
 				var datosPaquete = {};
 				datosPaquete = {
