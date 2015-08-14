@@ -31,12 +31,9 @@ public class Subasta implements Serializable {
 	private byte estado;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date fechaHora;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date fechaVencimiento;
-
-	private BigDecimal montoMaximo;
+	private Date fechaEvento;
+	
+	private double montoMaximo;
 
 	private String nombre;
 
@@ -93,27 +90,19 @@ public class Subasta implements Serializable {
 		this.estado = estado;
 	}
 
-	public Date getFechaHora() {
-		return this.fechaHora;
+	public Date getFechaEvento() {
+		return this.fechaEvento;
 	}
 
-	public void setFechaHora(Date fechaHora) {
-		this.fechaHora = fechaHora;
+	public void setFechaEvento(Date fechaEvento) {
+		this.fechaEvento = fechaEvento;
 	}
 
-	public Date getFechaVencimiento() {
-		return this.fechaVencimiento;
-	}
-
-	public void setFechaVencimiento(Date fechaVencimiento) {
-		this.fechaVencimiento = fechaVencimiento;
-	}
-
-	public BigDecimal getMontoMaximo() {
+	public double getMontoMaximo() {
 		return this.montoMaximo;
 	}
 
-	public void setMontoMaximo(BigDecimal montoMaximo) {
+	public void setMontoMaximo(double montoMaximo) {
 		this.montoMaximo = montoMaximo;
 	}
 
