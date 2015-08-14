@@ -8,6 +8,7 @@
 App.controller('SubastaRegistrarController', function($scope, $http, $location, services) {
 	var objUsuario = $.jStorage.get("user");
 	if(objUsuario){
+		_ScopeContainer['MainController'].esAdministrador = false;	
 		$scope.objSubasta = {};
 		$scope.tituloPagina = "Crear Subasta";
 		$scope.listaTipoEvento = [];
@@ -23,29 +24,26 @@ App.controller('SubastaRegistrarController', function($scope, $http, $location, 
 	    
 		$scope.create = function(){
 			if(this.crearSubasta.$valid){
-			this.onError = false;
-			var datosSubasta = {};
-			datosSubasta ={
-					nombre: $scope.objSubasta.nombre, 
-					tipoId: $scope.objSubasta.idTipo,
-					fechaEvento: $scope.objSubasta.fechaEvento,
-					cantidadPersonas: $scope.objSubasta.CantPersonas,
-					descripcion: $scope.objSubasta.descripcion,
-					montoMaximo: $scope.objSubasta.montoMaximo,
-					clienteId: objUsuario.idUsuario
-			}
-			console.log(datosSubasta)
-			$http.post('rest/protected/subasta/create', datosSubasta)
-				.success(function(response){
-				if(response.code===200){
-					services.noty('Se ha registrado la subasta', 'success');
-				}else{
-					services.noty('error al crear la subasta', 'error');			
+				this.onError = false;
+				var datosSubasta = {};
+				datosSubasta ={
+						nombre: $scope.objSubasta.nombre, 
+						tipoId: $scope.objSubasta.idTipo,
+						fechaEvento: $scope.objSubasta.fechaEvento,
+						cantidadPersonas: $scope.objSubasta.CantPersonas,
+						descripcion: $scope.objSubasta.descripcion,
+						montoMaximo: $scope.objSubasta.montoMaximo,
+						clienteId: objUsuario.idUsuario
 				}
-									
-									
-			});				
-	   };
+				$http.post('rest/protected/subasta/create', datosSubasta)
+				.success(function(response){
+					if(response.code===200){
+						services.noty('Se ha registrado la subasta', 'success');
+					}else{
+						services.noty('error al crear la subasta', 'error');			
+					}				
+				});				
+			};
 		};	
 	}else{
 		var path = "/catering/#/iniciar-sesion";
