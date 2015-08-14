@@ -19,16 +19,23 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.progium.catering.ejb.Producto;
+import com.progium.catering.ejb.Provincia;
 import com.progium.catering.ejb.Subasta;
 import com.progium.catering.ejb.Tipo;
 import com.progium.catering.ejb.Usuario;
 import com.progium.catering.contracts.BaseResponse;
+import com.progium.catering.contracts.ProvinciaResponse;
 import com.progium.catering.contracts.SubastaRequest;
 import com.progium.catering.contracts.SubastaResponse;
 import com.progium.catering.services.SubastaServiceInterface;
 import com.progium.catering.services.GeneralServiceInterface;
+import com.progium.catering.services.UsuarioServiceInterface;
+import com.progium.catering.pojo.ProvinciaPOJO;
 import com.progium.catering.pojo.SubastaPOJO;
+import com.progium.catering.pojo.UsuarioPOJO;
 import com.progium.catering.utils.PojoUtils;
+import com.progium.catering.utils.SendEmail;
 
 /**
 * Esta clase se encarga de crear el controlador
@@ -46,6 +53,9 @@ public class SubastaController {
 	SubastaServiceInterface subastaService;
 
 	@Autowired
+	UsuarioServiceInterface usuarioService;
+
+	@Autowired
 	GeneralServiceInterface generalService;
 
 	@Autowired
@@ -56,6 +66,28 @@ public class SubastaController {
 
 	public SubastaController() {
 		// TODO Auto-generated constructor stub
+	}
+	
+	/**
+	* Este metodo se encarga de obetener todos los administradores de catering del sistema
+	* y enviarles un correo cuando se crea la subasta.
+	* 
+	* @param 
+	* @return 
+	*
+	*/
+	private void EnviarCorreoAdministradores(){
+		
+		List<Usuario> listaAdministradores = usuarioService.findByTipoUsuario(2);
+		List<UsuarioPOJO> listaAdministradoresPojo = new ArrayList<UsuarioPOJO>();
+		String correo;
+		for (Usuario usu : listaAdministradores){
+			correo = usu.getCorreo();
+			String mensaje = "Se le informa que se ha creado una nueva subasta, en la cual puede entrar a participar ";
+			SendEmail.sendEmail("Notificación de subasta",
+									correo, "Usuario", 
+									"Subasta", mensaje);
+		}
 	}
 	
 	/**
@@ -88,7 +120,7 @@ public class SubastaController {
 			if (state) {
 				cs.setCode(200);
 				cs.setCodeMessage("subasta created succesfully");
-
+				EnviarCorreoAdministradores();
 			}else{
 				cs.setCode(401);
 				cs.setErrorMessage("Unauthorized User");

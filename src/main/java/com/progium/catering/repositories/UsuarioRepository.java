@@ -1,10 +1,13 @@
 package com.progium.catering.repositories;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
 
 import com.progium.catering.ejb.Usuario;
+
 
 /**
 * Esta clase se encarga de manejar las operaciones de
@@ -22,6 +25,8 @@ public interface UsuarioRepository extends CrudRepository<Usuario,Integer> {
 	Usuario findByCorreoAndContrasenna(String email, String password);
 	
 	Usuario findByCorreo(String correo);
+	
+	List<Usuario> findByTipo(Integer idTipo);
 	
 	Page<Usuario> findAll(Pageable pageable);
 	

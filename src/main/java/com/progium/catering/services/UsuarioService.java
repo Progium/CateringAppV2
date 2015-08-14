@@ -18,13 +18,20 @@ import com.progium.catering.ejb.Usuario;
 * @since   2015/08/08
 */
 
-
 @Service
 public class UsuarioService implements UsuarioServiceInterface{
 
 	@Autowired
 	UsuarioRepository usuarioRepository;
 	
+	/**
+	* Este  metodo se encarga salvar un usuario
+	*
+	* @param usuario
+	* 
+	* @return Boolean
+	*
+	*/
 	@Override
 	@Transactional
 	public Boolean saveUsuario(Usuario objUsuario) {
@@ -46,15 +53,36 @@ public class UsuarioService implements UsuarioServiceInterface{
 	* @return Usuario
 	*
 	*/
-	
 	@Override
 	public Usuario getUsuarioById(Integer idUsuario){
 		return usuarioRepository.findOne(idUsuario);
 	}
 	
+	/**
+	* Este  metodo se encarga buscar un usuario dado un determinado correo
+	*
+	* @param  correo
+	* 
+	* @return Usuario
+	*
+	*/
 	@Override
 	public Usuario getUsuarioByCorreo(String correo){
 		return usuarioRepository.findByCorreo(correo);
 	}
+	
+	/**
+	* Este  metodo se encarga buscar los usuarios administradores
+	*
+	* @param  idTipo
+	* 
+	* @return Usuario
+	*
+	*/
+	@Override
+	public List<Usuario> findByTipoUsuario(Integer idTipo){
+		return usuarioRepository.findByTipo(idTipo);
+	}
 
+	
 }
