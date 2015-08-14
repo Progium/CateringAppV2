@@ -1,6 +1,7 @@
 package com.progium.catering.contracts;
 
 import org.springframework.web.multipart.MultipartFile;
+
 import java.util.List;
 
 /**
@@ -19,6 +20,7 @@ public class CatalogoProductoRequest extends BasePagingRequest{
 	private Integer productoId;
 	private String needAccess;
 	private MultipartFile file;
+	private List<Integer> catalogoProducto;
 	
 	public CatalogoProductoRequest() {
 		super();
@@ -94,6 +96,14 @@ public class CatalogoProductoRequest extends BasePagingRequest{
 
 	public void setFile(MultipartFile file) {
 		this.file = file;
+	}
+
+	public List<Integer> getCatalogoProducto() {
+		return catalogoProducto;
+	}
+
+	public void setCatalogoProducto(List<Integer> catalogoProducto) {
+		this.catalogoProducto = catalogoProducto;
 	}
 	
 }

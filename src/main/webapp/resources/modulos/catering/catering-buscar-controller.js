@@ -205,7 +205,6 @@ App.controller('CateringBuscarController', function($scope, $http,$location, $up
 		    	
 		    	$http.post('rest/protected/paquete/getPaqueteByCatering', $scope.objPaquete).success(function (contractPaqueteResponse){
 					$scope.paquetesLista = contractPaqueteResponse.paquetes;
-					console.log($scope.paquetesLista);
 		    	});
 			 	      
 		    };
@@ -271,6 +270,9 @@ App.controller('CateringBuscarController', function($scope, $http,$location, $up
 		   //Funcion que muestra el detalle de un paquete determinado
 		   var ModalInstanceViewDetallePaqueteCtrl = function($scope, $http, $modalInstance,$log, $location, $upload, param){
 		    				   
+				$scope.listaCatalogos = [];
+				$scope.listaProductos = [];
+				$scope.objProducto = [];
 				$scope.paquete = {};
 				$scope.onError = false;
 				
@@ -288,6 +290,39 @@ App.controller('CateringBuscarController', function($scope, $http,$location, $up
     				$scope.paquete.montoTotal = param.montoTotal;
     				$scope.paquete.catalogoProducto = param.catalogoProducto;
     				$scope.paquete.total = (param.precio * param.cantidadPersonas);
+    				
+    				//Obtiene el catalogo del producto del paquete
+    				$http.post('rest/protected/catalogo/getCatalogoProducto', param)
+    				.success(function(CatalogoResponse) {		
+    					var i = 0;
+    					var j = 0;
+    					var f = 0;
+    					$scope.listaCatalogos = CatalogoResponse.catalogos;
+    					
+    					for (i = 0; i <= $scope.listaCatalogos.length-1; i++) {
+    						var objProd = {};
+    						objProd.idProducto = $scope.listaCatalogos[i].productoId;
+    						objProd.precio = $scope.listaCatalogos[i].precio; 
+    						objProd.idCatalogoProducto = $scope.listaCatalogos[i].idCatalogoProducto;
+    						//Guarda en un objeto producto los datos de ese producto
+    						$scope.objProducto.push(objProd);
+    						$http.post('rest/protected/producto/getProducto', objProd)
+    						.success(function(productoResponse){
+    							for(j = 0; j <=$scope.objProducto.length-1; j++){
+    								if(productoResponse.producto.idProducto == $scope.objProducto[j].idProducto ){
+    									$scope.objProducto[j].nombre = productoResponse.producto.nombre + " => " + $scope.objProducto[j].precio;
+    									$scope.objProducto[j].categoria = productoResponse.producto.categoria;
+    								}
+    							}
+
+    							if(f == $scope.listaCatalogos.length-1){
+    								$scope.listaProductos = $scope.objProducto;
+    							}
+    							f++;
+    						});
+    					}
+	
+    				});
 					
 				};
 							

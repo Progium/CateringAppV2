@@ -152,7 +152,37 @@ public class CatalogoProductoController {
 			nCatalogoProd.setProductoId(catProd.getProducto().getIdProducto());
 			nCatalogoProd.setPrecio(catProd.getPrecio());
 			
-			//PojoUtils.pojoMappingUtility(nCatalogoProd,catProd);
+			listaCatalogoProductoPOJO.add(nCatalogoProd);
+		}
+		
+		catalogoProductoResponse.setCatalogos(listaCatalogoProductoPOJO);
+		
+		return catalogoProductoResponse;
+	}
+	
+	/**
+	* Este  metodo se encarga de retornar un tipo de evento.
+	*
+	* @param  catalogoProductoRequest
+	* 
+	* @return catalogoProductoResponse
+	*
+	*/
+	@RequestMapping(value ="/getCatalogoProducto", method = RequestMethod.POST)
+	public CatalogoProductoResponse getCatalogoProducto(@RequestBody CatalogoProductoRequest catalogoProductoRequest)throws NoSuchAlgorithmException {
+		
+		CatalogoProductoResponse catalogoProductoResponse = new CatalogoProductoResponse();
+		List<CatalogoProductoPOJO> listaCatalogoProductoPOJO = new ArrayList<CatalogoProductoPOJO>();
+		
+		for(int i = 0; i < catalogoProductoRequest.getCatalogoProducto().size(); i++){
+			Catalogoproducto catalogoProducto = catalogoProductoService.getCatalogoProductoById(catalogoProductoRequest.getCatalogoProducto().get(i));		
+			CatalogoProductoPOJO nCatalogoProd = new CatalogoProductoPOJO();
+			
+			nCatalogoProd.setIdCatalogoProducto(catalogoProducto.getIdCatalogoProducto());
+			nCatalogoProd.setCateringId(catalogoProducto.getCatering().getIdCatering());
+			nCatalogoProd.setProductoId(catalogoProducto.getProducto().getIdProducto());
+			nCatalogoProd.setPrecio(catalogoProducto.getPrecio());
+			
 			listaCatalogoProductoPOJO.add(nCatalogoProd);
 		}
 		
