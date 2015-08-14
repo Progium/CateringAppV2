@@ -56,6 +56,10 @@ App.config(function($routeProvider, $locationProvider) {
 			templateUrl: 'modulos/seguridad-usuario-perfil',
 			controller: 'UsuarioPerfilController'
 		})
+		.when('/usuario-olvidar', {
+			templateUrl: 'modulos/seguridad-usuario-olvidar',
+			controller: 'UsuarioOlvidarContrasennaController'
+		})
 		.when('/catering-registrar', {
 			templateUrl: 'modulos/catering-admin',
 			controller: 'CateringRegistrarController'

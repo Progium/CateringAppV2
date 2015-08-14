@@ -21,6 +21,10 @@ App.config(function($routeProvider, $locationProvider) {
 			templateUrl: 'modulos/seguridad-usuario-admin',
 			controller: 'UsuarioRegistrarController'
 		})
+		.when('/usuario-olvidar', {
+			templateUrl: 'modulos/seguridad-usuario-olvidar',
+			controller: 'UsuarioOlvidarContrasennaController'
+		})
 		.when('/usuario-modificar/:pidUsuario', {
 			templateUrl: 'modulos/seguridad-usuario-admin',
 			controller: 'UsuarioModificarController'

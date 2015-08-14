@@ -1,8 +1,10 @@
 package com.progium.catering.controllers;
 
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.progium.catering.contracts.BaseResponse;
 import com.progium.catering.contracts.CateringResponse;
 import com.progium.catering.contracts.TipoResponse;
 import com.progium.catering.contracts.UsuarioResponse;
@@ -230,4 +233,52 @@ public class UsuarioController {
 		}
 		return us;
 	}
+	
+	
+	private String randomString() {
+		char[] characterSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".toCharArray();
+		int length = 5;
+		Random random = new SecureRandom();
+		char[] result = new char[length];
+		for (int i = 0; i < result.length; i++) {
+			int randomCharIndex = random.nextInt(characterSet.length);
+			result[i] = characterSet[randomCharIndex];
+		}
+		return new String(result);
+	}
+
+	@RequestMapping(value = "/olvidoContrasenna", method = RequestMethod.POST)
+	@Transactional
+	public BaseResponse olvidoContrasenna(@RequestBody UsuarioRequest usuarioRequest) throws NoSuchAlgorithmException{	
+	
+		BaseResponse bs = new BaseResponse();
+		Usuario objUsuario = usuarioService.getUsuarioByCorreo(usuarioRequest.getCorreo());
+		
+		if(objUsuario != null){
+			String nuevaContrasenna = randomString();
+			objUsuario.setContrasenna(GeneradorContrasennaUtil.encriptarContrasenna(nuevaContrasenna));
+			Boolean state = usuarioService.saveUsuario(objUsuario);
+			
+			if(state){
+				bs.setCode(200);
+				bs.setCodeMessage("Contraseña modify succesfully");
+				String mensaje = "Para volver ingresar al sistema debe utilizar la siguiente contraseña: "
+						+ "contraseña: "
+						+ nuevaContrasenna;
+				SendEmail.sendEmail("Solicitud de cambio de contraseña",
+										objUsuario.getCorreo(), "Usuario", 
+										"Cambio de contraseña", mensaje);
+			}else{
+				bs.setCode(400);
+				bs.setCodeMessage("Contraseña modify succesfully");
+			}
+			
+		}else{
+			bs.setCode(400);
+			bs.setCodeMessage("Contraseña modify succesfully");
+		}
+		
+	return bs;
+ }
+	
 }

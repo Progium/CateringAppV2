@@ -14,8 +14,8 @@
 							type="password" id="contrasenna" placeholder="Contraseña"
 							class="form-control" ng-model="user.contrasenna" required />
 					</div>
-					<a ng-href="olvidoContrasenna.html" class="pull-right m-t-mini">
-						<small>¿Olvidó su contraseña?</small>
+					<a ng-href="#/usuario-olvidar" class="pull-right m-t-mini">
+						¿Olvidó su contraseña?
 					</a>
 					<!--<samp ng-show="mostrarMensaje">Correo o contraseña invalidos</samp>-->
 					<button class="btn btn-info" ng-click="iniciarSesion()">Iniciar

@@ -123,6 +123,12 @@ public class LayoutController {
 		return "modulos/seguridad/usuarioPerfil";
 	}
 	
+	@RequestMapping(value = "/seguridad-usuario-olvidar")
+	public String getSeguridadOlvidoContrasenna()
+	{
+		return "modulos/seguridad/olvidoContrasenna";
+	}
+	
 	//-------------------------------------------------------
 	//Subasta
 	//-------------------------------------------------------

@@ -18,4 +18,5 @@ public interface UsuarioServiceInterface {
 
 	Boolean saveUsuario(Usuario objUsuario);
 	Usuario getUsuarioById(Integer idUsuario);
+	Usuario getUsuarioByCorreo(String correo);
 }

@@ -51,5 +51,10 @@ public class UsuarioService implements UsuarioServiceInterface{
 	public Usuario getUsuarioById(Integer idUsuario){
 		return usuarioRepository.findOne(idUsuario);
 	}
+	
+	@Override
+	public Usuario getUsuarioByCorreo(String correo){
+		return usuarioRepository.findByCorreo(correo);
+	}
 
 }
