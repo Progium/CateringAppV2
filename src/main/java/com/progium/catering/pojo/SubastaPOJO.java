@@ -13,13 +13,13 @@ public class SubastaPOJO{
 	
 	private int idSubasta;
 	private String nombre;
-	private Date fechaHora;
+	private Date fechaEvento;
 	private int cantidadPersonas;
-	private float montoMinimo;
+	private double montoMaximo;
 	private String descripcion;
 	private boolean estado;
-	private Date fechaVencimiento;
-	
+	private int idTipoEvento;
+	private String nombreTipoEvento;
 	
 	public SubastaPOJO() {
 		super();
@@ -41,12 +41,12 @@ public class SubastaPOJO{
 		this.nombre = nombre;
 	}
 	
-	public Date getFechaHora() {
-		return fechaHora;
+	public Date getFechaEvento() {
+		return fechaEvento;
 	}
 	
-	public void setFechaHora(Date fechaHora) {
-		this.fechaHora = fechaHora;
+	public void setFechaEvento(Date fechaEvento) {
+		this.fechaEvento = fechaEvento;
 	}
 	
 	public int getCantidadPersonas() {
@@ -56,12 +56,12 @@ public class SubastaPOJO{
 	public void setCantidadPersonas(int cantidadPersonas) {
 		this.cantidadPersonas = cantidadPersonas;
 	}
-	public float getMontoMinimo() {
-		return montoMinimo;
+	public double getMontoMaximo() {
+		return montoMaximo;
 	}
 	
-	public void setMontoMinimo(float montoMinimo) {
-		this.montoMinimo = montoMinimo;
+	public void setMontoMaximo(double montoMaximo) {
+		this.montoMaximo = montoMaximo;
 	}
 	
 	public String getDescripcion() {
@@ -79,15 +79,21 @@ public class SubastaPOJO{
 	public void setEstado(boolean estado) {
 		this.estado = estado;
 	}
-	
-	public Date getFechaVencimiento() {
-		return fechaVencimiento;
+
+	public int getIdTipoEvento() {
+		return idTipoEvento;
 	}
-	
-	public void setFechaVencimiento(Date fechaVencimiento) {
-		this.fechaVencimiento = fechaVencimiento;
+
+	public void setIdTipoEvento(int idTipoEvento) {
+		this.idTipoEvento = idTipoEvento;
 	}
-	
-	
+
+	public String getNombreTipoEvento() {
+		return nombreTipoEvento;
+	}
+
+	public void setNombreTipoEvento(String nombreTipoEvento) {
+		this.nombreTipoEvento = nombreTipoEvento;
+	}
 	
 }	
