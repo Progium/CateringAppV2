@@ -9,11 +9,11 @@
 				</h4>
 			</div>
 			<div class="form-group">
-				<label class="col-lg-2 control-label">Categoría:</label>
+				<label class="col-lg-8">Categoría:</label>
   				
 					<select name="idCategoria" id="idCategoria" ng-model="objCategoria.idCategoria" 
 							ng-options="cat.idCategoria as cat.nombre for cat in listaCategorias"
-							ng-change="cargarProducto()">
+							ng-change="cargarProducto()" class="form-control">
 					</select>
 			</div>
 			<div class="col-xs-6">
@@ -21,8 +21,7 @@
 					<header class="panel-heading bg-white">
 						<div class="text-center h5">Productos seleccionados</div>
 						<div class="panel-body pull-in text-center">
-							Buscar: <input type="search" ng-model="a" placeholder="búsqueda de productos"
-							style="margin-bottom: 10px">
+							Buscar: <input type="search" ng-model="a" placeholder="búsqueda de productos" class="form-control" style="margin-bottom: 10px">
 						<table class="table-bordered table">
 							<th>
 							<th>Nombre</th>
@@ -47,7 +46,7 @@
 					<header class="panel-heading bg-white">
 						<div class="text-center h5">Lista de productos</div>
 						<div class="panel-body pull-in text-center">
-							Buscar: <input type="search" ng-model="q" placeholder="búsqueda de productos"
+							Buscar: <input type="search" ng-model="q" placeholder="búsqueda de productos" class="form-control"
 							style="margin-bottom: 10px">
 						<table class="table-bordered table">
 							<th>

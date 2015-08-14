@@ -11,13 +11,13 @@
                   <div class="form-group">
                     <label class="col-lg-3 control-label">Producto</label>
                   	<div class="col-lg-8">
-                  	<input type="text"  name="producto" ng-model="productoSelec.nombre" readonly/>
+                  	<input type="text"  name="producto" class="form-control" ng-model="productoSelec.nombre" readonly/>
                   </div>
                 </div>
                 <div class="form-group">
                 	<label class="col-lg-3 control-label">Precio</label>
                     <div class="col-lg-8">
-                    	<input type="text"  name="precio" id="precio" required ng-model="objCatalogo.precio"/>
+                    	<input type="text"  class="form-control" name="precio" id="precio" required ng-model="objCatalogo.precio"/>
                       	<span class="error"  ng-show="precio.$error.required">Requerido</span>
                     </div>
                 </div> 
