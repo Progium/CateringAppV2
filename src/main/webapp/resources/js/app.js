@@ -96,6 +96,11 @@ App.config(function($routeProvider, $locationProvider) {
 			templateUrl: 'modulos/paquete-listar',
 			controller: 'PaqueteListarController'
 		})
+		
+		.when('/paquete-mostrar-detalle', {
+			templateUrl: 'modulos/paquete-mostrar-detalle',
+			controller: 'ModalInstanceViewDetallePaqueteCtrl'
+		})
 		.when('/subasta-registrar', {
 			templateUrl: 'modulos/subasta-registrar',
 			controller: 'SubastaRegistrarController'

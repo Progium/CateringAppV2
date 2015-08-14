@@ -28,7 +28,7 @@
 								<td class="text-right">
 									<div class="btn-group">
 										<button type="button" class="btn btn-primary"
-											ng-click="openModal(catering)">Mostrar Detalle</button>
+											ng-click="openModalDetallePaquete(paquete)">Mostrar Detalle</button>
 									</div>
 								</td>
 							</tr>

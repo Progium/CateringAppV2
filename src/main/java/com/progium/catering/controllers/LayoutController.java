@@ -97,6 +97,11 @@ public class LayoutController {
 		return "modulos/paquete/paqueteListar";
 	}
 
+	@RequestMapping(value = "/paquete-mostrar-detalle")
+	public String getPaqueteMostrarDetalle()
+	{
+		return "modulos/paquete/paqueteMostrarDetalle";
+	}
 	//-------------------------------------------------------
 	//Seguridad
 	//-------------------------------------------------------

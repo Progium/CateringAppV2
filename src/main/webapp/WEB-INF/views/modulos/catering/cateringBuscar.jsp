@@ -134,9 +134,9 @@
 			</section>
 		</div>
 
-		<div class="col-sm-5">
+		<div class="col-sm-5" ng-show = "mostrarTablaListPaquete">
 			<section class="panel">
-				<header class="panel-heading">Lista de Paquetes del Catering</header>
+				<header class="panel-heading">Lista de Paquetes del Catering {{nombreCatering}}</header>
 				<div class="table-responsive">
 					<table class="table table-striped b-t text-small">
 						<thead>
@@ -155,7 +155,7 @@
 								<td class="text-right">
 									<div class="btn-group">
 										<button type="button" class="btn btn-primary"
-											ng-click="openModalPaquete(paquete)">Mostrar Detalle</button>
+											ng-click="openModalDetallePaquete(paquete)">Mostrar Detalle</button>
 									</div>
 								</td>
 							</tr>
