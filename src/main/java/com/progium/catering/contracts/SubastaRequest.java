@@ -10,7 +10,7 @@ import java.util.Date;
 * @version 1.0
 * @since   2015/08/08
 */
-public class SubastaRequest {
+public class SubastaRequest extends BasePagingRequest{
 	private int idSubasta;
 	private String nombre;
 	private Date fechaEvento;

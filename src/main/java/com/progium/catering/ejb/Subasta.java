@@ -1,8 +1,9 @@
 package com.progium.catering.ejb;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
-import java.math.BigDecimal;
+
 import java.util.Date;
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class Subasta implements Serializable {
 
 	private String descripcion;
 
-	private byte estado;
+	private boolean estado;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date fechaEvento;
@@ -82,11 +83,11 @@ public class Subasta implements Serializable {
 		this.descripcion = descripcion;
 	}
 
-	public byte getEstado() {
+	public boolean getEstado() {
 		return this.estado;
 	}
 
-	public void setEstado(byte estado) {
+	public void setEstado(boolean estado) {
 		this.estado = estado;
 	}
 

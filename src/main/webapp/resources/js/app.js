@@ -113,6 +113,11 @@ App.config(function($routeProvider, $locationProvider) {
 			templateUrl: 'modulos/subasta-listar',
 			controller: 'SubastaListarController'
 		})
+		
+		.when('/subasta-mostrar-detalle', {
+			templateUrl: 'modulos/subasta-mostrar-detalle',
+			controller: 'ModalInstanceViewDetalleSubastaCtrl'
+		})
 		.when('/no-encontrado', {
 			templateUrl: 'modulos/no-encontrado',
 			controller: 'CompartidoController'

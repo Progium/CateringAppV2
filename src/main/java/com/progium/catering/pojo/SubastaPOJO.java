@@ -13,13 +13,14 @@ public class SubastaPOJO{
 	
 	private int idSubasta;
 	private String nombre;
-	private Date fechaEvento;
+	private String fechaEvento;
 	private int cantidadPersonas;
 	private double montoMaximo;
 	private String descripcion;
 	private boolean estado;
 	private int clienteId;
-	
+	private int idTipoEvento;
+	private String nombreTipoEvento;
 	
 	
 	public SubastaPOJO() {
@@ -42,11 +43,11 @@ public class SubastaPOJO{
 		this.nombre = nombre;
 	}
 	
-	public Date getFechaEvento() {
+	public String getFechaEvento() {
 		return fechaEvento;
 	}
 	
-	public void setFechaEvento(Date fechaEvento) {
+	public void setFechaEvento(String fechaEvento) {
 		this.fechaEvento = fechaEvento;
 	}
 	
@@ -87,6 +88,22 @@ public class SubastaPOJO{
 	
 	public void setClienteId(int clienteId) {
 		this.clienteId = clienteId;
+	}
+	
+	public int getIdTipoEvento() {
+		return idTipoEvento;
+	}
+
+	public void setIdTipoEvento(int idTipoEvento) {
+		this.idTipoEvento = idTipoEvento;
+	}
+
+	public String getNombreTipoEvento() {
+		return nombreTipoEvento;
+	}
+
+	public void setNombreTipoEvento(String nombreTipoEvento) {
+		this.nombreTipoEvento = nombreTipoEvento;
 	}
 	
 }	

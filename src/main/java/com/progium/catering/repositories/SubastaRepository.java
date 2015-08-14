@@ -20,5 +20,6 @@ public interface SubastaRepository extends CrudRepository<Subasta,Integer> {
 	
 	Page<Subasta> findAll(Pageable pageable);
 	
-	
+	Page<Subasta> findSubastaByEstado(Pageable pageable, Boolean estado);
+
 }

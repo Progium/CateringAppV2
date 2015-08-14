@@ -81,7 +81,7 @@ App.controller('PaqueteListarController', function($scope, $http,$location, $upl
 			$scope.init = function(){
 				$scope.paquete.idPaquete = param.idPaquete;
 				$scope.paquete.nombre = param.nombre;
-				$scope.paquete.descripcion = param.nombre;
+				$scope.paquete.descripcion = param.descripcion;
 				$scope.paquete.idCatering = param.idCatering;
 				$scope.paquete.nombreCatering = param.nombreCatering;
 				$scope.paquete.idTipoEvento = param.idTipoEvento;

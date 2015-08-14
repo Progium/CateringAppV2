@@ -143,4 +143,10 @@ public class LayoutController {
 	{
 		return "modulos/subasta/subastaListar";
 	}
+	
+	@RequestMapping(value = "/subasta-mostrar-detalle")
+	public String getSubastaMostrarDetalle()
+	{
+		return "modulos/subasta/subastaMostrarDetalle";
+	}
 }

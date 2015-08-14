@@ -4,9 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.progium.catering.contracts.SubastaResponse;
+import org.springframework.data.domain.Page;
+import com.progium.catering.contracts.SubastaRequest;
 import com.progium.catering.ejb.Subasta;
-import com.progium.catering.repositories.SubastaRepository;
 
 /**
 * Esta clase se encarga dar el comportamiento a las diferentes 
@@ -20,4 +20,8 @@ import com.progium.catering.repositories.SubastaRepository;
 @Service
 public interface SubastaServiceInterface {
 	Boolean saveSubasta(Subasta objSubasta);
+	
+	//obtiene la subasta por el estado
+	Page<Subasta> getSubastaByEstado(SubastaRequest sub,Boolean estado);
+		
 }
