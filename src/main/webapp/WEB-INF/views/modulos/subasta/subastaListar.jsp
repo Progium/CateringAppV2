@@ -5,7 +5,7 @@
 		</h4>
 	</div>
 	<div class="row">
-		<div class="col-lg-8">
+		<div class="col-lg-6">
 			<section class="panel">
 				<div>
 					<table class="table table-striped m-b-none text-small">

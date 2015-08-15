@@ -13,7 +13,7 @@ import com.progium.catering.pojo.PropuestaSubastaPOJO;
 * @since   2015/08/08
 */
 
-public class PropuestaResponse {
+public class PropuestaResponse extends BaseResponse{
 	
 	private List<PropuestaSubastaPOJO> propuestas;
 	private PropuestaSubastaPOJO propuesta;
