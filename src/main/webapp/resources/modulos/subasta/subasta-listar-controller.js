@@ -12,6 +12,7 @@ App.controller('SubastaListarController', function($scope, $http, $location, $up
 		
 		_ScopeContainer['MainController'].esAdministrador = true;	
 		$scope.mostrarBoton = false;
+		$scope.mostrarBotonSubasta = true;
 		$scope.tituloPagina = "Listar subasta";
 		$scope.subastaLista = [];
 		
@@ -44,6 +45,10 @@ App.controller('SubastaListarController', function($scope, $http, $location, $up
 	    };	
 	    
 	    $scope.init();
+	    
+	    $scope.participarSubasta = function(idSubasta){
+	    	$location.path('/paquete-listar/'+idSubasta);
+	    }
 	    
 	    $scope.openModalDetalleSubasta = function(subastaSelec){
 	
@@ -106,7 +111,7 @@ App.controller('SubastaClienteListarController', function($scope, $http, $locati
 		
 		_ScopeContainer['MainController'].esAdministrador = false;	
 		$scope.mostrarBoton = true;
-		
+		$scope.mostrarBotonSubasta = false;
 		$scope.tituloPagina = "Mis subasta";
 		$scope.subastaLista = [];
 		

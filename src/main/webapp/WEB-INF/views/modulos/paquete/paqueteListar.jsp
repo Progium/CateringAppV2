@@ -17,6 +17,7 @@
 								<th>Tipo Evento</th>
 								<th>Costo</th>
 								<th width="70"></th>
+								<th width="70" ng-show="mostrarBoton"></th>
 							</tr>
 						</thead>
 						<tbody ng-repeat="paquete in paquetesLista">
@@ -28,7 +29,14 @@
 								<td class="text-right">
 									<div class="btn-group">
 										<button type="button" class="btn btn-primary"
-											ng-click="openModalDetallePaquete(paquete)">Mostrar Detalle</button>
+											ng-click="openModalDetallePaquete(paquete)">Mostrar
+											Detalle</button>
+									</div>
+								</td>
+								<td class="text-right" ng-show="mostrarBoton">
+									<div class="btn-group">
+										<button type="button" class="btn btn-primary"
+											ng-click="enviarPaquete(paquete)">Enviar Paquete</button>
 									</div>
 								</td>
 							</tr>
