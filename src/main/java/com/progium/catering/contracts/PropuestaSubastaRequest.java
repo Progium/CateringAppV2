@@ -6,9 +6,9 @@ package com.progium.catering.contracts;
 *
 * @author  Progium<progiump3@gmail.com>
 * @version 1.0
-* @since   2015/08/08
+* @since   2015/08/14
 */
-public class PropuestaSubastaRequest {
+public class PropuestaSubastaRequest extends BasePagingRequest {
 
 	private  int subastaId;
 	private int paqueteId;

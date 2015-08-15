@@ -10,10 +10,10 @@ import com.progium.catering.pojo.PropuestaSubastaPOJO;
 *
 * @author  Progium<progiump3@gmail.com>
 * @version 1.0
-* @since   2015/08/08
+* @since   2015/08/14
 */
 
-public class PropuestaSubastaResponse {
+public class PropuestaSubastaResponse extends BaseResponse{
 	
 	private List<PropuestaSubastaPOJO> propuestas;
 	private PropuestaSubastaPOJO propuesta;

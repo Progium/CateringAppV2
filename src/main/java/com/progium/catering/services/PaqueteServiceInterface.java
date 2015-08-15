@@ -15,15 +15,18 @@ import com.progium.catering.ejb.Paquete;
 * @since   2015/08/08
 */
 public interface PaqueteServiceInterface {
-
+	//Obtiene todos los paquetes
 	List<Paquete> findAll();
-	
+	//Registra un paquete
 	Boolean savePaquete(Paquete objPaquete);
 	
+	//Obtiene el paquete por un id paquete
 	Paquete getPaqueteById(int idPaquete);
 	
+	//Obtiene los paquetes registrados por un determinado administrador
 	Page<Paquete> getPaqueteByCateringByIdAdministrador(PaqueteRequest pr, Integer idAdministrador);
 	
+	//Obtiene los paqutes por el id del catering
 	List<Paquete> getPaqueteByCateringByIdCatering(Integer idCatering);
 	
 }

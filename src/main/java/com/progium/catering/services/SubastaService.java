@@ -5,14 +5,12 @@ import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.progium.catering.contracts.SubastaRequest;
 import com.progium.catering.repositories.SubastaRepository;
-import com.progium.catering.ejb.Catering;
 import com.progium.catering.ejb.Subasta;
 
 /**
@@ -109,4 +107,17 @@ public class SubastaService implements SubastaServiceInterface{
 		return subastaRepository.findSubastaByEstadoAndFechaEventoLessThan(estado, fechaEvento);
 	}
 	
+	/**
+	* Este  metodo retorna una subasta
+	*
+	* @param  idProducto
+	* 
+	* @return Producto
+	*
+	*/
+	@Override
+	@Transactional
+	public Subasta getSubastaById(int idSubasta) {
+		return subastaRepository.findOne(idSubasta);
+	}
 }
