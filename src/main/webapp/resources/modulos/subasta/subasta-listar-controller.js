@@ -14,6 +14,7 @@ App.controller('SubastaListarController', function($scope, $http, $location, $up
 		$scope.mostrarBoton = false;
 		$scope.mostrarBotonSubasta = true;
 		$scope.mostrarBotonPropuesta = false;
+		$scope.mostrarTablaListPaquete = false;
 		$scope.tituloPagina = "Listar subasta";
 		$scope.subastaLista = [];
 		
@@ -114,6 +115,7 @@ App.controller('SubastaClienteListarController', function($scope, $http, $locati
 		$scope.mostrarBoton = true;
 		$scope.mostrarBotonSubasta = false;
 		$scope.mostrarBotonPropuesta = true;
+		$scope.mostrarTablaListPaquete = false;
 		$scope.tituloPagina = "Mis subasta";
 		$scope.subastaLista = [];
 		
@@ -132,6 +134,11 @@ App.controller('SubastaClienteListarController', function($scope, $http, $locati
 	    	//Obtiene la lista de caterings
 			 $scope.ObtenerListaSubasta($scope.currentPage);
 			
+	    };
+	    
+	    $scope.verPropuestas = function(propuestaidPropuestaSubasta){
+	    	$scope.mostrarTablaListPaquete = true;
+	    	
 	    };
 	 	   
 	    //Funcion que obtiene la lista de todos los paquetes por paginación
