@@ -15,6 +15,7 @@ public class PaqueteResponse extends BaseResponse{
 	
 	private List<PaquetePOJO> paquetes;
 	
+	private PaquetePOJO paquete;
 	
 	public PaqueteResponse() {
 		super();
@@ -27,6 +28,14 @@ public class PaqueteResponse extends BaseResponse{
 
 	public void setPaquetes(List<PaquetePOJO> paquetes) {
 		this.paquetes = paquetes;
+	}
+
+	public PaquetePOJO getPaquete() {
+		return paquete;
+	}
+
+	public void setPaquete(PaquetePOJO paquete) {
+		this.paquete = paquete;
 	}
 
 }

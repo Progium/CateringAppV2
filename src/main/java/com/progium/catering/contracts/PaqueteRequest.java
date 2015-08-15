@@ -41,6 +41,11 @@ public class PaqueteRequest extends BasePagingRequest {
 		this.setEventoId(eventoId);
 	}
 	
+	public PaqueteRequest(int idPaquete) {
+		super();
+		this.setIdPaquete(idPaquete);
+	}
+	
 	public int getIdPaquete() {
 		return idPaquete;
 	}

@@ -221,4 +221,51 @@ public class PaqueteController {
 		return paqueteResponse;	
 		
 	}
+	
+	/**
+	* Este metodo se encarga de obtener los datos de un paquete de un determinado id
+	* 
+	* @return PaqueteResponse
+	*
+	*/
+	@RequestMapping(value ="/getPaqueteById", method = RequestMethod.POST)
+	public PaqueteResponse getPaqueteById(@RequestBody PaqueteRequest paqueteRequest){
+		
+		PaqueteResponse paqueteResponse = new PaqueteResponse();
+		
+		//Obtiene el paquete de evento de un id determinado
+		Paquete paquete =   paqueteService.getPaqueteById(paqueteRequest.getIdPaquete());
+
+		PaquetePOJO paquetePojo = new PaquetePOJO();
+		
+		paqueteResponse.setCode(200);
+		paqueteResponse.setCodeMessage("paquetes fetch success");
+		
+		//Setea los datos del paquete en el pojo
+		paquetePojo.setIdPaquete(paquete.getIdPaquete());
+		paquetePojo.setNombre(paquete.getNombre());
+		paquetePojo.setDescripcion(paquete.getDescripcion());
+		paquetePojo.setCantidadPersonas(paquete.getCantidadPersonas());
+		paquetePojo.setIdCatering(paquete.getCatering().getIdCatering());
+		paquetePojo.setNombreCatering(paquete.getCatering().getNombre());
+		paquetePojo.setIdTipoEvento(paquete.getTipo().getIdTipo());
+		paquetePojo.setNombreTipoEvento(paquete.getTipo().getNombre());
+		paquetePojo.setPrecio(paquete.getPrecio());
+		paquetePojo.setDescuento(paquete.getDescuento());
+		paquetePojo.setMontoTotal(paquete.getMontoTotal());
+		
+		//Obtiene el id del catalogo del producto del paquete producto por paquete de evento
+		List<Paqueteproducto> paqueteProductos =  paqueteProductoService.getPaqueteProductoByIdPaquete(paquete.getIdPaquete());
+		List<Integer> idCatalogoProductos = new ArrayList<Integer>();
+		for(int i = 0; i < paqueteProductos.size(); i++){
+			idCatalogoProductos.add(paqueteProductos.get(i).getCatalogoproducto().getIdCatalogoProducto());
+		}
+		
+		paquetePojo.setCatalogoProducto(idCatalogoProductos);
+
+		paqueteResponse.setPaquete(paquetePojo);
+		
+		return paqueteResponse;	
+		
+	}
 }

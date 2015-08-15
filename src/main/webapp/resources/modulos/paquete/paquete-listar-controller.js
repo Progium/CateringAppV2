@@ -57,7 +57,6 @@ App.controller('PaqueteListarController', function($scope, $http,$location, $upl
 	    	$scope.objPropuesta.paqueteId = paquete.idPaquete;
 	    	$scope.objPropuesta.tipoTransaccion = 0;
 	    	
-	    	console.log($scope.objPropuesta);
 			$http.post('rest/protected/subasta/createPropuestaSubasta', $scope.objPropuesta).success(function (contractPropuestaSubastaResponse){
 				if(contractPropuestaSubastaResponse.code == 200){
 					services.noty('Se ha enviado correctamente la propuesta de subasta al cliente.', 'success');

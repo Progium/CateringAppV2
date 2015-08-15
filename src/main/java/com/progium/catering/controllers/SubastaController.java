@@ -34,6 +34,7 @@ import com.progium.catering.services.SubastaServiceInterface;
 import com.progium.catering.services.PropuestaSubastaServiceInterface;
 import com.progium.catering.services.GeneralServiceInterface;
 import com.progium.catering.services.UsuarioServiceInterface;
+import com.progium.catering.pojo.PropuestaSubastaPOJO;
 import com.progium.catering.pojo.SubastaPOJO;
 import com.progium.catering.utils.SendEmail;
 
@@ -243,7 +244,6 @@ public class SubastaController {
 	   DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 	   //get current date time with Date()
 	   Date date = new Date();
-	   System.out.println(dateFormat.format(date));
 	   
 	   List<Subasta> listaSubasta = subastaService.getSubastaByEstadoAndFechaEvento(false, date);
 		
@@ -295,6 +295,45 @@ public class SubastaController {
 		}
 		
 		return ps;
+	}
+	
+	/**
+	* Este metodo se encarga de mostrar la lista las propuestas de una subasta
+	* 
+	* @param propuestaSubastaRequest
+	* 
+	* @return PropuestaSubastaResponse
+	*
+	*/
+	@RequestMapping(value ="/getPropuestaSubastaBySubasta", method = RequestMethod.POST)
+	public PropuestaSubastaResponse getPropuestaSubastaBySubasta(@RequestBody PropuestaSubastaRequest propuestaSubastaRequest){
+		
+		PropuestaSubastaResponse propuestaSubastaResponse = new PropuestaSubastaResponse();
+		
+		//Le pasa el id de subasta para obtener la lista de propuestas.
+		List<Propuestasubasta> listaPropuesta =   propuestaSubastaService.getPropuestaSubastaBySubasta(propuestaSubastaRequest.getSubastaId());
+
+		List<PropuestaSubastaPOJO> listaPropuestaPOJO = new ArrayList<PropuestaSubastaPOJO>();
+		
+		propuestaSubastaResponse.setCode(200);
+		propuestaSubastaResponse.setCodeMessage("paquetes fetch success");
+		
+		//Recorre por cada propuesta obtiene y setea los datos en el pojo.
+		for (Propuestasubasta propuesta : listaPropuesta){
+			
+			PropuestaSubastaPOJO nPropuesta = new PropuestaSubastaPOJO();
+			
+			nPropuesta.setIdPropuestaSubasta(propuesta.getIdPropuestaSubasta());
+			nPropuesta.setPaqueteId(propuesta.getPaquete().getIdPaquete());
+			nPropuesta.setSubastaId(propuesta.getSubasta().getIdSubasta());
+			
+			listaPropuestaPOJO.add(nPropuesta);
+		};
+		
+		propuestaSubastaResponse.setPropuestas(listaPropuestaPOJO);
+		
+		return propuestaSubastaResponse;	
+		
 	}
 }
 
