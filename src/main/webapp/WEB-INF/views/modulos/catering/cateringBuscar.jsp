@@ -134,9 +134,9 @@
 			</section>
 		</div>
 
-		<div class="col-sm-5" ng-show = "mostrarTablaListPropuestas">
+		<div class="col-sm-5" ng-show = "mostrarTablaListPaquete">
 			<section class="panel">
-				<header class="panel-heading">Ver propuestas</header>
+				<header class="panel-heading">Lista de Paquetes del Catering {{nombreCatering}}</header>
 				<div class="table-responsive">
 					<table class="table table-striped b-t text-small">
 						<thead>
