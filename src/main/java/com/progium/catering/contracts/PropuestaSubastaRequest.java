@@ -8,19 +8,19 @@ package com.progium.catering.contracts;
 * @version 1.0
 * @since   2015/08/14
 */
-public class PropuestaRequest extends BasePagingRequest {
+public class PropuestaSubastaRequest extends BasePagingRequest {
 
 	private  int subastaId;
 	private int paqueteId;
 	
 	
-	public PropuestaRequest() {
+	public PropuestaSubastaRequest() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
 
-	public PropuestaRequest(int subastaId, int paqueteId) {
+	public PropuestaSubastaRequest(int subastaId, int paqueteId) {
 		super();
 		this.subastaId = subastaId;
 		this.paqueteId = paqueteId;
