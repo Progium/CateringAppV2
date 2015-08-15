@@ -10,8 +10,9 @@ package com.progium.catering.contracts;
 */
 public class PropuestaSubastaRequest extends BasePagingRequest {
 
-	private  int subastaId;
+	private int subastaId;
 	private int paqueteId;
+	private int tipoTransaccion;
 	
 	
 	public PropuestaSubastaRequest() {
@@ -20,10 +21,11 @@ public class PropuestaSubastaRequest extends BasePagingRequest {
 	}
 
 
-	public PropuestaSubastaRequest(int subastaId, int paqueteId) {
+	public PropuestaSubastaRequest(int subastaId, int paqueteId, int tipoTransaccion) {
 		super();
-		this.subastaId = subastaId;
-		this.paqueteId = paqueteId;
+		this.setSubastaId(subastaId);
+		this.setPaqueteId(paqueteId);
+		this.setTipoTransaccion(tipoTransaccion);
 	}
 
 
@@ -44,6 +46,16 @@ public class PropuestaSubastaRequest extends BasePagingRequest {
 
 	public void setPaqueteId(int paqueteId) {
 		this.paqueteId = paqueteId;
+	}
+
+
+	public int getTipoTransaccion() {
+		return tipoTransaccion;
+	}
+
+
+	public void setTipoTransaccion(int tipoTransaccion) {
+		this.tipoTransaccion = tipoTransaccion;
 	}
 	
 }
