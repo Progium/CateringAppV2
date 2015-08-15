@@ -96,7 +96,7 @@ App.config(function($routeProvider, $locationProvider) {
 			templateUrl: 'modulos/paquete-registrar',
 			controller: 'PaqueteRegistrarController'
 		})
-		.when('/paquete-listar', {
+		.when('/paquete-listar/:pidSubasta', {
 			templateUrl: 'modulos/paquete-listar',
 			controller: 'PaqueteListarController'
 		})

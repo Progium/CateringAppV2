@@ -4,11 +4,21 @@
  * PaqueteListarController
  * @constructor
  */
-App.controller('PaqueteListarController', function($scope, $http,$location, $upload, $modal, services) {
+App.controller('PaqueteListarController', function($scope, $http,$location, $upload, $routeParams, $modal, services) {
     
 	var objUsuario = $.jStorage.get("user");
 	if(objUsuario){
-		_ScopeContainer['MainController'].esAdministrador = true;	
+		_ScopeContainer['MainController'].esAdministrador = true;
+		//Valida si el llamado de listar paquete fue desde el boton participar subas o el boton ver mis paquetes
+		//Si es de participar subasta se le debe habilitar el boton de enviar paquete
+		if($routeParams.pidSubasta == 0){
+			$scope.mostrarBoton = false;
+		}else{
+			$scope.objPropuesta = {
+					subastaId: $routeParams.pidSubasta
+			};
+			$scope.mostrarBoton = true;
+		}
 		
 		$scope.paquetesLista = [];
 		//Setear cuantos paquetes va mostrar por pantalla y el primer número de página
@@ -41,6 +51,12 @@ App.controller('PaqueteListarController', function($scope, $http,$location, $upl
 	    
 	    $scope.registrar = function() {
 	    	$location.path('/paquete-registrar');
+	    };
+	    
+	    $scope.enviarPaquete = function(paquete) {
+	    	$scope.objPropuesta.paqueteId = paquete.idPaquete;
+	    	$scope.objPropuesta.tipoTransaccion = 0;
+	    	
 	    };
 	    
 	    $scope.openModalDetallePaquete = function(paqueteSelec){

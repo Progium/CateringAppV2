@@ -38,10 +38,6 @@ public class Tipo implements Serializable {
 	@OneToMany(mappedBy="tipo")
 	private List<Paquete> paquetes;
 
-	//bi-directional many-to-one association to Propuestasubasta
-	@OneToMany(mappedBy="tipo")
-	private List<Propuestasubasta> propuestasubastas;
-
 	//bi-directional many-to-one association to Subasta
 	@OneToMany(mappedBy="tipo")
 	private List<Subasta> subastas;
@@ -142,29 +138,7 @@ public class Tipo implements Serializable {
 
 		return paquete;
 	}
-
-	public List<Propuestasubasta> getPropuestasubastas() {
-		return this.propuestasubastas;
-	}
-
-	public void setPropuestasubastas(List<Propuestasubasta> propuestasubastas) {
-		this.propuestasubastas = propuestasubastas;
-	}
-
-	public Propuestasubasta addPropuestasubasta(Propuestasubasta propuestasubasta) {
-		getPropuestasubastas().add(propuestasubasta);
-		propuestasubasta.setTipo(this);
-
-		return propuestasubasta;
-	}
-
-	public Propuestasubasta removePropuestasubasta(Propuestasubasta propuestasubasta) {
-		getPropuestasubastas().remove(propuestasubasta);
-		propuestasubasta.setTipo(null);
-
-		return propuestasubasta;
-	}
-
+	
 	public List<Subasta> getSubastas() {
 		return this.subastas;
 	}

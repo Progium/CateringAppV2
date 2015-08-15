@@ -15,7 +15,7 @@
 								<th>Fecha Evento</th>
 								<th>Monto Máximo</th>
 								<th width="70"></th>
-								<th width="70"></th>
+								<th width="70" ng-show="mostrarBotonSubasta" ></th>
 							</tr>
 						</thead>
 						<tbody ng-repeat="subasta in subastaLista">
@@ -30,9 +30,9 @@
 											Detalle</button>
 									</div>
 								</td>
-								<td class="text-right">
+								<td class="text-right" ng-show="mostrarBotonSubasta" >
 									<div class="btn-group">
-										<button type="button" class="btn btn-primary" ngclick="">Participar</button>
+										<button type="button" class="btn btn-primary" ng-click="participarSubasta(subasta.idSubasta)">Participar</button>
 									</div>
 								</td>
 							</tr>

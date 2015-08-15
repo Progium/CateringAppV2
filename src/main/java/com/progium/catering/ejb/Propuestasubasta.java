@@ -20,7 +20,9 @@ public class Propuestasubasta implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idPropuestaSubasta;
-
+	
+	private int tipoTransaccionId;
+	
 	//bi-directional many-to-one association to Subasta
 	@ManyToOne
 	@JoinColumn(name="subastaId")
@@ -30,11 +32,6 @@ public class Propuestasubasta implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="paqueteId")
 	private Paquete paquete;
-
-	//bi-directional many-to-one association to Tipo
-	@ManyToOne
-	@JoinColumn(name="tipoTransaccionId")
-	private Tipo tipo;
 
 	public Propuestasubasta() {
 	}
@@ -63,12 +60,12 @@ public class Propuestasubasta implements Serializable {
 		this.paquete = paquete;
 	}
 
-	public Tipo getTipo() {
-		return this.tipo;
+	public int getTipoTransaccionId() {
+		return tipoTransaccionId;
 	}
 
-	public void setTipo(Tipo tipo) {
-		this.tipo = tipo;
+	public void setTipoTransaccionId(int tipoTransaccionId) {
+		this.tipoTransaccionId = tipoTransaccionId;
 	}
 
 }
