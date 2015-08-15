@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.progium.catering.ejb.Paquete;
 import com.progium.catering.ejb.Propuestasubasta;
 import com.progium.catering.repositories.PropuestaSubastaRepository;
 
@@ -45,6 +46,38 @@ public class PropuestaSubastaService implements PropuestaSubastaServiceInterface
 			result = false;
 		}
 		return result;
+		
+	}
+	
+	
+	/**
+	* Este metodo se encarga de retornar las propuestas subasta por subasta 
+	*
+	* @param  idSubasta
+	* 
+	* @return List<Propuestasubasta>
+	*
+	*/
+	@Override
+	public List<Propuestasubasta> getPropuestaSubastaBySubasta(Integer idSubasta) {
+		
+		return propuestaSubastaRepository.findPropuestaSubastaBySubasta_idSubasta(idSubasta);
+		
+	}
+	
+	/**
+	* Este metodo se encarga de retornar las propuestas subasta por subasta y por tipo transaccion
+	*
+	* @param tipoTransaccion
+	* @param idSubasta
+	* 
+	* @return List<Propuestasubasta>
+	*
+	*/
+	@Override
+	public List<Propuestasubasta> getPropuestaSubastaBySubastaAndTipoTransaccion(int tipoTransaccion, Integer idSubasta) {
+		
+		return propuestaSubastaRepository.findPropuestaSubastaBytipoTransaccionAndSubasta_idSubasta(tipoTransaccion, idSubasta);
 		
 	}
 }

@@ -15,4 +15,8 @@ import com.progium.catering.ejb.Propuestasubasta;
 public interface PropuestaSubastaServiceInterface {
 	//Registra una propuesta subasta
 	Boolean savePropuestaSubasta(Propuestasubasta objPropuestaSubasta);
+	//Obtiene la lista de propuesta por subasta
+	List<Propuestasubasta> getPropuestaSubastaBySubasta(Integer idSubasta);
+	//Obtiene la lista de propuesta por subasta y tipo transaccion
+	List<Propuestasubasta> getPropuestaSubastaBySubastaAndTipoTransaccion(int tipoTransaccion, Integer idSubasta);
 }

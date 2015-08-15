@@ -19,4 +19,11 @@ public interface PropuestaSubastaRepository extends CrudRepository<Propuestasuba
 	public static final int PAGE_SIZE = 5;
 
 	public List<Propuestasubasta> findAll();
+	//Obtiene la lista de propuesta de una subasta
+	List<Propuestasubasta> findPropuestaSubastaBySubasta_idSubasta
+	(Integer idSubasta);
+	
+	//Obtiene la lista de propuesta de una subasta y el tipo sea estado 1
+	List<Propuestasubasta> findPropuestaSubastaBytipoTransaccionAndSubasta_idSubasta
+	(int tipoTransaccion, Integer idSubasta);
 }
