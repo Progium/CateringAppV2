@@ -10,7 +10,7 @@ package com.progium.catering.pojo;
 public class PropuestaSubastaPOJO{
 	
 	private int idPropuestaSubasta;
-	private int tipoTransaccionId;
+	private int tipoTransaccion;
 	private int subastaId;
 	private int paqueteId;
 
@@ -27,12 +27,12 @@ public class PropuestaSubastaPOJO{
 		this.idPropuestaSubasta = idPropuestaSubasta;
 	}
 
-	public int getTipoTransaccionId() {
-		return tipoTransaccionId;
+	public int getTipoTransaccion() {
+		return tipoTransaccion;
 	}
 
-	public void setTipoTransaccionId(int tipoTransaccionId) {
-		this.tipoTransaccionId = tipoTransaccionId;
+	public void setTipoTransaccion(int tipoTransaccion) {
+		this.tipoTransaccion = tipoTransaccion;
 	}
 
 	public int getSubastaId() {

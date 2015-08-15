@@ -33,7 +33,7 @@ App.controller('SubastaRegistrarController', function($scope, $http, $location, 
 						nombre: $scope.objSubasta.nombre, 
 						tipoId: $scope.objSubasta.idTipo,
 						fechaEvento: $scope.objSubasta.fechaEvento,
-						cantidadPersonas: $scope.objSubasta.CantPersonas,
+						cantidadPersonas: $scope.objSubasta.cantidadPersonas,
 						descripcion: $scope.objSubasta.descripcion,
 						montoMaximo: $scope.objSubasta.montoMaximo,
 						clienteId: objUsuario.idUsuario
