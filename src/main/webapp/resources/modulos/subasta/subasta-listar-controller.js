@@ -13,6 +13,7 @@ App.controller('SubastaListarController', function($scope, $http, $location, $up
 		_ScopeContainer['MainController'].esAdministrador = true;	
 		$scope.mostrarBoton = false;
 		$scope.mostrarBotonSubasta = true;
+		$scope.mostrarBotonPropuesta = false;
 		$scope.tituloPagina = "Listar subasta";
 		$scope.subastaLista = [];
 		
@@ -112,6 +113,7 @@ App.controller('SubastaClienteListarController', function($scope, $http, $locati
 		_ScopeContainer['MainController'].esAdministrador = false;	
 		$scope.mostrarBoton = true;
 		$scope.mostrarBotonSubasta = false;
+		$scope.mostrarBotonPropuesta = true;
 		$scope.tituloPagina = "Mis subasta";
 		$scope.subastaLista = [];
 		

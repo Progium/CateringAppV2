@@ -16,6 +16,7 @@
 								<th>Monto Máximo</th>
 								<th width="70"></th>
 								<th width="70" ng-show="mostrarBotonSubasta" ></th>
+								<th width="70" ng-show="mostrarBotonPropuesta" ></th>
 							</tr>
 						</thead>
 						<tbody ng-repeat="subasta in subastaLista">
@@ -28,6 +29,11 @@
 										<button type="button" class="btn btn-primary"
 											ng-click="openModalDetalleSubasta(subasta)">Mostrar
 											Detalle</button>
+									</div>
+								</td>
+								<td class="text-right" ng-show="mostrarBotonPropuesta" >
+									<div class="btn-group">
+										<button type="button" class="btn btn-primary" ng-click="verPropuestas(propuesta.idPropuestaSubasta)">Ver Propuesta</button>
 									</div>
 								</td>
 								<td class="text-right" ng-show="mostrarBotonSubasta" >
