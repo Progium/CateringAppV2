@@ -25,11 +25,11 @@ import com.progium.catering.ejb.Tipo;
 import com.progium.catering.ejb.Usuario;
 import com.progium.catering.contracts.SubastaRequest;
 import com.progium.catering.contracts.SubastaResponse;
+import com.progium.catering.services.PaqueteServiceInterface;
 import com.progium.catering.services.SubastaServiceInterface;
 import com.progium.catering.services.GeneralServiceInterface;
 import com.progium.catering.services.UsuarioServiceInterface;
 import com.progium.catering.pojo.SubastaPOJO;
-import com.progium.catering.pojo.UsuarioPOJO;
 import com.progium.catering.utils.SendEmail;
 
 /**
@@ -52,6 +52,12 @@ public class SubastaController {
 
 	@Autowired
 	GeneralServiceInterface generalService;
+	
+	@Autowired
+	PaqueteServiceInterface paqueteService;
+	
+	//@Autowired
+	//PropuestaSubastaServiceInterface propuestaSubastaService;
 
 	@Autowired
 	ServletContext servletContext;
@@ -74,7 +80,6 @@ public class SubastaController {
 	private void EnviarCorreoAdministradores(){
 		
 		List<Usuario> listaAdministradores = usuarioService.findByTipoUsuario(2);
-		List<UsuarioPOJO> listaAdministradoresPojo = new ArrayList<UsuarioPOJO>();
 		String correo;
 		for (Usuario usu : listaAdministradores){
 			correo = usu.getCorreo();
@@ -244,6 +249,48 @@ public class SubastaController {
 			
 		}
 	}
+	
+	/**
+	* Este  metodo se encarga de registrar una subasta.
+	*
+	* @param  PropuestaSubastaRequest
+	* 
+	* @return PropuestaSubastaResponse
+	*
+	*/
+	/*@RequestMapping(value = "/createPropuestaSubasta", method = RequestMethod.POST)
+	@Transactional
+	public PropuestaSubastaResponse createPropuestaSubasta(@RequestBody PropuestaSubastaRequest propuestaSubastaRequest)throws NoSuchAlgorithmException {
+		
+		PropuestaSubastaResponse ps = new PropuestaSubastaResponse();
+			Paquete objPaquete = paqueteService.getPaqueteById(propuestaSubastaRequest.getPaqueteId());
+			Subasta objSubasta = subastaService.getSubastaById(propuestaSubastaRequest.getSubastaId());
+			
+			Propuestasubasta objNuevaPropuesta = new Propuestasubasta();
+			objNuevaPropuesta.setTipoTransaccionId(0);
+			objNuevaPropuesta.setPaquete(objPaquete);
+			objNuevaPropuesta.setSubasta(objSubasta);
+							
+			Boolean state = propuestaSubastaService.savePropuestaSubasta(objNuevaPropuesta);
+			
+			if (state) {
+				ps.setCode(200);
+				ps.setCodeMessage("propuesta subasta created succesfully");
+				String correo = objPaquete.getCatering().getUsuario().getCorreo();
+				String catering = objPaquete.getCatering().getNombre();
+				String fechaEvento = new SimpleDateFormat("MM-dd-yyyy").format(objSubasta.getFechaEvento());
+
+				String mensaje = "Se le informa que el catering " + catering + " ha creado una nueva propuesta para la subasta con la fecha de evento " + fechaEvento +  ", por lo que puede entrar a ver la nueva propuesta. ";
+				SendEmail.sendEmail("Notificación de nueva propuesta de subasta",
+										correo, "Usuario", 
+										"Subasta", mensaje);
+			}else{
+				ps.setCode(401);
+				ps.setErrorMessage("Unauthorized User");
+			}
+		
+		return ps;
+	}*/
 }
 
 

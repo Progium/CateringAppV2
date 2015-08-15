@@ -138,7 +138,7 @@ public class Tipo implements Serializable {
 
 		return paquete;
 	}
-	
+
 	public List<Subasta> getSubastas() {
 		return this.subastas;
 	}
