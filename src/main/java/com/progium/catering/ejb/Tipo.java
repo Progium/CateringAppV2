@@ -6,9 +6,13 @@ import java.util.List;
 
 
 /**
- * The persistent class for the tipo database table.
- * 
- */
+* Esta clase con anotaciones para la crear la entidadad en
+* la base de datos
+*
+* @author  Progium<progiump3@gmail.com>
+* @version 1.0
+* @since   2015/08/08
+*/
 @Entity
 @NamedQuery(name="Tipo.findAll", query="SELECT t FROM Tipo t")
 public class Tipo implements Serializable {
@@ -33,10 +37,6 @@ public class Tipo implements Serializable {
 	//bi-directional many-to-one association to Paquete
 	@OneToMany(mappedBy="tipo")
 	private List<Paquete> paquetes;
-
-	//bi-directional many-to-one association to Propuestasubasta
-	@OneToMany(mappedBy="tipo")
-	private List<Propuestasubasta> propuestasubastas;
 
 	//bi-directional many-to-one association to Subasta
 	@OneToMany(mappedBy="tipo")
@@ -137,28 +137,6 @@ public class Tipo implements Serializable {
 		paquete.setTipo(null);
 
 		return paquete;
-	}
-
-	public List<Propuestasubasta> getPropuestasubastas() {
-		return this.propuestasubastas;
-	}
-
-	public void setPropuestasubastas(List<Propuestasubasta> propuestasubastas) {
-		this.propuestasubastas = propuestasubastas;
-	}
-
-	public Propuestasubasta addPropuestasubasta(Propuestasubasta propuestasubasta) {
-		getPropuestasubastas().add(propuestasubasta);
-		propuestasubasta.setTipo(this);
-
-		return propuestasubasta;
-	}
-
-	public Propuestasubasta removePropuestasubasta(Propuestasubasta propuestasubasta) {
-		getPropuestasubastas().remove(propuestasubasta);
-		propuestasubasta.setTipo(null);
-
-		return propuestasubasta;
 	}
 
 	public List<Subasta> getSubastas() {

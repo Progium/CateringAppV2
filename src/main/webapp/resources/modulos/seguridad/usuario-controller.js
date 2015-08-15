@@ -6,7 +6,7 @@
  * @constructor
  */
 
-App.controller('UsuarioRegistrarController', function($scope, $http, $location, $upload) {
+App.controller('UsuarioRegistrarController', function($scope, $http, $location, $upload, services) {
 	$scope.files = {};
 	$scope.tituloPagina = "Registrar nuevo usuario";
 	$scope.objUsuario = {
@@ -46,21 +46,21 @@ App.controller('UsuarioRegistrarController', function($scope, $http, $location, 
 						}).success(function(usuarioResponse, status, headers, config) {
 							//Muestra un mensaje si el usuario es registrado satisfactoriamente en el sistema.
 							if(contractUsuarioResponse.code == 200){
-								alert("El usuario se registro correctamente.");
+								services.noty('El usuario se registro correctamente.', 'success');
 								$location.path('/iniciar-sesion');
 							}
 						});
 					}else{
-						alert("El usuario se registro correctamente.");
+						services.noty('El usuario se registro correctamente.', 'success');
 						$location.path('/iniciar-sesion');
 					}
 				}else{
-					alert("No se pudo registrar el usuario.");
+					services.noty('No se pudo registrar el usuario.', 'error');
 				}
 			});
 		}
 		
-	}
+	};
 	//Guarda los archivos seleccionados en el scope.files.
 	$scope.onFileSelect = function($files) {
     	$scope.files = $files;
@@ -70,7 +70,7 @@ App.controller('UsuarioRegistrarController', function($scope, $http, $location, 
     	var isOk = true;
     	if(objUsuario.contrasenna != objUsuario.repetirContrasenna){
     		isOk = false;
-    		alert("El campo de repetir contraseña tiene que ser igual a la contraseña.");
+    		services.noty('El campo de repetir contraseña tiene que ser igual a la contraseña.', 'warning');
     	}
     	
     	return isOk;
@@ -83,8 +83,6 @@ App.controller('UsuarioModificarController', function($scope, $location, $routeP
 	$scope.objUsuario = {};
 	$scope.usuario = $scope.usuarios[$routeParams.id];	
 	
-	//$routeParams.pidUsuario
-	
 	$scope.cancelar = function(){
 		$location.path('/');
 	}
@@ -96,30 +94,130 @@ App.controller('UsuarioModificarController', function($scope, $location, $routeP
 });
 
 
-App.controller('UsuarioPerfilController', function($scope, $location, $routeParams) {
-	$scope.files = {};
-	$scope.tituloPagina = "Perfil del usuario";
-	$scope.objUsuario = {};
-	$scope.usuario = $scope.objUsuario[$routeParams.id];	
+App.controller('UsuarioPerfilController', function($scope, $http, $location, $upload, services,$routeParams) {
 	
-		
-	$scope.init = function() {
-	
-	//Obtiene el perfil del usuario
-	$http.get('rest/protected/usuario/perfilUsuario')
-	.success(function(usuarioResponse) {
-		$scope.perfilUsuario = usuarioResponse.usuario;
-		console.log($scope.perfilUsuario);
-		
-	});	
-	
-};
-
-$scope.init();
-
-$scope.regresar = function(){
-$location.path('/');
-}
+	var objUsuario = $.jStorage.get("user");
+	if(objUsuario){
+		_ScopeContainer['MainController'].esAdministrador = objUsuario.tipo == 1 ? false : true;
+		$scope.files = {};
+		$scope.tituloPagina = "Perfil del usuario";
+		$scope.usuario = {};
+		$scope.mostrarImagen = false;
+		$scope.actualizarImagen = false;
+		$scope.init = function() {
+			//Obtiene el perfil del usuario
+			$http.get('rest/protected/usuario/perfilUsuario')
+			.success(function(usuarioResponse) {
+				$scope.usuario.nombre = usuarioResponse.usuario.nombre;
+				$scope.usuario.apellido1 = usuarioResponse.usuario.apellido1;
+				$scope.usuario.apellido2 = usuarioResponse.usuario.apellido2;
+				$scope.usuario.correo = usuarioResponse.usuario.correo;
+				$scope.usuario.telefono1 = usuarioResponse.usuario.telefono1;
+				$scope.usuario.telefono2 = usuarioResponse.usuario.telefono2;
+				$scope.usuario.tipoUsuarioId = objUsuario.tipo;
+				$scope.usuario.contrasenna = usuarioResponse.usuario.contrasenna;
+				$scope.usuario.contrasennaOriginal = usuarioResponse.usuario.contrasenna;
+				$scope.usuario.repetirContrasenna = usuarioResponse.usuario.contrasenna;
+				$scope.usuario.fotografia = usuarioResponse.usuario.fotografia;	
+				if(usuarioResponse.usuario.fotografia){
+					$scope.mostrarImagen = true;
+				}
+				 
+			});
+		}
+		 $scope.init();
+		 
+		 $scope.cancelar = function(){
+				$location.path('/usuario-perfil');
+			}
+		 
+		//Guarda los datos ingresados por el usuario.
+		$scope.guardar = function() {
+			
+			if(validarDatos($scope.usuario) && this.perfilUsuario.$valid){
+				var usuarioFoto = $scope.files[0];
+				var datosUsuario = {};
+				//console.log("Contrasena original:  " + $scope.usuario.contrasennaOriginal);
+				//console.log("Contrasena nueva:  " + $scope.usuario.contrasenna)
+				//valida si la contrasena es igual a la anterior 
+				if($scope.usuario.contrasennaOriginal == $scope.usuario.contrasenna){
+							datosUsuario = {
+							idUsuario: objUsuario.idUsuario,
+							nombre: $scope.usuario.nombre,
+							apellido1: $scope.usuario.apellido1,
+							apellido2: $scope.usuario.apellido2,
+							correo: $scope.usuario.correo,
+							telefono1: $scope.usuario.telefono1,
+							telefono2: $scope.usuario.telefono2,
+							tipoUsuarioId: $scope.usuario.tipoUsuarioId,
+							contrasenna: $scope.usuario.contrasenna,
+							needAccess: "false",
+							cambio: "false"
+					}
+				} else{
+							datosUsuario = {
+							idUsuario: objUsuario.idUsuario,
+							nombre: $scope.usuario.nombre,
+							apellido1: $scope.usuario.apellido1,
+							apellido2: $scope.usuario.apellido2,
+							correo: $scope.usuario.correo,
+							telefono1: $scope.usuario.telefono1,
+							telefono2: $scope.usuario.telefono2,
+							tipoUsuarioId: $scope.usuario.tipoUsuarioId,
+							contrasenna: $scope.usuario.contrasenna,
+							needAccess: "false",
+							cambio: "true"
+					}
+				}
+				
+				
+				$http.post('rest/protected/usuario/modificar', datosUsuario).success(function (contractUsuarioResponse){
+					if(contractUsuarioResponse.code == 200){
+						if(usuarioFoto && $scope.actualizarImagen == true){
+							//Guarda la información en variables y se las pasa al controlador de usuario de java.
+							$scope.upload = $upload.upload({
+								url : 'rest/protected/usuario/registrarFoto',
+								data : {
+									idUsuario : contractUsuarioResponse.idUsuario
+								},
+								file : usuarioFoto
+							}).success(function(usuarioResponse, status, headers, config) {
+							//Muestra un mensaje si el usuario es registrado satisfactoriamente en el sistema.
+								if(contractUsuarioResponse.code == 200){
+									services.noty('Los datos del usuario fueron modificados correctamente.', 'success');
+								}
+							});
+						}else{
+							services.noty('Los datos del usuario fueron modificados correctamente.', 'success');
+						}
+					}else{
+						services.noty('No se pudo modificar los datos del usuario.', 'error');
+					}
+				});
+			}
+			
+		};
+			 	 
+		//Guarda los archivos seleccionados en el scope.files.
+		$scope.onFileSelect = function($files) {
+	    	$scope.files = $files;
+	    	$scope.actualizarImagen = true;
+	    };
+	    
+	    function validarDatos(usuario){
+	    	var isOk = true;
+	    	if(usuario.contrasenna != usuario.repetirContrasenna){
+	    		isOk = false;
+	    		services.noty('El campo de repetir contraseña tiene que ser igual a la contraseña.', 'warning');
+	    	}
+	    	
+	    	return isOk;
+	    }
+	    	 
+	}else{
+		var path = "/catering/#/iniciar-sesion";
+		window.location.href = path;
+	}	
 });
 
 

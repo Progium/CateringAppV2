@@ -1,15 +1,28 @@
 package com.progium.catering.pojo;
 
+import java.util.List;
+
+/**
+* Esta clase se encarga de crear el objeto paquete
+*
+* @author  Progium<progiump3@gmail.com>
+* @version 1.0
+* @since   2015/08/08
+*/
 public class PaquetePOJO{
 	
 	private int idPaquete;
 	private String nombre;
 	private String descripcion;
 	private int cantidadPersonas;
-	private float precio;
+	private double precio;
 	private int descuento;
-	private float montoTotal;
-	private String fotografia;
+	private double montoTotal;
+	private int idCatering;
+	private String nombreCatering;
+	private int idTipoEvento;
+	private String nombreTipoEvento;
+	private List<Integer> catalogoProducto;
 	
 	
 	public PaquetePOJO() {
@@ -48,11 +61,11 @@ public class PaquetePOJO{
 		this.cantidadPersonas = cantidadPersonas;
 	}
 
-	public float getPrecio() {
+	public double getPrecio() {
 		return precio;
 	}
 
-	public void setPrecio(float precio) {
+	public void setPrecio(double precio) {
 		this.precio = precio;
 	}
 
@@ -64,20 +77,52 @@ public class PaquetePOJO{
 		this.descuento = descuento;
 	}
 
-	public float getMontoTotal() {
+	public double getMontoTotal() {
 		return montoTotal;
 	}
 
-	public void setMontoTotal(float montoTotal) {
+	public void setMontoTotal(double montoTotal) {
 		this.montoTotal = montoTotal;
 	}
 
-	public String getFotografia() {
-		return fotografia;
+	public int getIdCatering() {
+		return idCatering;
 	}
 
-	public void setFotografia(String fotografia) {
-		this.fotografia = fotografia;
+	public void setIdCatering(int idCatering) {
+		this.idCatering = idCatering;
 	}
-	
+
+	public String getNombreCatering() {
+		return nombreCatering;
+	}
+
+	public void setNombreCatering(String nombreCatering) {
+		this.nombreCatering = nombreCatering;
+	}
+
+	public int getIdTipoEvento() {
+		return idTipoEvento;
+	}
+
+	public void setIdTipoEvento(int idTipoEvento) {
+		this.idTipoEvento = idTipoEvento;
+	}
+
+	public String getNombreTipoEvento() {
+		return nombreTipoEvento;
+	}
+
+	public void setNombreTipoEvento(String nombreTipoEvento) {
+		this.nombreTipoEvento = nombreTipoEvento;
+	}
+
+	public List<Integer> getCatalogoProducto() {
+		return catalogoProducto;
+	}
+
+	public void setCatalogoProducto(List<Integer> catalogoProducto) {
+		this.catalogoProducto = catalogoProducto;
+	}
+
 }

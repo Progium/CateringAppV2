@@ -28,13 +28,13 @@ import com.progium.catering.services.GeneralServiceInterface;
 import com.progium.catering.utils.PojoUtils;
 
 /**
- * @author Yuli
- *
- */
-
-/**
- * Handles requests for the application home page.
- */
+* Esta clase se encarga de crear el controlador
+* para el manejo de las diferentes funcionalidades 
+*
+* @author  Progium<progiump3@gmail.com>
+* @version 1.0
+* @since   2015/08/08
+*/
 @RestController
 @RequestMapping(value = "rest/protected/provincia")
 public class ProvinciaController {
@@ -42,6 +42,12 @@ public class ProvinciaController {
 	@Autowired
 	GeneralServiceInterface generalService;
 	
+	/**
+	* Este  metodo se encarga de retornar todas las provincias.
+	*
+	* @return ProvinciaResponse
+	*
+	*/
 	@RequestMapping(value ="/getAll", method = RequestMethod.GET)
 	public ProvinciaResponse getAll(){
 		
@@ -61,6 +67,14 @@ public class ProvinciaController {
 		return provincia;		
 	}
 	
+	/**
+	* Este  metodo se encarga de retornar una provincia de un determinado idprovincia.
+	*
+	* @param  provinciaRequest
+	* 
+	* @return ProvinciaResponse
+	*
+	*/
 	@RequestMapping(value ="/getProvincia", method = RequestMethod.POST)
 	public ProvinciaResponse getProvincia(@RequestBody ProvinciaRequest provinciaRequest)throws NoSuchAlgorithmException {
 		

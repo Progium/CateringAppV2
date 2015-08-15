@@ -15,22 +15,18 @@ App.controller('CateringListarController', function($scope, $http,$location, $up
 		var datosUsuario = {
 				idAdministrador : objUsuario.idUsuario
 		}
-
-		
-		
-	    $scope.init = function() {
+			  
+	    $scope.init = function() {  	
 	    	//Obtiene la lista de caterings
 			$http.get('rest/protected/catering/getCaterigLista')
 			.success(function(cateringResponse) {
 				$scope.cateringLista = cateringResponse.caterings;	
-			
 			});	
 			
 	    };
-	    
+	 	    
 	    $scope.init();
-		}
-	    
+ 
 	    $scope.registrar = function() {
 			$location.path('/catering-registrar');
 	    }
@@ -125,5 +121,8 @@ App.controller('CateringListarController', function($scope, $http,$location, $up
 			};
 	   };	   
 	
-	
+	}else{
+		var path = "/catering/#/iniciar-sesion";
+		window.location.href = path;
+	}
 });

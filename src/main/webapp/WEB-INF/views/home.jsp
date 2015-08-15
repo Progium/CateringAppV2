@@ -69,6 +69,7 @@
 
     <!--Controladores-->
     <script src="resources/modulos/seguridad/iniciar-sesion-controller.js"></script>
+    <script src="resources/modulos/seguridad/usuario-olvidar-controller.js"></script>
     <script src="resources/modulos/seguridad/usuario-controller.js"></script>
     <script src="resources/modulos/catering/catering-controller.js"></script>
     <script src="resources/modulos/catering/catering-buscar-controller.js"></script>
@@ -77,6 +78,8 @@
     <script src="resources/modulos/producto/producto-registrar-controller.js"></script>
     <script src="resources/modulos/subasta/subasta-registrar-controller.js"></script>
     <script src="resources/modulos/subasta/subasta-listar-controller.js"></script>
+    <script src="resources/modulos/paquete/paquete-registrar-controller.js"></script>
+    <script src="resources/modulos/paquete/paquete-listar-controller.js"></script>
     <script src="resources/modulos/compartido/compartido-controller.js"></script>
 </head>
 
@@ -88,15 +91,12 @@
 	        <li class="dropdown">
 	            <a href="" class="dropdown-toggle" data-toggle="dropdown">
 	                <span class="hidden-xs-only">Bienvenido! {{usuario.nombre}}</span>
-	                <span class="thumb-small avatar inline"><img src="resources/first/src/images/avatar.jpg" alt="Mika Sokeil" class="img-circle"></span>
+                        <span class="thumb-small avatar inline"><img ng-src={{usuario.fotografia}}  class= "usuario.fotografia" ></span>
 	                <b class="caret hidden-xs-only"></b>
 	            </a>
 	            <ul class="dropdown-menu">
-	                <li><a href="">Configuración</a></li>
-	                <li><a href="#/usuario-perfil-mostrar">Perfil</a></li>
-	                <li><a href=""><span class="badge bg-danger pull-right">3</span>Notificaciones</a></li>
-	                <li class="divider"></li>
-	                <li><a href="docs.html">Ayuda</a></li>
+	                <li><a href="#/usuario-perfil">Perfil</a></li>
+	              	<li class="divider"></li>
 	                <li><a ng-click="cerrarSesion()">Salir</a></li>
 	            </ul>
 	        </li>

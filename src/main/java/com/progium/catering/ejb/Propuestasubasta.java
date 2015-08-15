@@ -5,9 +5,13 @@ import javax.persistence.*;
 
 
 /**
- * The persistent class for the propuestasubasta database table.
- * 
- */
+* Esta clase con anotaciones para la crear la entidadad en
+* la base de datos
+*
+* @author  Progium<progiump3@gmail.com>
+* @version 1.0
+* @since   2015/08/08
+*/
 @Entity
 @NamedQuery(name="Propuestasubasta.findAll", query="SELECT p FROM Propuestasubasta p")
 public class Propuestasubasta implements Serializable {
@@ -27,10 +31,7 @@ public class Propuestasubasta implements Serializable {
 	@JoinColumn(name="paqueteId")
 	private Paquete paquete;
 
-	//bi-directional many-to-one association to Tipo
-	@ManyToOne
-	@JoinColumn(name="tipoTransaccionId")
-	private Tipo tipo;
+	private int tipoTransaccion;
 
 	public Propuestasubasta() {
 	}
@@ -59,12 +60,12 @@ public class Propuestasubasta implements Serializable {
 		this.paquete = paquete;
 	}
 
-	public Tipo getTipo() {
-		return this.tipo;
+	public int getTipoTransaccion() {
+		return tipoTransaccion;
 	}
 
-	public void setTipo(Tipo tipo) {
-		this.tipo = tipo;
+	public void setTipoTransaccion(int tipoTransaccion) {
+		this.tipoTransaccion = tipoTransaccion;
 	}
 
 }

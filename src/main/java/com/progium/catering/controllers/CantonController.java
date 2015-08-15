@@ -25,13 +25,13 @@ import com.progium.catering.services.GeneralServiceInterface;
 import com.progium.catering.utils.PojoUtils;
 
 /**
- * @author Yuli
- *
- */
-
-/**
- * Handles requests for the application home page.
- */
+* Esta clase se encarga de crear el controlador
+* para el manejo de las diferentes funcionalidades 
+*
+* @author  Progium<progiump3@gmail.com>
+* @version 1.0
+* @since   2015/08/08
+*/
 @RestController
 @RequestMapping(value = "rest/protected/canton")
 public class CantonController {
@@ -39,10 +39,16 @@ public class CantonController {
 	@Autowired
 	GeneralServiceInterface generalService;
 	
+	/**
+	* Este  metodo se encarga de retornar la lista de cantones
+	*
+	* @return CantonResponse
+	*
+	*/
 	@RequestMapping(value ="/getAll", method = RequestMethod.GET)
 	public CantonResponse getAll(){
 		
-		CantonResponse canton = new CantonResponse();
+		CantonResponse cantonResponse = new CantonResponse();
 		
 		List<Canton> listaCanton = generalService.getAllCanton();
 		List<CantonPOJO> listaCantonPojo = new ArrayList<CantonPOJO>();
@@ -53,15 +59,23 @@ public class CantonController {
 			listaCantonPojo.add(nCanton);
 		}
 		
-		canton.setListaCanton(listaCantonPojo);
+		cantonResponse.setListaCanton(listaCantonPojo);
 		
-		return canton;		
+		return cantonResponse;		
 	}
 
+	/**
+	* Este  metodo se encarga de retornar los cantones por provincia 
+	*
+	* @param  cantonRequest
+	* 
+	* @return CantonResponse
+	*
+	*/
 	@RequestMapping(value ="/getCantonByProvincia", method = RequestMethod.POST)
 	public CantonResponse getCantonByProvincia(@RequestBody CantonRequest cantonRequest) throws NoSuchAlgorithmException{
 		
-		CantonResponse canton = new CantonResponse();
+		CantonResponse cantonResponse = new CantonResponse();
 		
 		List<Canton> listaCanton = generalService.getCantonByProvincia(cantonRequest.getProvinciaId());
 		List<CantonPOJO> listaCantonPojo = new ArrayList<CantonPOJO>();
@@ -72,11 +86,19 @@ public class CantonController {
 			listaCantonPojo.add(nCanton);
 		}
 		
-		canton.setListaCanton(listaCantonPojo);
+		cantonResponse.setListaCanton(listaCantonPojo);
 		
-		return canton;		
+		return cantonResponse;		
 	}
 	
+	/**
+	* Este  metodo se encarga de retornar un canton por un determinado id canton
+	*
+	* @param  cantonRequest
+	* 
+	* @return CantonResponse
+	*
+	*/
 	@RequestMapping(value ="/getCanton", method = RequestMethod.POST)
 	public CantonResponse getCanton(@RequestBody CantonRequest cantonRequest)throws NoSuchAlgorithmException {
 		
