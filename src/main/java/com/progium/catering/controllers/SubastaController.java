@@ -335,6 +335,58 @@ public class SubastaController {
 		return propuestaSubastaResponse;	
 		
 	}
+	
+	/**
+	* Este metodo se encarga de mostrar la lista las propuestas de una subasta
+	* 
+	* @param propuestaSubastaRequest
+	* 
+	* @return PropuestaSubastaResponse
+	*
+	*/
+	@RequestMapping(value ="/getReservarPropuestaSubasta", method = RequestMethod.POST)
+	public PropuestaSubastaResponse getReservarPropuestaSubasta(@RequestBody PropuestaSubastaRequest propuestaSubastaRequest){
+		
+		PropuestaSubastaResponse propuestaSubastaResponse = new PropuestaSubastaResponse();
+		
+		Propuestasubasta propuestaGanadora = propuestaSubastaService.getPropuestaSubastaById(propuestaSubastaRequest.getIdPropuestaSubasta());
+		
+		propuestaGanadora.setTipoTransaccion(2);
+		
+		Boolean state = propuestaSubastaService.savePropuestaSubasta(propuestaGanadora);
+		
+		if(state){
+			//Le pasa el id de subasta para obtener la lista de propuestas.
+			List<Propuestasubasta> listaPropuesta = propuestaSubastaService.getPropuestaSubastaBySubastaAndTipoTransaccion(0, propuestaGanadora.getSubasta().getIdSubasta());
+
+			List<PropuestaSubastaPOJO> listaPropuestaPOJO = new ArrayList<PropuestaSubastaPOJO>();
+			
+			propuestaSubastaResponse.setCode(200);
+			propuestaSubastaResponse.setCodeMessage("paquetes fetch success");
+			
+			//Recorre por cada propuesta obtiene y setea los datos en el pojo.
+			for (Propuestasubasta propuesta : listaPropuesta){
+				
+				//Setea las demas propuestas en tramite 3 que significa que esa propuesta no fue elegida por el cliente
+				propuesta.setTipoTransaccion(3);
+				Boolean statePropuesta = propuestaSubastaService.savePropuestaSubasta(propuestaGanadora);
+				
+				PropuestaSubastaPOJO nPropuesta = new PropuestaSubastaPOJO();
+				
+				nPropuesta.setIdPropuestaSubasta(propuesta.getIdPropuestaSubasta());
+				nPropuesta.setPaqueteId(propuesta.getPaquete().getIdPaquete());
+				nPropuesta.setSubastaId(propuesta.getSubasta().getIdSubasta());
+				
+				listaPropuestaPOJO.add(nPropuesta);
+			};
+			
+			propuestaSubastaResponse.setPropuestas(listaPropuestaPOJO);
+			
+		}
+		
+		return propuestaSubastaResponse;	
+		
+	}
 }
 
 

@@ -33,7 +33,7 @@
 								</td>
 								<td class="text-right" ng-show="mostrarBotonPropuesta" >
 									<div class="btn-group">
-										<button type="button" class="btn btn-primary" ng-click="verPropuestas(propuesta.idPropuestaSubasta)">Ver Propuesta</button>
+										<button type="button" class="btn btn-primary" ng-click="verPropuestas(subasta.idSubasta)">Ver Propuesta</button>
 									</div>
 								</td>
 								<td class="text-right" ng-show="mostrarBotonSubasta" >
@@ -71,14 +71,16 @@
 					<table class="table table-striped b-t text-small">
 						<thead>
 							<tr>
+								<th>Catering</th>
 								<th>Nombre Paquete</th>
 								<th>Tipo Evento</th>
 								<th>Costo</th>
 								<th width="70"></th>
 							</tr>
 						</thead>
-						<tbody ng-repeat="paquete in paquetesLista">
+						<tbody ng-repeat="paquete in listaPaquete">
 							<tr>
+								<td>{{paquete.nombreCatering}}</td>
 								<td>{{paquete.nombre}}</td>
 								<td>{{paquete.nombreTipoEvento}}</td>
 								<td>{{paquete.montoTotal}}</td>

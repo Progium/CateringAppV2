@@ -19,4 +19,6 @@ public interface PropuestaSubastaServiceInterface {
 	List<Propuestasubasta> getPropuestaSubastaBySubasta(Integer idSubasta);
 	//Obtiene la lista de propuesta por subasta y tipo transaccion
 	List<Propuestasubasta> getPropuestaSubastaBySubastaAndTipoTransaccion(int tipoTransaccion, Integer idSubasta);
+	//Obtiene la propuesta por un id propuesta
+	Propuestasubasta getPropuestaSubastaById(int idPropuestaSubasta);
 }

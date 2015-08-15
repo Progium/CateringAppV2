@@ -80,4 +80,18 @@ public class PropuestaSubastaService implements PropuestaSubastaServiceInterface
 		return propuestaSubastaRepository.findPropuestaSubastaBytipoTransaccionAndSubasta_idSubasta(tipoTransaccion, idSubasta);
 		
 	}
+	
+	/**
+	* Este metodo se encarga de retornar la propuesta subasta id propuesta
+	*
+	* @param idPropuestaSubasta
+	* 
+	* @return Propuestasubasta
+	*
+	*/
+	@Override
+	@Transactional
+	public Propuestasubasta getPropuestaSubastaById(int idPropuestaSubasta) {
+		return propuestaSubastaRepository.findOne(idPropuestaSubasta);
+	}
 }

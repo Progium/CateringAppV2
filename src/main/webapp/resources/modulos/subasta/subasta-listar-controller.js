@@ -135,10 +135,56 @@ App.controller('SubastaClienteListarController', function($scope, $http, $locati
 			 $scope.ObtenerListaSubasta($scope.currentPage);
 			
 	    };
-	    
-	    $scope.verPropuestas = function(propuestaidPropuestaSubasta){
+	    //Funcion que obtiene las propuestas de una subasta determinada
+	    $scope.verPropuestas = function(idSubasta){
 	    	$scope.mostrarTablaListPaquete = true;
-	    	
+			$scope.objPropuestaSubasta = {};
+			$scope.objPropuestaSubasta.subastaId = idSubasta;
+			$scope.listaPropuesta = [];
+			$scope.listaPaquete = [];
+			$scope.objPropuesta = [];
+			
+	    	$http.post('rest/protected/subasta/getPropuestaSubastaBySubasta', $scope.objPropuestaSubasta).success(function (contractPropuestaResponse){
+				var i = 0;
+				var j = 0;
+				var f = 0;
+	    		$scope.listaPropuesta = contractPropuestaResponse.propuestas;
+	    		//recorre la lista de propuesta para obtener todo el objeto paquete
+				for (i = 0; i <= $scope.listaPropuesta.length-1; i++) {
+					var objProp = {};
+					objProp.idPropuestaSubasta = $scope.listaPropuesta[i].idPropuestaSubasta;
+					objProp.idPaquete = $scope.listaPropuesta[i].paqueteId; 
+					objProp.subastaId = $scope.listaPropuesta[i].subastaId;
+					objProp.tipoTransaccion = $scope.listaPropuesta[i].tipoTransaccion;
+					//Guarda en un objeto propuesta los datos de esa propuesta
+					$scope.objPropuesta.push(objProp);
+					$http.post('rest/protected/paquete/getPaqueteById', objProp)
+					.success(function(paqueteResponse){
+						for(j = 0; j <=$scope.objPropuesta.length-1; j++){
+							if(paqueteResponse.paquete.idPaquete == $scope.objPropuesta[j].idPaquete ){
+								$scope.objPropuesta[j].nombre = paqueteResponse.paquete.nombre;
+								$scope.objPropuesta[j].descripcion = paqueteResponse.paquete.nombre;
+								$scope.objPropuesta[j].idCatering = paqueteResponse.paquete.idCatering;
+								$scope.objPropuesta[j].nombreCatering =  paqueteResponse.paquete.nombreCatering;
+								$scope.objPropuesta[j].idTipoEvento =  paqueteResponse.paquete.idTipoEvento;
+			    				$scope.objPropuesta[j].nombreTipoEvento =  paqueteResponse.paquete.nombreTipoEvento;
+			    				$scope.objPropuesta[j].cantidadPersonas =  paqueteResponse.paquete.cantidadPersonas;
+			    				$scope.objPropuesta[j].precio =  paqueteResponse.paquete.precio;
+			    				$scope.objPropuesta[j].descuento =  paqueteResponse.paquete.descuento;
+			    				$scope.objPropuesta[j].montoTotal =  paqueteResponse.paquete.montoTotal;
+			    				$scope.objPropuesta[j].catalogoProducto =  paqueteResponse.paquete.catalogoProducto;
+			    				$scope.objPropuesta[j].total = ( paqueteResponse.paquete.precio *  paqueteResponse.paquete.cantidadPersonas);
+							}
+						}
+
+						if(f == $scope.listaPropuesta.length-1){
+							$scope.listaPaquete = $scope.objPropuesta;
+						}
+						f++;
+					});
+				}
+				
+	    	});
 	    };
 	 	   
 	    //Funcion que obtiene la lista de todos los paquetes por paginación
