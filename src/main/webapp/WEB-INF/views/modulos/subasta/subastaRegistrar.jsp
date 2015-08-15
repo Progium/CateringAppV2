@@ -41,8 +41,8 @@
 							<div class="col-lg-8">
 								<input type="number" class="input-sm spinner-input form-control"
 									name="cantidadPersonas" maxlength="3"
-									ng-change="actualizarFormulas()" ng-pattern="/^\d*$/"
-									ng-model="objPaquete.cantidadPersonas" min="1" max="5000"
+								    ng-pattern="/^\d*$/"
+									ng-model="objSubasta.cantidadPersonas" min="1" max="5000"
 									required /><span class="error-message"
 									ng-show="crearSubasta.cantidadPersonas.$error.pattern">Debe
 									ingresar solo números.</span>
