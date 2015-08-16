@@ -67,38 +67,43 @@
 			<button ng-show="mostrarBoton" type="submit" class="btn btn-primary"
 				ng-click="registrar()">Registrar Subasta</button>
 		</div>
-		<div class="col-sm-5" ng-show="mostrarTablaListPaquete">
+		<div class="col-sm-6" ng-show="mostrarTablaListPaquete">
 			<section class="panel">
-				<header class="panel-heading">Lista de Paquetes del
+				<header class="panel-heading">Lista de propuestas de paquetes del
 					Catering</header>
-				<div class="table-responsive">
-					<table class="table table-striped b-t text-small">
-						<thead>
-							<tr>
-								<th>Catering</th>
-								<th>Nombre Paquete</th>
-								<th>Tipo Evento</th>
-								<th>Costo</th>
-								<th width="70"></th>
-							</tr>
-						</thead>
-						<tbody ng-repeat="paquete in listaPaquete">
-							<tr>
-								<td>{{paquete.nombreCatering}}</td>
-								<td>{{paquete.nombre}}</td>
-								<td>{{paquete.nombreTipoEvento}}</td>
-								<td>{{paquete.montoTotal}}</td>
-								<td class="text-right">
-									<div class="btn-group">
-										<button type="button" class="btn btn-primary"
-											ng-click="openModalDetallePaquete(paquete)">Mostrar
-											Detalle</button>
-									</div>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
+				<table class="table table-striped m-b-none text-small">
+					<thead>
+						<tr>
+							<th>Catering</th>
+							<th>Nombre Paquete</th>
+							<th>Costo</th>
+							<th>Estado Propuesta</th>
+							<th width="70"></th>
+							<th width="70"></th>
+						</tr>
+					</thead>
+					<tbody ng-repeat="paquete in listaPaquete">
+						<tr>
+							<td>{{paquete.nombreCatering}}</td>
+							<td>{{paquete.nombre}}</td>
+							<td>{{paquete.montoTotal}}</td>
+							<td>{{paquete.estadoPropuesta}}</td>
+							<td class="text-right">
+								<div class="btn-group">
+									<button type="button" class="btn btn-primary"
+										ng-click="openModalDetallePaquete(paquete)">Mostrar
+										Detalle</button>
+								</div>
+							</td>
+							<td class="text-right">
+								<div class="btn-group">
+									<button type="button" class="btn btn-primary" ng-disabled="paquete.tipoTransaccion != 0"
+										ng-click="AcceptarPropuesta(paquete)">Elegir</button>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
 			</section>
 		</div>
 	</div>

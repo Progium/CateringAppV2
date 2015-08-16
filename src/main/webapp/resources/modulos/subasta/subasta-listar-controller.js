@@ -156,6 +156,7 @@ App.controller('SubastaClienteListarController', function($scope, $http, $locati
 					objProp.idPaquete = $scope.listaPropuesta[i].paqueteId; 
 					objProp.subastaId = $scope.listaPropuesta[i].subastaId;
 					objProp.tipoTransaccion = $scope.listaPropuesta[i].tipoTransaccion;
+					objProp.estadoPropuesta = $scope.listaPropuesta[i].tipoTransaccion == 0 ? "Pendiente" : $scope.listaPropuesta[i].tipoTransaccion == 2 ? "Acceptada" :"Rechazada";
 					//Guarda en un objeto propuesta los datos de esa propuesta
 					$scope.objPropuesta.push(objProp);
 					$http.post('rest/protected/paquete/getPaqueteById', objProp)
@@ -198,6 +199,19 @@ App.controller('SubastaClienteListarController', function($scope, $http, $locati
 	    	});
 	    };	
 	    
+	    //Funcion que obtiene la lista de todos los paquetes por paginación
+	    $scope.AcceptarPropuesta = function(propuestaSubastaSelecc){
+	    	$http.post('rest/protected/subasta/getReservarPropuestaSubasta', propuestaSubastaSelecc)
+			.success(function(propuestaSubastaResponse) {
+				if(propuestaSubastaResponse.code == 200){
+					services.noty('Se le envió un correo al catering indicando que su propuesta fue eligida.', 'success');
+					$scope.verPropuestas(propuestaSubastaSelecc.subastaId);
+					
+				}else{
+					services.noty('No se pudo guardar que se eligio esa propuesta.', 'error');
+				}
+	    	});
+	    };
 	    $scope.init();
 	    
 	    $scope.registrar = function() {

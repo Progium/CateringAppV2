@@ -326,6 +326,7 @@ public class SubastaController {
 			nPropuesta.setIdPropuestaSubasta(propuesta.getIdPropuestaSubasta());
 			nPropuesta.setPaqueteId(propuesta.getPaquete().getIdPaquete());
 			nPropuesta.setSubastaId(propuesta.getSubasta().getIdSubasta());
+			nPropuesta.setTipoTransaccion(propuesta.getTipoTransaccion());
 			
 			listaPropuestaPOJO.add(nPropuesta);
 		};
@@ -364,6 +365,16 @@ public class SubastaController {
 			propuestaSubastaResponse.setCode(200);
 			propuestaSubastaResponse.setCodeMessage("paquetes fetch success");
 			
+				String correo = propuestaGanadora.getPaquete().getCatering().getUsuario().getCorreo();
+				String cliente = propuestaGanadora.getSubasta().getNombre();
+				String fechaEvento = new SimpleDateFormat("MM-dd-yyyy").format(propuestaGanadora.getSubasta().getFechaEvento());
+				String paquete = propuestaGanadora.getPaquete().getNombre();
+				String mensaje = "Se le informa que su paquete " + paquete + " ha sido elegido para la subasta con la fecha de evento " + fechaEvento +  ", del cliente " + cliente + ". ";
+				SendEmail.sendEmail("Notificación de propuesta de subasta",
+										correo, "Usuario", 
+										"Subasta", mensaje);
+
+			
 			//Recorre por cada propuesta obtiene y setea los datos en el pojo.
 			for (Propuestasubasta propuesta : listaPropuesta){
 				
@@ -381,11 +392,25 @@ public class SubastaController {
 			};
 			
 			propuestaSubastaResponse.setPropuestas(listaPropuestaPOJO);
-			
+			//Funcion que cambia estado de la subasta por vencida ya que el cliente eligio una propuesta
+			cambiarEstadoVencidaSubasta(propuestaGanadora.getSubasta().getIdSubasta());
 		}
 		
 		return propuestaSubastaResponse;	
 		
+	}
+	
+	/**
+	* Este metodo se encarga de cambiar de estado a la subasta que ya el cliente eligio una propuesta 
+	* 
+	* @param idSubasta
+	*
+	*/
+	private void cambiarEstadoVencidaSubasta(int idSubasta){
+		Subasta objSubasta = subastaService.getSubastaById(idSubasta);
+		objSubasta.setEstado(true);
+		Boolean state = subastaService.saveSubasta(objSubasta);
+	
 	}
 }
 
