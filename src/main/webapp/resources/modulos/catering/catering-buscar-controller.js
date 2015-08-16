@@ -4,7 +4,7 @@
  * CateringBuscarController
  * @constructor
  */
-App.controller('CateringBuscarController', function($scope, $http,$location, $upload, $routeParams, $modal, $log) {
+App.controller('CateringBuscarController', function($scope, $http,$location, $upload, $routeParams, $modal, $log, services) {
 	var objUsuario = $.jStorage.get("user");
 	if(objUsuario){
 		_ScopeContainer['MainController'].esAdministrador = false;	
@@ -209,6 +209,25 @@ App.controller('CateringBuscarController', function($scope, $http,$location, $up
 			 	      
 		    };
 			
+			//Funcion que reserva un paquete seleccionado
+		    $scope.reservarPaquete = function(paqueteSelec){
+				//Setear cuantos paquetes va mostrar por pantalla y el primer número de página
+				$scope.objReservarPaquete = {};
+				$scope.objReservarPaquete.paqueteId = paqueteSelec.idPaquete;
+				$scope.nombrePaquete = paqueteSelec.nombre;
+		    	
+		    	$http.post('rest/protected/paquete/createReservaPaquete', $scope.objReservarPaquete).success(function (contractReservaPaqueteResponse){
+		    		if(contractReservaPaqueteResponse.code == 200){
+		    			var msj = "Se le envió un correo al catering indicando que reservo el paquete " + $scope.nombrePaquete;
+						services.noty(msj, 'success');
+						
+					}else{
+						services.noty('No se pudo reservar el paquete.', 'error');
+					}
+		    	});
+			 	      
+		    };
+		    
 		    //Funcion que muestra el detalle del catering determinado
 		    var ModalInstanceViewCtrl = function($scope, $http, $modalInstance,$log, $location, $upload, param){
 		    	

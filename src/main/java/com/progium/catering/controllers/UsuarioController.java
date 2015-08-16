@@ -113,6 +113,9 @@ public class UsuarioController {
 		//Crea un nuevo usuario response le setea los datos y le pasa el objeto de usuario al servicio de usuario
 		UsuarioResponse us = new UsuarioResponse();
 		Tipo objTipo = generalService.getTipoById(usuarioRequest.getTipoUsuarioId());
+		
+		String correo = GeneradorContrasennaUtil.encriptarContrasenna(usuarioRequest.getContrasenna());
+		Usuario usuarioExiste = usuarioService.getUsuarioByCorreo(correo);
 
 		Usuario objNuevoUsuario = new Usuario();
 		objNuevoUsuario.setNombre(usuarioRequest.getNombre());

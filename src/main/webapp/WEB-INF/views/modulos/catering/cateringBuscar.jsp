@@ -107,7 +107,8 @@
 								<td class="text-right">
 									<div class="btn-group">
 										<button type="button" class="btn btn-primary"
-											ng-click="listarPaqueteEvento(catering)">Ver paquetes</button>
+											ng-click="listarPaqueteEvento(catering)">Ver
+											paquetes</button>
 									</div>
 								</td>
 							</tr>
@@ -134,19 +135,19 @@
 			</section>
 		</div>
 
-		<div class="col-sm-5" ng-show = "mostrarTablaListPaquete">
+		<div class="col-sm-5" ng-show="mostrarTablaListPaquete">
 			<section class="panel">
-				<header class="panel-heading">Lista de Paquetes del Catering {{nombreCatering}}</header>
+				<header class="panel-heading">Lista de Paquetes del
+					Catering {{nombreCatering}}</header>
 				<div class="table-responsive">
 					<table class="table table-striped b-t text-small">
 						<thead>
 							<tr>
-								<th>Nombre Catering</th>
 								<th>Nombre Paquete</th>
 								<th>Tipo Evento</th>
 								<th>Costo</th>
-								<th>Estado</th>
 								<th width="70"></th>
+								<th></th>
 							</tr>
 						</thead>
 						<tbody ng-repeat="paquete in paquetesLista">
@@ -157,7 +158,14 @@
 								<td class="text-right">
 									<div class="btn-group">
 										<button type="button" class="btn btn-primary"
-											ng-click="openModalDetallePaquete(paquete)">Mostrar Detalle</button>
+											ng-click="openModalDetallePaquete(paquete)">Mostrar
+											Detalle</button>
+									</div>
+								</td>
+								<td class="text-right">
+									<div class="btn-group">
+										<button type="button" class="btn btn-primary"
+											ng-click="reservarPaquete(paquete)">Reservar</button>
 									</div>
 								</td>
 							</tr>

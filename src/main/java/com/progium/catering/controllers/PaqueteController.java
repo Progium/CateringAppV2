@@ -1,6 +1,7 @@
 package com.progium.catering.controllers;
 
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,15 +21,22 @@ import org.springframework.transaction.annotation.Transactional;
 import com.progium.catering.ejb.Catering;
 import com.progium.catering.ejb.Paqueteproducto;
 import com.progium.catering.ejb.Paquete;
+import com.progium.catering.ejb.Reservapaquete;
+import com.progium.catering.ejb.Usuario;
 import com.progium.catering.ejb.Tipo;
 import com.progium.catering.ejb.Catalogoproducto;
 import com.progium.catering.contracts.PaqueteResponse;
 import com.progium.catering.contracts.PaqueteRequest;
+import com.progium.catering.contracts.ReservaPaqueteRequest;
+import com.progium.catering.contracts.ReservaPaqueteResponse;
 import com.progium.catering.services.CateringServiceInterface;
 import com.progium.catering.services.GeneralServiceInterface;
 import com.progium.catering.services.PaqueteServiceInterface;
 import com.progium.catering.services.PaqueteProductoServiceInterface;
 import com.progium.catering.services.CataloProductoServiceInterface;
+import com.progium.catering.services.ReservarPaqueteServiceInterface;
+import com.progium.catering.services.UsuarioServiceInterface;
+import com.progium.catering.utils.SendEmail;
 import com.progium.catering.pojo.PaquetePOJO;
 
 /**
@@ -57,6 +65,12 @@ public class PaqueteController {
 	
 	@Autowired
 	CataloProductoServiceInterface catalogoProductoService;
+	
+	@Autowired
+	UsuarioServiceInterface usuarioService;
+	
+	@Autowired
+	ReservarPaqueteServiceInterface reservaPaqueteService;
 	
 	@Autowired
 	HttpServletRequest request;	
@@ -267,5 +281,51 @@ public class PaqueteController {
 		
 		return paqueteResponse;	
 		
+	}
+	
+	/**
+	* Este  metodo se encarga de registrar una reserva de paqute.
+	*
+	* @param  reservarPaqueteRequest
+	* 
+	* @return ReservaPaqueteResponse
+	*
+	*/
+	@RequestMapping(value = "/createReservaPaquete", method = RequestMethod.POST)
+	@Transactional
+	public ReservaPaqueteResponse createReservaPaquete(@RequestBody ReservaPaqueteRequest reservarPaqueteRequest)throws NoSuchAlgorithmException {
+		
+		ReservaPaqueteResponse rs = new ReservaPaqueteResponse();
+		
+		HttpSession currentSession = request.getSession();
+		int idUsuario = (int) currentSession.getAttribute("idUsuario");	
+		
+		Usuario objUsuario = usuarioService.getUsuarioById(idUsuario);
+		Paquete objPaquete = paqueteService.getPaqueteById(reservarPaqueteRequest.getPaqueteId());
+		
+		Reservapaquete objNuevaReservaPaquete = new Reservapaquete();
+		objNuevaReservaPaquete.setPaquete(objPaquete);
+		objNuevaReservaPaquete.setUsuario(objUsuario);
+						
+		Boolean state = reservaPaqueteService.saveReservaPaquete(objNuevaReservaPaquete);
+			
+		if (state) {
+			rs.setCode(200);
+			rs.setCodeMessage("reserva paquete created succesfully");
+			String correo = objPaquete.getCatering().getUsuario().getCorreo();
+			String catering = objPaquete.getCatering().getNombre();
+			String nombrePaquete = objPaquete.getNombre();
+			String cliente = objUsuario.getNombre();
+
+			String mensaje = "Se le informa que el cliente " + cliente + " reservo el paquete " + nombrePaquete +  ", del catering " + catering + ". ";
+			SendEmail.sendEmail("Notificación reserva de un paquete",
+									correo, "Usuario", 
+									"Paquete", mensaje);
+		}else{
+			rs.setCode(401);
+			rs.setErrorMessage("Unauthorized User");
+		}
+		
+		return rs;
 	}
 }

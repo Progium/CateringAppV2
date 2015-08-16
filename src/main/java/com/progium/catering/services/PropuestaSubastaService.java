@@ -9,7 +9,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.progium.catering.ejb.Paquete;
 import com.progium.catering.ejb.Propuestasubasta;
 import com.progium.catering.repositories.PropuestaSubastaRepository;
 
