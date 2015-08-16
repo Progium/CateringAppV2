@@ -55,7 +55,7 @@ App.controller('UsuarioRegistrarController', function($scope, $http, $location, 
 						$location.path('/iniciar-sesion');
 					}
 				}else{
-					services.noty('No se pudo registrar el usuario.', 'error');
+					services.noty(contractUsuarioResponse.errorMessage, 'error');
 				}
 			});
 		}
