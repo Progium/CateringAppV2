@@ -38,7 +38,7 @@
 							<label class="col-lg-3 control-label">Nombre</label>
 							<div class="col-lg-8">
 								<input ng-model="usuario.nombre" type="text" name="nombre"
-									placeholder="Marcela" class="form-control" required
+									placeholder="Carmen" class="form-control" required
 									ng-pattern="/^(\D)+$/" /> <span class="error-message"
 									ng-show="perfilUsuario.nombre.$error.pattern">Debe
 									ingresar solo letras</span>
@@ -62,7 +62,7 @@
 							<label class="col-lg-3 control-label">Segundo Apellido</label>
 							<div class="col-lg-8">
 								<input ng-model="usuario.apellido2" type="text" name="apellido2"
-									placeholder="Picado" class="form-control"
+									placeholder="Solano" class="form-control"
 									ng-pattern="/^(\D)+$/" /> <span class="error-message"
 									ng-show="perfilUsuario.apellido2.$error.pattern">Debe
 									ingresar solo letras</span>
@@ -74,7 +74,7 @@
 							<label class="col-lg-3 control-label">Correo</label>
 							<div class="col-lg-8">
 								<input ng-model="usuario.correo" type="email" id="email"
-									placeholder="marce@gmail.com" class="bg-focus form-control"
+									placeholder="carmen@gmail.com" class="bg-focus form-control"
 									required ng-disabled="true" />
 							</div>
 						</div>

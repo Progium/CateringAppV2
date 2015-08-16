@@ -9,7 +9,7 @@
            <form class="panel-body" method="post" id="frmOlvidoContrasenna" name="frmOlvidoContrasenna">
              <div class="block">
                <label class="control-label">Ingrese el correo electrónico</label>
-               <input type="email" id="email" ng-model="objUsuario.correo" placeholder="marce@gmail.com" class="bg-focus form-control" required />  
+               <input type="email" id="email" ng-model="objUsuario.correo" placeholder="carmen@gmail.com" class="bg-focus form-control" required />  
              </div>
              <button type="submit"  class="btn btn-white" ng-click="cancelar()">Cancelar</button>
              <button type="submit" class="btn btn-info" ng-click="olvidoContrasenna()">Recuperar contraseña</button>
