@@ -18,8 +18,8 @@ App.controller('UsuarioRegistrarController', function($scope, $http, $location, 
 	}
 	//Guarda los datos ingresados por el usuario.
 	$scope.guardar = function() {
-		if(validarDatos($scope.objUsuario) && this.crearUsuario.$valid){
-			var usuarioFoto = $scope.files[0];
+		var usuarioFoto = $scope.files[0];
+		if(validarDatos($scope.objUsuario, usuarioFoto) && this.crearUsuario.$valid){
 			var datosUsuario = {};
 			datosUsuario = {
 					nombre: $scope.objUsuario.nombre,
@@ -66,13 +66,30 @@ App.controller('UsuarioRegistrarController', function($scope, $http, $location, 
     	$scope.files = $files;
     };
     
-    function validarDatos(objUsuario){
+    function validarDatos(objUsuario, file){
+    	var extensiones = new Array("jpg","png","gif");
+    	var extFile;
     	var isOk = true;
+    	var extCorrecto = false;
+    	//Valida que el formato del archivo solo sea jpg, png y gif
+    	if(file){
+    		extFile = file.name.split('.').pop(); // split function will split the filename by dot(.), and pop function will pop the last element from the array which will give you the extension as well. If there will be no extension then it will return the filename.
+    		for(var i = 0; i <= extensiones.length; i++){
+        		if(extensiones[i] == extFile){
+        			extCorrecto = true;
+    	        }
+    	    }
+    		if(extCorrecto == false){
+    			isOk = false;
+    			services.noty('Solo se puede subir archivos con formato jpg, png, gif.', 'warning');
+    			
+    		}
+    	}
+
     	if(objUsuario.contrasenna != objUsuario.repetirContrasenna){
     		isOk = false;
     		services.noty('El campo de repetir contraseña tiene que ser igual a la contraseña.', 'warning');
-    	}
-    	
+    	}   	
     	return isOk;
     }
 });
