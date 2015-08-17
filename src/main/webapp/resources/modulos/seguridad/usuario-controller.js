@@ -75,7 +75,7 @@ App.controller('UsuarioRegistrarController', function($scope, $http, $location, 
     	if(file){
     		extFile = file.name.split('.').pop(); // split function will split the filename by dot(.), and pop function will pop the last element from the array which will give you the extension as well. If there will be no extension then it will return the filename.
     		for(var i = 0; i <= extensiones.length; i++){
-        		if(extensiones[i] == extFile){
+        		if(extensiones[i] == extFile.toLowerCase()){
         			extCorrecto = true;
     	        }
     	    }
@@ -217,7 +217,7 @@ App.controller('UsuarioPerfilController', function($scope, $http, $location, $up
 	    	if(file){
 	    		extFile = file.name.split('.').pop(); // split function will split the filename by dot(.), and pop function will pop the last element from the array which will give you the extension as well. If there will be no extension then it will return the filename.
 	    		for(var i = 0; i <= extensiones.length; i++){
-	        		if(extensiones[i] == extFile){
+	        		if(extensiones[i] == extFile.toLowerCase()){
 	        			extCorrecto = true;
 	    	        }
 	    	    }
