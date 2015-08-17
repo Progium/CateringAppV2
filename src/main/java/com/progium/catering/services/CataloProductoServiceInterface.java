@@ -1,8 +1,9 @@
 package com.progium.catering.services;
 
 import java.util.List;
-
+import org.springframework.data.domain.Page;
 import com.progium.catering.ejb.Catalogoproducto;
+import com.progium.catering.contracts.CatalogoProductoRequest;
 
 /**
 * Esta clase se encarga de exponer las funcionalidades 
@@ -19,4 +20,7 @@ public interface CataloProductoServiceInterface {
 
 		//Obtiene el catalogo de producto del catering
 		List<Catalogoproducto> getCatalogoProductoByIdCatering(Integer idCatering);
+		
+		//Obtiene el catalogo de producto del catering
+		Page<Catalogoproducto> getCatalogoProductoByIdCatering(CatalogoProductoRequest catalogoProductoRequest);
 }

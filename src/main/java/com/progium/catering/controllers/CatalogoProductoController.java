@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -185,6 +186,48 @@ public class CatalogoProductoController {
 			
 			listaCatalogoProductoPOJO.add(nCatalogoProd);
 		}
+		
+		catalogoProductoResponse.setCatalogos(listaCatalogoProductoPOJO);
+		
+		return catalogoProductoResponse;
+	}
+	
+	/**
+	* Este  metodo se encarga de retornar el catalogo del catering.
+	*
+	* @param  catalogoProductoRequest
+	* 
+	* @return catalogoProductoResponse
+	*
+	*/
+	@RequestMapping(value ="/getCatalogoProductoByCatering", method = RequestMethod.POST)
+	public CatalogoProductoResponse getCatalogoProductoByCatering(@RequestBody CatalogoProductoRequest catalogoProductoRequest)throws NoSuchAlgorithmException {
+		
+		catalogoProductoRequest.setPageNumber(catalogoProductoRequest.getPageNumber() - 1);
+		
+		CatalogoProductoResponse catalogoProductoResponse = new CatalogoProductoResponse();
+		
+		Page<Catalogoproducto> catalogoProductos = catalogoProductoService.getCatalogoProductoByIdCatering(catalogoProductoRequest);
+		List<CatalogoProductoPOJO> listaCatalogoProductoPOJO = new ArrayList<CatalogoProductoPOJO>();
+		
+		catalogoProductoResponse.setCode(200);
+		catalogoProductoResponse.setCodeMessage("catalogos fetch success");
+		catalogoProductoResponse.setTotalElements(catalogoProductos.getTotalElements());
+		catalogoProductoResponse.setTotalPages(catalogoProductos.getTotalPages());
+		
+		//Recorre por cada catalogo producto obtiene y setea los datos en el pojo.
+		
+		catalogoProductos.getContent().forEach(catalogoProducto->{
+			
+			CatalogoProductoPOJO nCatalogoProd = new CatalogoProductoPOJO();
+			
+			nCatalogoProd.setIdCatalogoProducto(catalogoProducto.getIdCatalogoProducto());
+			nCatalogoProd.setCateringId(catalogoProducto.getCatering().getIdCatering());
+			nCatalogoProd.setProductoId(catalogoProducto.getProducto().getIdProducto());
+			nCatalogoProd.setPrecio(catalogoProducto.getPrecio());
+			
+			listaCatalogoProductoPOJO.add(nCatalogoProd);
+		});
 		
 		catalogoProductoResponse.setCatalogos(listaCatalogoProductoPOJO);
 		

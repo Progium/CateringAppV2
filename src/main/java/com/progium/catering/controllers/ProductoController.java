@@ -73,43 +73,6 @@ public class ProductoController {
 		return entityResponse;
 	}	
 	
-/*	*//**
-	* Este  metodo se encarga de retornar un producto de un determinado idproducto.
-	*
-	* @param  productoRequest
-	* 
-	* @return ProductoResponse
-	*
-	*//*
-	@RequestMapping(value = "/findOne", method = RequestMethod.POST)
-	@Transactional
-	public ProductoResponse findOne(@RequestBody ProductoRequest entityRequest){	
-		
-		ProductoResponse entityResponse = new ProductoResponse();
-		
-		ProductoPOJO productoPojo = entityRequest.getProducto();
-		
-		List<ProductoPOJO> productosPojo = new ArrayList<ProductoPOJO>();
-		
-		Producto producto = productoService.getProductoById(productoPojo.getIdProducto());
-		if(producto != null){
-			producto.setNombre(producto.getNombre());
-			productoPojo = new ProductoPOJO();
-			PojoUtils.pojoMappingUtility(productoPojo, producto);
-			productosPojo.add(productoPojo);
-			entityResponse.setProductos(productosPojo);
-			
-			entityResponse.setCode(200);
-			entityResponse.setCodeMessage("Productos fetch succcesss");
-		}else{
-			entityResponse.setCode(400);
-			entityResponse.setCodeMessage("Productos pojo not found");
-		}
-		return entityResponse;
-		
-	}	*/
-	
-	
 	/**
 	* Este  metodo se encarga de retornar un producto de un determinado idproducto.
 	*
@@ -127,7 +90,10 @@ public class ProductoController {
 		Producto producto = productoService.getProductoById(productoRequest.getIdProducto());
 		ProductoPOJO productoPojo = new ProductoPOJO();
 		
-		PojoUtils.pojoMappingUtility(productoPojo,producto);
+		productoPojo.setIdProducto(producto.getIdProducto());
+		productoPojo.setNombre(producto.getNombre());
+		productoPojo.setCategoria(producto.getCategoria());
+		productoPojo.setNombreCategoria(producto.getCategoria().getNombre());
 		
 		productoResponse.setProducto(productoPojo);
 		

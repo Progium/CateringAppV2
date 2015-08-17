@@ -24,4 +24,7 @@ public static final int PAGE_SIZE = 5;
 	List<Catalogoproducto> findCatalogoProductoByCatering_idCatering
 	(Integer idCatering);
 	
+	Page<Catalogoproducto> findCatalogoProductoByCatering_idCatering
+	(Integer idCatering, Pageable pageable);
+	
 }
