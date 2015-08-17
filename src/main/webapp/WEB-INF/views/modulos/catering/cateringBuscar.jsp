@@ -140,13 +140,13 @@
 				<header class="panel-heading">Lista de Paquetes del
 					Catering {{nombreCatering}}</header>
 				<div class="table-responsive">
-					<table class="table table-striped b-t text-small">
+					<table class="table-striped b-t text-small">
 						<thead>
 							<tr>
-								<th>Nombre Paquete</th>
-								<th>Tipo Evento</th>
-								<th>Costo</th>
-								<th width="70"></th>
+								<th class="th-table">Nombre Paquete</th>
+								<th class="th-table">Tipo Evento</th>
+								<th class="th-table">Costo</th>
+								<th></th>
 								<th></th>
 							</tr>
 						</thead>
