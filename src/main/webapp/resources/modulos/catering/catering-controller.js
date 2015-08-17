@@ -96,8 +96,8 @@ App.controller('CateringRegistrarController', function($scope, $http,$location, 
 		
 		//Guarda los datos ingresados por el usuario.
 		$scope.guardar = function() {
-			if(this.crearCatering.$valid){
-				var cateringLogo = $scope.files[0];
+			var cateringLogo = $scope.files[0];
+			if(validarDatos(cateringLogo) && this.crearCatering.$valid){
 				var datosCatering = {};
 				datosCatering = {
 					administradorId: objUsuario.idUsuario,
@@ -147,6 +147,27 @@ App.controller('CateringRegistrarController', function($scope, $http,$location, 
 		$scope.onFileSelect = function($files) {
 	    	$scope.files = $files;
 	    };
+	    
+	    function validarDatos(file){
+	    	var extensiones = new Array("jpg","png","gif");
+	    	var extFile;
+	    	var isOk = true;
+	    	var extCorrecto = false;
+	    	//Valida que el formato del archivo solo sea jpg, png y gif
+	    	if(file){
+	    		extFile = file.name.split('.').pop(); // split function will split the filename by dot(.), and pop function will pop the last element from the array which will give you the extension as well. If there will be no extension then it will return the filename.
+	    		for(var i = 0; i <= extensiones.length; i++){
+	        		if(extensiones[i] == extFile){
+	        			extCorrecto = true;
+	    	        }
+	    	    }
+	    		if(extCorrecto == false){
+	    			isOk = false;
+	    			services.noty('Solo se puede subir archivos con formato jpg, png, gif.', 'warning');
+	    			
+	    		}
+	    	}
+	    }
 	    
 	}else{
 		var path = "/catering/#/iniciar-sesion";
@@ -262,8 +283,8 @@ App.controller('CateringModificarController', function($scope, $location, $http,
 		
 		//Guarda los datos modificados del catering.
 		$scope.guardar = function() {
-			if(this.crearCatering.$valid){
-				var cateringLogo = $scope.files[0];
+			var cateringLogo = $scope.files[0];
+			if(validarDatos(cateringLogo) && this.crearCatering.$valid){
 				var datosCatering = {};
 				datosCatering = {
 					idCatering: $scope.objCatering.idCatering,
@@ -316,6 +337,26 @@ App.controller('CateringModificarController', function($scope, $location, $http,
 	    	$scope.actualizarImagen = true;
 	    };
 	    
+	    function validarDatos(file){
+	    	var extensiones = new Array("jpg","png","gif");
+	    	var extFile;
+	    	var isOk = true;
+	    	var extCorrecto = false;
+	    	//Valida que el formato del archivo solo sea jpg, png y gif
+	    	if(file){
+	    		extFile = file.name.split('.').pop(); // split function will split the filename by dot(.), and pop function will pop the last element from the array which will give you the extension as well. If there will be no extension then it will return the filename.
+	    		for(var i = 0; i <= extensiones.length; i++){
+	        		if(extensiones[i] == extFile){
+	        			extCorrecto = true;
+	    	        }
+	    	    }
+	    		if(extCorrecto == false){
+	    			isOk = false;
+	    			services.noty('Solo se puede subir archivos con formato jpg, png, gif.', 'warning');
+	    			
+	    		}
+	    	}
+	    }
 	}; 
 	
 
