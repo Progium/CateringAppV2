@@ -88,6 +88,10 @@ App.config(function($routeProvider, $locationProvider) {
 			templateUrl: 'modulos/producto-agregar',
 			controller: 'ModalInstanceModifyCtrl'
 		})
+		.when('/producto-catalogo-listar', {
+			templateUrl: 'modulos/producto-catalogo-listar',
+			controller: 'ProductoCatalogoListarController'
+		})
 		.when('/cotizacion-registrar', {
 			templateUrl: 'modulos/cotizacion-registrar',
 			controller: 'CotizacionRegistrarController'
@@ -100,7 +104,6 @@ App.config(function($routeProvider, $locationProvider) {
 			templateUrl: 'modulos/paquete-listar',
 			controller: 'PaqueteListarController'
 		})
-		
 		.when('/paquete-mostrar-detalle', {
 			templateUrl: 'modulos/paquete-mostrar-detalle',
 			controller: 'ModalInstanceViewDetallePaqueteCtrl'

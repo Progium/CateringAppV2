@@ -109,7 +109,7 @@ App.controller('ProductoRegistrarController', function($scope,$http, $modal) {
 			$scope.init();
 			
 			$scope.create = function(){
-				if(this.registroCatalogo.$valid){
+				if(validarDatos($scope.idCaterings) && this.registroCatalogo.$valid){
 					this.onError = false;
 					var productoFoto = $scope.files[0];
 					var datosProducto = {};
@@ -147,11 +147,22 @@ App.controller('ProductoRegistrarController', function($scope,$http, $modal) {
 							}
 						}
 					});
-				}else{
-					services.noty('Error al añadir el producto al catálogo', 'error');
-					this.onError = true;
-				}
+				}				
+				//}else{
+				//	services.noty('Error al añadir el producto al catálogo', 'error');
+				//	this.onError = true;
+				//}
 			};
+			
+		    function validarDatos(cateringSeleccionados){
+		    	var isOk = true;
+		    	if(cateringSeleccionados == ""){
+		    		isOk = false;
+		    		services.noty('Debe seleccionar al menos un catering para registrar el producto a un catálogo.', 'warning');
+		    	}
+		    	
+		    	return isOk;
+		    }
 			$scope.cancel = function(){
 				$modalInstance.dismiss('cancel');
 			};

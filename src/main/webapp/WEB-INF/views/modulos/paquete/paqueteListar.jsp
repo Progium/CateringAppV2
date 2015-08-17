@@ -7,8 +7,6 @@
 	<div class="row">
 		<div class="col-lg-8">
 			<section class="panel">
-				<div>
-
 					<table class="table table-striped m-b-none text-small">
 						<thead>
 							<tr>

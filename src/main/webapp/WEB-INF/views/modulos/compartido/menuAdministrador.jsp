@@ -7,7 +7,7 @@
 <!-- 		</ul></li> -->
 	<li class="dropdown-submenu"><a href="#/catering-listar"><i
 			class="fa fa-th fa-lg"></i><span>Mis Catering</span></a></li>	
-	<li class="dropdown-submenu"><a href="#/producto-registrar"><i
+	<li class="dropdown-submenu"><a href="#/producto-catalogo-listar"><i
 			class="fa fa-th fa-lg"></i><span>Catálogo de Productos</span></a></li>
 	<li class="dropdown-submenu"><a href="#/paquete-listar/0"><i
 			class="fa fa-th fa-lg"></i><span>Mis Paquetes</span></a></li>

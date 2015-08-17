@@ -4,10 +4,15 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.progium.catering.ejb.Catalogoproducto;
+import com.progium.catering.ejb.Paquete;
 import com.progium.catering.repositories.CatalogoProductoRepository;
+import com.progium.catering.contracts.CatalogoProductoRequest;
 
 /**
 * Esta clase se encarga dar el comportamiento a las diferentes 
@@ -67,5 +72,30 @@ public class CatalogoProductoService implements CataloProductoServiceInterface{
 	@Transactional
 	public List<Catalogoproducto> getCatalogoProductoByIdCatering(Integer idCatering) {
 		return catalogoProductoRepository.findCatalogoProductoByCatering_idCatering(idCatering);
+	}
+	
+	/**
+	* Este  metodo se encarga de retornar el catalogo de producto de un catering paginado
+	*
+	* @param  idCatering
+	* 
+	* @return Page<Catalogoproducto>
+	*
+	*/
+	@Override
+	@Transactional
+	public Page<Catalogoproducto> getCatalogoProductoByIdCatering(CatalogoProductoRequest catalogoProductoRequest) {
+		PageRequest pr;
+
+		pr = new PageRequest(catalogoProductoRequest.getPageNumber(),
+				catalogoProductoRequest.getPageSize());
+		
+		int cateringId = catalogoProductoRequest.getCateringId().get(0);
+
+		Page<Catalogoproducto> result;
+		
+		result = catalogoProductoRepository.findCatalogoProductoByCatering_idCatering(cateringId, pr);
+		
+		return result;
 	}
 }

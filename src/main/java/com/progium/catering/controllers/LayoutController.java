@@ -84,6 +84,12 @@ public class LayoutController {
 	{
 		return "modulos/producto/productoAgregar";
 	}
+	
+	@RequestMapping(value = "/producto-catalogo-listar")
+	public String getProductoCatalogoListar()
+	{
+		return "modulos/producto/productoCatalogoListar";
+	}
 	//-------------------------------------------------------
 	// Paquete
 	// -------------------------------------------------------

@@ -14,7 +14,8 @@ public class ProductoPOJO {
 	private int idProducto;
 	private String nombre;
 	private Categoria categoria;
-	private int  idCategoria;
+	private int idCategoria;
+	private String nombreCategoria;
 	
 	public ProductoPOJO() {
 		super();
@@ -49,6 +50,14 @@ public class ProductoPOJO {
 
 	public void setIdCategoria(Categoria categoria) {
 		this.idCategoria = categoria.getIdCategoria();
+	}
+
+	public String getNombreCategoria() {
+		return nombreCategoria;
+	}
+
+	public void setNombreCategoria(String nombreCategoria) {
+		this.nombreCategoria = nombreCategoria;
 	}
 	
 	

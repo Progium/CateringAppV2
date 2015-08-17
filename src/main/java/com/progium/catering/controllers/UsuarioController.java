@@ -83,6 +83,9 @@ public class UsuarioController {
 		
 		String resultFileName = Utils.writeToFile(file, servletContext);
 		
+		//Remover localhost:8080 del path de la fotografía
+		 resultFileName = resultFileName.replace("http://localhost:8080", "");
+		  
 		objUsuario.setFotografia(resultFileName);
 		
 		Boolean state = usuarioService.saveUsuario(objUsuario);
@@ -113,38 +116,45 @@ public class UsuarioController {
 		//Crea un nuevo usuario response le setea los datos y le pasa el objeto de usuario al servicio de usuario
 		UsuarioResponse us = new UsuarioResponse();
 		Tipo objTipo = generalService.getTipoById(usuarioRequest.getTipoUsuarioId());
+		
+		Usuario usuarioExiste = usuarioService.getUsuarioByCorreo(usuarioRequest.getCorreo());
+		if(usuarioExiste == null){
+			Usuario objNuevoUsuario = new Usuario();
+			objNuevoUsuario.setNombre(usuarioRequest.getNombre());
+			objNuevoUsuario.setApellido1(usuarioRequest.getApellido1());
+			objNuevoUsuario.setApellido2(usuarioRequest.getApellido2());
+			objNuevoUsuario.setCorreo(usuarioRequest.getCorreo());
+			objNuevoUsuario.setTelefono1(usuarioRequest.getTelefono1());
+			objNuevoUsuario.setTelefono2(usuarioRequest.getTelefono2());
+			objNuevoUsuario.setTipo(objTipo);
+			objNuevoUsuario.setContrasenna(GeneradorContrasennaUtil
+					.encriptarContrasenna(usuarioRequest.getContrasenna()));
 
-		Usuario objNuevoUsuario = new Usuario();
-		objNuevoUsuario.setNombre(usuarioRequest.getNombre());
-		objNuevoUsuario.setApellido1(usuarioRequest.getApellido1());
-		objNuevoUsuario.setApellido2(usuarioRequest.getApellido2());
-		objNuevoUsuario.setCorreo(usuarioRequest.getCorreo());
-		objNuevoUsuario.setTelefono1(usuarioRequest.getTelefono1());
-		objNuevoUsuario.setTelefono2(usuarioRequest.getTelefono2());
-		objNuevoUsuario.setTipo(objTipo);
-		objNuevoUsuario.setContrasenna(GeneradorContrasennaUtil
-				.encriptarContrasenna(usuarioRequest.getContrasenna()));
+			Boolean state = usuarioService.saveUsuario(objNuevoUsuario);
 
-		Boolean state = usuarioService.saveUsuario(objNuevoUsuario);
+			if (state) {
+				us.setCode(200);
+				us.setCodeMessage("user created succesfully");
+				us.setIdUsuario(objNuevoUsuario.getIdUsuario());
 
-		if (state) {
-			us.setCode(200);
-			us.setCodeMessage("user created succesfully");
-			us.setIdUsuario(objNuevoUsuario.getIdUsuario());
+				String mensaje = "Para ingresar al sistema debe utilizar las siguientes credenciales: "
+						+ "Correo: "
+						+ objNuevoUsuario.getCorreo()
+						+ "</br>"
+						+ " Contraseña: " + usuarioRequest.getContrasenna().toString();
+				SendEmail.sendEmail("Bienvenido a Catering App!",
+						objNuevoUsuario.getCorreo(), "Nuevo Usuario",
+						"Bienvenido a Catering App", mensaje);
 
-			String mensaje = "Para ingresar al sistema debe utilizar las siguientes credenciales: "
-					+ "Correo: "
-					+ objNuevoUsuario.getCorreo()
-					+ "</br>"
-					+ " Contraseña: " + usuarioRequest.getContrasenna().toString();
-			SendEmail.sendEmail("Bienvenido a Catering App!",
-					objNuevoUsuario.getCorreo(), "Nuevo Usuario",
-					"Bienvenido a Catering App", mensaje);
-
+			}else{
+				us.setCode(401);
+				us.setErrorMessage("Unauthorized User");
+			}
 		}else{
 			us.setCode(401);
-			us.setErrorMessage("Unauthorized User");
+			us.setErrorMessage("No se pudo registrar el usuario, debido a que ya se encuentra un usuario registrado con ese correo.");
 		}
+
 		return us;
 	}
 		
