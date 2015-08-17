@@ -22,7 +22,6 @@
 							<th>Categoría</th>
 							<th>Producto</th>
 							<th>Precio</th>
-							<th width="70"></th>
 						</tr>
 					</thead>
 					<tbody ng-repeat="producto in listaProductos">
@@ -30,12 +29,6 @@
 							<td>{{producto.categoriaNombre}}</td>
 							<td>{{producto.nombre}}</td>
 							<td>{{producto.precio}}</td>
-							<td class="text-right">
-								<div class="btn-group">
-									<button type="button" class="btn btn-primary"
-										ng-click="openModalDetallePaquete(paquete)">Modificar</button>
-								</div>
-							</td>
 						</tr>
 					</tbody>
 				</table>

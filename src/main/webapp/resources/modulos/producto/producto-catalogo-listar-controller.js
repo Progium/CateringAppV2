@@ -99,6 +99,7 @@ App.controller('ProductoCatalogoListarController', function($scope, $http,$locat
 	    $scope.agregarProducto = function() {
 	    	$location.path('/producto-registrar');
 	    };
+	    
 	}else{
 		var path = "/catering/#/iniciar-sesion";
 		window.location.href = path;
