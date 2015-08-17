@@ -83,6 +83,9 @@ public class UsuarioController {
 		
 		String resultFileName = Utils.writeToFile(file, servletContext);
 		
+		//Remover localhost:8080 del path de la fotografía
+		 resultFileName = resultFileName.replace("http://localhost:8080", "");
+		  
 		objUsuario.setFotografia(resultFileName);
 		
 		Boolean state = usuarioService.saveUsuario(objUsuario);
