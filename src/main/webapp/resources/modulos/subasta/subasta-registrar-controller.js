@@ -49,6 +49,10 @@ App.controller('SubastaRegistrarController', function($scope, $http, $location, 
 				});				
 			};
 		};	
+		
+		$scope.cancelar = function(){
+			$location.path('/subasta-cliente-listar');
+		}
 	}else{
 		var path = "/catering/#/iniciar-sesion";
 		window.location.href = path;
