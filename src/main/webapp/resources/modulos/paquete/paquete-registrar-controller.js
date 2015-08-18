@@ -235,7 +235,7 @@ App.controller('PaqueteRegistrarController', function($scope, $http,$location, $
 				$http.post('rest/protected/paquete/registrar', datosPaquete).success(function (contractPaqueteResponse){
 					if(contractPaqueteResponse.code == 200){
 						services.noty('El paquete se registro correctamente.', 'success');
-						$location.path('/paquete-listar');
+						$location.path('/paquete-listar/0');
 						
 					}else{
 						services.noty('No se pudo registrar el paquete.', 'error');
@@ -244,6 +244,11 @@ App.controller('PaqueteRegistrarController', function($scope, $http,$location, $
 			}
 			
 		}
+		
+		$scope.cancelar = function(){
+			$location.path('/paquete-listar/0');
+		}
+		
 		
 	    function validarDatos(productosSeleccionados){
 	    	var isOk = true;
