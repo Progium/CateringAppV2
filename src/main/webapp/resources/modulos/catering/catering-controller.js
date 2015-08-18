@@ -148,7 +148,7 @@ App.controller('CateringRegistrarController', function($scope, $http,$location, 
 	    	$scope.files = $files;
 	    };
 	    
-	    function validarDatos(objUsuario, file){
+	    function validarDatos(file){
 	    	var extensiones = new Array("jpg","png","gif");
 	    	var extFile;
 	    	var isOk = true;
@@ -166,11 +166,6 @@ App.controller('CateringRegistrarController', function($scope, $http,$location, 
 	    			services.noty('Solo se puede subir archivos con formato jpg, png, gif.', 'warning');
 	    			
 	    		}
-	    	}
-
-	    	if(objUsuario.contrasenna != objUsuario.repetirContrasenna){
-	    		isOk = false;
-	    		services.noty('El campo de repetir contraseña tiene que ser igual a la contraseña.', 'warning');
 	    	}   	
 	    	return isOk;
 	    }
@@ -343,7 +338,7 @@ App.controller('CateringModificarController', function($scope, $location, $http,
 	    	$scope.actualizarImagen = true;
 	    };
 	    
-	    function validarDatos(objUsuario, file){
+	    function validarDatos(file){
 	    	var extensiones = new Array("jpg","png","gif");
 	    	var extFile;
 	    	var isOk = true;
@@ -361,12 +356,7 @@ App.controller('CateringModificarController', function($scope, $location, $http,
 	    			services.noty('Solo se puede subir archivos con formato jpg, png, gif.', 'warning');
 	    			
 	    		}
-	    	}
-
-	    	if(objUsuario.contrasenna != objUsuario.repetirContrasenna){
-	    		isOk = false;
-	    		services.noty('El campo de repetir contraseña tiene que ser igual a la contraseña.', 'warning');
-	    	}   	
+	    	}  	
 	    	return isOk;
 	    }
 	}else{
