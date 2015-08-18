@@ -281,7 +281,7 @@ public class SubastaController {
 		if (state) {
 			ps.setCode(200);
 			ps.setCodeMessage("propuesta subasta created succesfully");
-			String correo = objPaquete.getCatering().getUsuario().getCorreo();
+			String correo = objSubasta.getUsuario().getCorreo();
 			String catering = objPaquete.getCatering().getNombre();
 			String fechaEvento = new SimpleDateFormat("MM-dd-yyyy").format(objSubasta.getFechaEvento());
 
