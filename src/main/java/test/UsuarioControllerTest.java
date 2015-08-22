@@ -84,12 +84,12 @@ public class UsuarioControllerTest {
 		try {
 			
 			Usuario objNuevoUsuario = new Usuario();
-			Tipo objTipo = generalService.getTipoById(3);
+			Tipo objTipo = generalService.getTipoById(1);
 	
-			objNuevoUsuario.setNombre("Marce");
-			objNuevoUsuario.setApellido1("Leandro");
+			objNuevoUsuario.setNombre("Anita");
+			objNuevoUsuario.setApellido1("Mata");
 			objNuevoUsuario.setApellido2("Picado");
-			objNuevoUsuario.setCorreo("marceleap0425@yahoo.com");
+			objNuevoUsuario.setCorreo("anita@yahoo.com");
 			objNuevoUsuario.setTelefono1("2551-2445");
 			objNuevoUsuario.setTelefono2("4556-6543");
 			objNuevoUsuario.setTipo(objTipo);
