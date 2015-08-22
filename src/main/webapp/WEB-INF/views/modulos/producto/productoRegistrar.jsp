@@ -5,7 +5,7 @@
 		<div class="col-sm-8">
 			<div class="clearfix">
 				<h4>
-					<i class="fa fa-edit"></i>Mi Catálogo
+					<i class="fa fa-edit imagen-title"></i>Mi Catálogo
 				</h4>
 			</div>
 			<div class="form-group">

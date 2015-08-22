@@ -1,7 +1,7 @@
 <section class="main padder">
 	<div class="clearfix">
 		<h4>
-			<i class="fa fa-table"></i>Mis Paquetes
+			<i class="fa fa-table imagen-title"></i>Mis Paquetes
 		</h4>
 	</div>
 	<div class="row">

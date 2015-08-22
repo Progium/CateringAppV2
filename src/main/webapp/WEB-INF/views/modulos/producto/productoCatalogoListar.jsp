@@ -1,7 +1,7 @@
 <section class="main padder">
 	<div class="clearfix">
 		<h4>
-			<i class="fa fa-table"></i>Catálogo de producto
+			<i class="fa fa-table imagen-title"></i>  Catálogo de producto
 		</h4>
 	</div>
 	<!-- Lista de caterings -->

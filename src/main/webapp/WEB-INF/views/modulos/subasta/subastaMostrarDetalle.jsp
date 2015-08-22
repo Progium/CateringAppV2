@@ -1,7 +1,7 @@
 <section class="main padder">
 	<div class="clearfix">
 		<h4>
-			<i class="fa fa-edit"></i> Subasta {{subasta.nombre}}
+			<i class="fa fa-edit imagen-title"></i> Subasta {{subasta.nombre}}
 		</h4>
 	</div>
 	<div class="row">
