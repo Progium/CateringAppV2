@@ -1,96 +1,89 @@
-<section class="main padder" ng-controller="SubastaRegistrarController">
-  <div class="clearfix">
-    <h4><i class="fa fa-edit"></i>Registrar Subasta</h4>
-  </div>
-  <div class="row">
-    <div class="col-sm-6">
-      <section class="panel">
-        <div class="panel-body">
-          <form class="form-horizontal" method="get" data-validate="parsley">
-            <div class="form-group">
-              <label class="col-lg-3 control-label">Fecha del Evento</label>
-              <div class="col-lg-9">
-                <input type="text" class="combodate form-control" data-format="DD-MM-YYYY" data-template="D  MMM  YYYY" name="datetime" value="29-08-2015">
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="col-lg-3 control-label">Hora</label>
-              <div class="col-lg-5">
-                <input class="input-sm form-control" type="text" placeholder="3:00 pm"></input>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label class="col-lg-3 control-label">Cantidad de personas</label>
-              <div id="cantidadpersonas" class="spinner input-group m-b">
-                <input type="text" class="input-sm spinner-input form-control" name="spinner" maxlength="3">
-                <div class="btn-group btn-group-vertical input-group-btn">
-                  <button type="button" class="btn btn-white spinner-up">
-                    <i class="fa fa-chevron-up"></i>
-                  </button>
-                  <button type="button" class="btn btn-white spinner-down">
-                    <i class="fa fa-chevron-down"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <!-- checkbox -->
-            <div class="form-group">
-              <label class="col-lg-3 control-label">Categoria</label>
-              <div class="col-lg-6">
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox" name="checkboxA"> Desayuno
-                  </label>
-                </div>
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox" name="checkboxA"> Plato Fuerte
-                  </label>
-                </div>
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox" name="checkboxA"> Postre
-                  </label>
-                </div>
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox" name="checkboxA"> Cena
-                  </label>
-                </div>
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox" name="checkboxA"> Manteleria
-                  </label>
-                </div>
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox" name="checkboxA"> Otros
-                  </label>
-                </div>
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="col-lg-3 control-label">Observaciones</label>
-              <div class="col-lg-8">
-                <textarea placeholder="Observaciones" rows="5" class="form-control" data-trigger="keyup" data-rangelength="[20,200]"></textarea>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label class="col-lg-3 control-label">Monto Disponible</label>
-              <div class="col-lg-8">
-                <input type="text" ng-model="montodisponible" placeholder="100000" data-required="true" class="form-control">
-              </div>
-            </div>
-
-            <div class="form-group">
-              <div class="col-lg-9 col-lg-offset-3">
-                <button type="submit" class="btn btn-white">Cancelar</button>
-                <button type="submit" class="btn btn-primary">Guardar</button>
-              </div>
-            </div>
-          </form>
-        </div>
-      </section>
+<section class="main padder">
+	<div class="clearfix">
+		<h4>
+			<i class="fa fa-edit"></i> {{tituloPagina}}
+		</h4>
+	</div>
+	<div class="row">
+		<form class="form-horizontal" name="crearSubasta"
+			data-validate="parsley">
+			<div class="col-sm-6">
+				<section class="panel">
+					<div class="panel-body">
+						<div class="form-group">
+							<label class="col-lg-3 control-label">Nombre del
+								interesado</label>
+							<div class="col-lg-8">
+								<input ng-model="objSubasta.nombre" type="text" name="nombre"
+									class="form-control" ng-readonly="true"  required />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-lg-3 control-label">Tipo de evento</label>
+							<div class="col-lg-8">
+								<select name="idTipo" class="form-control" id="idTipo"
+									ng-model="objSubasta.idTipo"
+									ng-options="tip.idTipo as tip.nombre for tip in listaTipoEvento"
+									ng-change="cargarProducto()">
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-lg-3 control-label">Fecha de evento</label>
+							<div class="col-lg-8">
+								<input class="input-sm form-control" type="date"
+									ng-model="objSubasta.fechaEvento" required />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-lg-3 control-label">Cantidad de
+								personas</label>
+							<div class="col-lg-8">
+								<input type="number" class="input-sm spinner-input form-control"
+									name="cantidadPersonas" maxlength="3"
+								    ng-pattern="/^\d*$/"
+									ng-model="objSubasta.cantidadPersonas" min="1" max="5000"
+									required /><span class="error-message"
+									ng-show="crearSubasta.cantidadPersonas.$error.pattern">Debe
+									ingresar solo números.</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-lg-3 control-label">Descripción</label>
+							<div class="col-lg-8">
+								<textarea ng-model="objSubasta.descripcion" name="descripcion"
+									placeholder="Platillos fuertes y entradas" rows="5"
+									class="form-control" data-trigger="keyup" ng-maxlength="250"
+									required></textarea>
+								<span class="error-message"
+									ng-show="crearSubasta.descripcion.$error.maxlength">Solo
+									puede ingresar 200 caracteres.</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-lg-3 control-label">Monto máximo</label>
+							<div class="col-lg-8">
+								<input class="input-sm form-control" type="text" name ="montoMaximo"
+									ng-model="objSubasta.montoMaximo" placeholder="250000" ng-pattern="/^\d*$/"
+									data-trigger="keyup" required/> <span class="error-message"
+									ng-show="crearSubasta.montoMaximo.$error.pattern">Debe
+									ingresar solo números.</span>
+							</div>
+						</div>
+						<div class="form-group"></div>
+						<div class="form-group">
+							<div class="col-lg-9 col-lg-offset-7">
+								<button type="submit" class="btn btn-white"
+									ng-click="cancelar()">Cancelar</button>
+								<button type="submit" class="btn btn-info" ng-click="create()">Guardar</button>
+							</div>
+						</div>
+						<div class="form-group"></div>
+						<div class="form-group"></div>
+						<div class="form-group"></div>
+					</div>
+				</section>
+			</div>
+		</form>
+	</div>
 </section>

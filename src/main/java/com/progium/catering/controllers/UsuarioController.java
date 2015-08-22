@@ -1,8 +1,10 @@
 package com.progium.catering.controllers;
 
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -17,14 +19,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.progium.catering.contracts.CateringResponse;
-import com.progium.catering.contracts.TipoResponse;
+import com.progium.catering.contracts.BaseResponse;
 import com.progium.catering.contracts.UsuarioResponse;
 import com.progium.catering.contracts.UsuarioRequest;
-import com.progium.catering.ejb.Catering;
 import com.progium.catering.ejb.Tipo;
 import com.progium.catering.ejb.Usuario;
-import com.progium.catering.pojo.CateringPOJO;
 import com.progium.catering.pojo.UsuarioPOJO;
 import com.progium.catering.services.GeneralServiceInterface;
 import com.progium.catering.services.UsuarioServiceInterface;
@@ -34,8 +33,14 @@ import com.progium.catering.utils.Utils;
 import com.progium.catering.utils.SendEmail;
 
 /**
- * Handles requests for the application home page.
- */
+* Esta clase se encarga de crear el controlador
+* para el manejo de las diferentes funcionalidades 
+*
+* @author  Progium<progiump3@gmail.com>
+* @version 1.0
+* @since   2015/08/08
+*/
+
 @RestController
 @RequestMapping(value = "rest/protected/usuario")
 public class UsuarioController {
@@ -55,6 +60,16 @@ public class UsuarioController {
 	public UsuarioController() {
 		// TODO Auto-generated constructor stub
 	}
+	
+	/**
+	* Este  método se encarga de registrar una fotografia 
+	*
+	* @param  file
+	* @param  idUsuario
+	* 
+	* @return UsuarioResponse
+	*
+	*/
 	//Obtiene los parametros que le envia el controller por medio del metodo post.
 	@RequestMapping(value = "/registrarFoto", method = RequestMethod.POST)
 	@Transactional
@@ -68,6 +83,9 @@ public class UsuarioController {
 		
 		String resultFileName = Utils.writeToFile(file, servletContext);
 		
+		//Remover localhost:8080 del path de la fotografía
+		 resultFileName = resultFileName.replace("http://localhost:8080", "");
+		  
 		objUsuario.setFotografia(resultFileName);
 		
 		Boolean state = usuarioService.saveUsuario(objUsuario);
@@ -82,14 +100,25 @@ public class UsuarioController {
 		return us;
 	}
 	
+	/**
+	* Este  metodo se encarga de registrar un usuario 
+	*
+	* @param  UsuarioRequest
+	* 
+	* @return UsuarioResponse
+	*
+	*/
+	
 	//Obtiene los parametros que le envia el controller por medio del metodo post.
-		@RequestMapping(value = "/registrar", method = RequestMethod.POST)
-		@Transactional
-		public UsuarioResponse registrar(@RequestBody UsuarioRequest usuarioRequest)throws NoSuchAlgorithmException {
-			//Crea un nuevo usuario response le setea los datos y le pasa el objeto de usuario al servicio de usuario
-			UsuarioResponse us = new UsuarioResponse();
-			Tipo objTipo = generalService.getTipoById(usuarioRequest.getTipoUsuarioId());
-
+	@RequestMapping(value = "/registrar", method = RequestMethod.POST)
+	@Transactional
+	public UsuarioResponse registrar(@RequestBody UsuarioRequest usuarioRequest)throws NoSuchAlgorithmException {
+		//Crea un nuevo usuario response le setea los datos y le pasa el objeto de usuario al servicio de usuario
+		UsuarioResponse us = new UsuarioResponse();
+		Tipo objTipo = generalService.getTipoById(usuarioRequest.getTipoUsuarioId());
+		
+		Usuario usuarioExiste = usuarioService.getUsuarioByCorreo(usuarioRequest.getCorreo());
+		if(usuarioExiste == null){
 			Usuario objNuevoUsuario = new Usuario();
 			objNuevoUsuario.setNombre(usuarioRequest.getNombre());
 			objNuevoUsuario.setApellido1(usuarioRequest.getApellido1());
@@ -102,7 +131,7 @@ public class UsuarioController {
 					.encriptarContrasenna(usuarioRequest.getContrasenna()));
 
 			Boolean state = usuarioService.saveUsuario(objNuevoUsuario);
-		
+
 			if (state) {
 				us.setCode(200);
 				us.setCodeMessage("user created succesfully");
@@ -121,21 +150,139 @@ public class UsuarioController {
 				us.setCode(401);
 				us.setErrorMessage("Unauthorized User");
 			}
-			return us;
+		}else{
+			us.setCode(401);
+			us.setErrorMessage("No se pudo registrar el usuario, debido a que ya se encuentra un usuario registrado con ese correo.");
+		}
+
+		return us;
+	}
+		
+	/**
+	 * Este  método se encarga de mostrar los datos de un usuario 
+	 *
+	 * @param  UsuarioRequest
+	 * 
+	 * @return UsuarioResponse
+	 *
+	 */
+	@RequestMapping(value ="/perfilUsuario", method = RequestMethod.GET)
+	public UsuarioResponse PerfilUsuario(){
+		
+		UsuarioResponse usuarioResponse = new UsuarioResponse();
+		
+		HttpSession currentSession = request.getSession();
+		int idUsuario = (int) currentSession.getAttribute("idUsuario");	
+					
+		Usuario usuario = usuarioService.getUsuarioById(idUsuario);
+		UsuarioPOJO usuarioPojo = new UsuarioPOJO();
+		
+		PojoUtils.pojoMappingUtility(usuarioPojo,usuario);
+		
+		usuarioResponse.setUsuario(usuarioPojo);
+		
+		return usuarioResponse;
+	
+	}
+	
+	/**
+	 * Este  método se encarga de modificar los datos de un usuario 
+	 *
+	 * @param  UsuarioRequest
+	 * 
+	 * @return UsuarioResponse
+	 *
+	 */
+	@RequestMapping(value = "/modificar", method = RequestMethod.POST)
+	@Transactional
+	public UsuarioResponse modificar(@RequestBody UsuarioRequest usuarioRequest)throws NoSuchAlgorithmException {
+		//Modifica los datos del usuario.
+		UsuarioResponse us = new UsuarioResponse();
+		
+		Tipo objTipo = generalService.getTipoById(usuarioRequest.getTipoUsuarioId());
+
+		Usuario objUsuario = usuarioService.getUsuarioById(usuarioRequest.getIdUsuario());
+		
+		objUsuario.setNombre(usuarioRequest.getNombre());
+		objUsuario.setApellido1(usuarioRequest.getApellido1());
+		objUsuario.setApellido2(usuarioRequest.getApellido2());
+		objUsuario.setCorreo(usuarioRequest.getCorreo());
+		objUsuario.setTelefono1(usuarioRequest.getTelefono1());
+		objUsuario.setTelefono2(usuarioRequest.getTelefono2());
+		objUsuario.setTipo(objTipo);
+		//Valida que si la contraseña es igual a la anterior no la encripte
+		if(usuarioRequest.getCambio().equals("true")){
+			objUsuario.setContrasenna(GeneradorContrasennaUtil.encriptarContrasenna(usuarioRequest.getContrasenna()));
+		}
+
+		Boolean state = usuarioService.saveUsuario(objUsuario);
+
+		if (state) {
+			us.setCode(200);
+			us.setCodeMessage("user created succesfully");
+			us.setIdUsuario(objUsuario.getIdUsuario());
+
+				String mensaje = "Notificación: "
+						+ "<p></p>"
+						+ objUsuario.getNombre()
+						+ " sus datos han sido cambiados satisfactoriamente";
+						
+				SendEmail.sendEmail("Cambio datos Catering App!",
+						objUsuario.getCorreo(), "Usuario",
+						"Gracias por usar Catering App", mensaje);
+
+		}else{
+			us.setCode(401);
+			us.setErrorMessage("Unauthorized User");
+		}
+		return us;
+	}
+	
+	
+	private String randomString() {
+		char[] characterSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".toCharArray();
+		int length = 5;
+		Random random = new SecureRandom();
+		char[] result = new char[length];
+		for (int i = 0; i < result.length; i++) {
+			int randomCharIndex = random.nextInt(characterSet.length);
+			result[i] = characterSet[randomCharIndex];
+		}
+		return new String(result);
+	}
+
+	@RequestMapping(value = "/olvidoContrasenna", method = RequestMethod.POST)
+	@Transactional
+	public BaseResponse olvidoContrasenna(@RequestBody UsuarioRequest usuarioRequest) throws NoSuchAlgorithmException{	
+	
+		BaseResponse bs = new BaseResponse();
+		Usuario objUsuario = usuarioService.getUsuarioByCorreo(usuarioRequest.getCorreo());
+		
+		if(objUsuario != null){
+			String nuevaContrasenna = randomString();
+			objUsuario.setContrasenna(GeneradorContrasennaUtil.encriptarContrasenna(nuevaContrasenna));
+			Boolean state = usuarioService.saveUsuario(objUsuario);
+			
+			if(state){
+				bs.setCode(200);
+				bs.setCodeMessage("Contraseña modify succesfully");
+				String mensaje = "Para volver ingresar al sistema debe utilizar la siguiente contraseña: "
+						+ "contraseña: "
+						+ nuevaContrasenna;
+				SendEmail.sendEmail("Solicitud de cambio de contraseña",
+										objUsuario.getCorreo(), "Usuario", 
+										"Cambio de contraseña", mensaje);
+			}else{
+				bs.setCode(400);
+				bs.setCodeMessage("Contraseña modify succesfully");
+			}
+			
+		}else{
+			bs.setCode(400);
+			bs.setCodeMessage("Contraseña modify succesfully");
 		}
 		
-		//Para mostrar el perfil del usuario
-		@RequestMapping(value ="/perfilUsuario", method = RequestMethod.GET)
-		public UsuarioResponse PerfilUsuario(@RequestBody UsuarioRequest usuarioRequest)throws NoSuchAlgorithmException {
-			
-			UsuarioResponse usuario = new UsuarioResponse();
-			
-			HttpSession currentSession = request.getSession();
-			int idUsuario = (int) currentSession.getAttribute("idUsuario");	
-						
-			usuario.setIdUsuario(idUsuario);
-			
-			return usuario;	
-		
-	}
+	return bs;
+ }
+	
 }

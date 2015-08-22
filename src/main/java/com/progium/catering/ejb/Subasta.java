@@ -1,16 +1,21 @@
 package com.progium.catering.ejb;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
-import java.math.BigDecimal;
+
 import java.util.Date;
 import java.util.List;
 
 
 /**
- * The persistent class for the subasta database table.
- * 
- */
+* Esta clase con anotaciones para la crear la entidadad en
+* la base de datos
+*
+* @author  Progium<progiump3@gmail.com>
+* @version 1.0
+* @since   2015/08/08
+*/
 @Entity
 @NamedQuery(name="Subasta.findAll", query="SELECT s FROM Subasta s")
 public class Subasta implements Serializable {
@@ -24,15 +29,12 @@ public class Subasta implements Serializable {
 
 	private String descripcion;
 
-	private byte estado;
+	private boolean estado;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date fechaHora;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date fechaVencimiento;
-
-	private BigDecimal montoMaximo;
+	private Date fechaEvento;
+	
+	private double montoMaximo;
 
 	private String nombre;
 
@@ -81,35 +83,27 @@ public class Subasta implements Serializable {
 		this.descripcion = descripcion;
 	}
 
-	public byte getEstado() {
+	public boolean getEstado() {
 		return this.estado;
 	}
 
-	public void setEstado(byte estado) {
+	public void setEstado(boolean estado) {
 		this.estado = estado;
 	}
 
-	public Date getFechaHora() {
-		return this.fechaHora;
+	public Date getFechaEvento() {
+		return this.fechaEvento;
 	}
 
-	public void setFechaHora(Date fechaHora) {
-		this.fechaHora = fechaHora;
+	public void setFechaEvento(Date fechaEvento) {
+		this.fechaEvento = fechaEvento;
 	}
 
-	public Date getFechaVencimiento() {
-		return this.fechaVencimiento;
-	}
-
-	public void setFechaVencimiento(Date fechaVencimiento) {
-		this.fechaVencimiento = fechaVencimiento;
-	}
-
-	public BigDecimal getMontoMaximo() {
+	public double getMontoMaximo() {
 		return this.montoMaximo;
 	}
 
-	public void setMontoMaximo(BigDecimal montoMaximo) {
+	public void setMontoMaximo(double montoMaximo) {
 		this.montoMaximo = montoMaximo;
 	}
 

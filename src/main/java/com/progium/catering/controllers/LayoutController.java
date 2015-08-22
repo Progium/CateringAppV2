@@ -3,6 +3,14 @@ package com.progium.catering.controllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+/**
+* Esta clase se encarga de crear el controlador
+* para el manejo de las diferentes funcionalidades 
+*
+* @author  Progium<progiump3@gmail.com>
+* @version 1.0
+* @since   2015/08/08
+*/
 @Controller
 @RequestMapping(value = "/modulos")
 public class LayoutController {			
@@ -76,6 +84,12 @@ public class LayoutController {
 	{
 		return "modulos/producto/productoAgregar";
 	}
+	
+	@RequestMapping(value = "/producto-catalogo-listar")
+	public String getProductoCatalogoListar()
+	{
+		return "modulos/producto/productoCatalogoListar";
+	}
 	//-------------------------------------------------------
 	// Paquete
 	// -------------------------------------------------------
@@ -89,6 +103,11 @@ public class LayoutController {
 		return "modulos/paquete/paqueteListar";
 	}
 
+	@RequestMapping(value = "/paquete-mostrar-detalle")
+	public String getPaqueteMostrarDetalle()
+	{
+		return "modulos/paquete/paqueteMostrarDetalle";
+	}
 	//-------------------------------------------------------
 	//Seguridad
 	//-------------------------------------------------------
@@ -110,6 +129,12 @@ public class LayoutController {
 		return "modulos/seguridad/usuarioPerfil";
 	}
 	
+	@RequestMapping(value = "/seguridad-usuario-olvidar")
+	public String getSeguridadOlvidoContrasenna()
+	{
+		return "modulos/seguridad/olvidoContrasenna";
+	}
+	
 	//-------------------------------------------------------
 	//Subasta
 	//-------------------------------------------------------
@@ -123,5 +148,11 @@ public class LayoutController {
 	public String getSubastaListar()
 	{
 		return "modulos/subasta/subastaListar";
+	}
+	
+	@RequestMapping(value = "/subasta-mostrar-detalle")
+	public String getSubastaMostrarDetalle()
+	{
+		return "modulos/subasta/subastaMostrarDetalle";
 	}
 }

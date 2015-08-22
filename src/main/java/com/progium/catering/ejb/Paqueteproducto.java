@@ -3,11 +3,14 @@ package com.progium.catering.ejb;
 import java.io.Serializable;
 import javax.persistence.*;
 
-
 /**
- * The persistent class for the paqueteproductos database table.
- * 
- */
+* Esta clase con anotaciones para la crear la entidadad en
+* la base de datos
+*
+* @author  Progium<progiump3@gmail.com>
+* @version 1.0
+* @since   2015/08/08
+*/
 @Entity
 @Table(name="paqueteproductos")
 @NamedQuery(name="Paqueteproducto.findAll", query="SELECT p FROM Paqueteproducto p")
@@ -22,6 +25,11 @@ public class Paqueteproducto implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="productoId")
 	private Catalogoproducto catalogoproducto;
+	
+	//bi-directional many-to-one association to Paquete
+	@ManyToOne
+	@JoinColumn(name="paqueteId")
+	private Paquete paquete;
 
 	public Paqueteproducto() {
 	}
@@ -42,4 +50,11 @@ public class Paqueteproducto implements Serializable {
 		this.catalogoproducto = catalogoproducto;
 	}
 
+	public Paquete getPaquete() {
+		return this.paquete;
+	}
+
+	public void setPaquete(Paquete paquete) {
+		this.paquete = paquete;
+	}
 }

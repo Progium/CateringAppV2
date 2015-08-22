@@ -17,10 +17,7 @@
 							<div class="col-lg-8">
 								<input ng-model="objCatering.nombre" type="text" name="nombre"
 									placeholder="Isild's Catering" class="form-control"
-									data-trigger="keyup" required ng-pattern="/^(\D)+$/" /><span
-									class="error-message"
-									ng-show="crearCatering.nombre.$error.pattern">Debe
-									ingresar solo letras</span>
+									data-trigger="keyup" required />
 							</div>
 						</div>
 						<!-- Cedula física o jurídica -->

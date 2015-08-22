@@ -4,6 +4,14 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
+/**
+* Esta clase se encarga de setear las variables 
+* para realizar peticiones al controlador.
+*
+* @author  Progium<progiump3@gmail.com>
+* @version 1.0
+* @since   2015/08/08
+*/
 public class CateringRequest extends BasePagingRequest {
 
 	private int idCatering;

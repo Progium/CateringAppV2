@@ -1,9 +1,19 @@
 package com.progium.catering.contracts;
 
+/**
+* Esta clase se encarga de setear las variables 
+* para realizar peticiones al controlador.
+*
+* @author  Progium<progiump3@gmail.com>
+* @version 1.0
+* @since   2015/08/08
+*/
+
 import com.progium.catering.pojo.UsuarioPOJO;
 
 public class UsuarioRequest extends BasePagingRequest {
 
+	private int idUsuario;
 	private String nombre;
 	private String apellido1;
 	private String apellido2;
@@ -13,6 +23,7 @@ public class UsuarioRequest extends BasePagingRequest {
 	private int tipoUsuarioId;
 	private String contrasenna;
 	private String needAccess;
+	private String cambio;
 		
 	public UsuarioRequest() {
 		super();
@@ -33,6 +44,14 @@ public class UsuarioRequest extends BasePagingRequest {
 		this.needAccess = needAccess;
 	}
 
+	public int getIdUsuario() {
+		return idUsuario;
+	}
+
+	public void setIdUsuario(int idUsuario) {
+		this.idUsuario = idUsuario;
+	}
+	
 	public String getNombre() {
 		return nombre;
 	}
@@ -87,4 +106,14 @@ public class UsuarioRequest extends BasePagingRequest {
 	public void setNeedAccess(String needAccess) {
 		this.needAccess = needAccess;
 	}
+
+	public String getCambio() {
+		return cambio;
+	}
+
+	public void setCambio(String cambio) {
+		this.cambio = cambio;
+	}
+	
+	
 }

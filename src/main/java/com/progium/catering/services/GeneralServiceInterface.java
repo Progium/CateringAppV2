@@ -11,6 +11,14 @@ import com.progium.catering.ejb.Categoria;
 import com.progium.catering.ejb.Producto;
 import com.progium.catering.ejb.Catering;
 
+/**
+* Esta clase se encarga de exponer las funcionalidades 
+* implementadas por el servicio
+*
+* @author  Progium<progiump3@gmail.com>
+* @version 1.0
+* @since   2015/08/08
+*/
 public interface GeneralServiceInterface {
 
 	List<Tipo> getAllTipo();
@@ -36,4 +44,5 @@ public interface GeneralServiceInterface {
 	//Obtiene la lista de catering y catering en especifico
 	List<Catering> getAllCatering();
 	Catering getCateringById(Integer idCatering);
+	
 }

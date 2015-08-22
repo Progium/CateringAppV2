@@ -2,12 +2,20 @@ package com.progium.catering.pojo;
 
 import com.progium.catering.ejb.Categoria;
 
+/**
+* Esta clase se encarga de crear el objeto producto
+*
+* @author  Progium<progiump3@gmail.com>
+* @version 1.0
+* @since   2015/08/08
+*/
 public class ProductoPOJO {
 	
 	private int idProducto;
 	private String nombre;
 	private Categoria categoria;
-	private int  idCategoria;
+	private int idCategoria;
+	private String nombreCategoria;
 	
 	public ProductoPOJO() {
 		super();
@@ -42,6 +50,14 @@ public class ProductoPOJO {
 
 	public void setIdCategoria(Categoria categoria) {
 		this.idCategoria = categoria.getIdCategoria();
+	}
+
+	public String getNombreCategoria() {
+		return nombreCategoria;
+	}
+
+	public void setNombreCategoria(String nombreCategoria) {
+		this.nombreCategoria = nombreCategoria;
 	}
 	
 	

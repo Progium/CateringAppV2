@@ -26,8 +26,13 @@ import com.progium.catering.services.GeneralServiceInterface;
 import com.progium.catering.utils.PojoUtils;
 
 /**
- * Handles requests for the application home page.
- */
+* Esta clase se encarga de crear el controlador
+* para el manejo de las diferentes funcionalidades 
+*
+* @author  Progium<progiump3@gmail.com>
+* @version 1.0
+* @since   2015/08/08
+*/
 @RestController
 @RequestMapping(value = "rest/protected/tipo")
 public class TipoController {
@@ -35,6 +40,12 @@ public class TipoController {
 	@Autowired
 	GeneralServiceInterface generalService;
 	
+	/**
+	* Este  metodo se encarga de retornar todas los tipos de eventos.
+	*
+	* @return TipoResponse
+	*
+	*/
 	@RequestMapping(value ="/getTipoEvento", method = RequestMethod.GET)
 	public TipoResponse getTipoEvento(){
 		
@@ -54,6 +65,14 @@ public class TipoController {
 		return tipo;		
 	}
 	
+	/**
+	* Este  metodo se encarga de retornar un tipo de evento.
+	*
+	* @param  tipoRequest
+	* 
+	* @return TipoResponse
+	*
+	*/
 	@RequestMapping(value ="/getTipo", method = RequestMethod.POST)
 	public TipoResponse getTipo(@RequestBody TipoRequest tipoRequest)throws NoSuchAlgorithmException {
 		

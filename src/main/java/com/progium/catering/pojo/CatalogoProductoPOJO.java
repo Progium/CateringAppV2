@@ -1,5 +1,14 @@
 package com.progium.catering.pojo;
 
+import com.progium.catering.ejb.Producto;
+
+/**
+* Esta clase se encarga de crear el objeto catalogo producto
+*
+* @author  Progium<progiump3@gmail.com>
+* @version 1.0
+* @since   2015/08/08
+*/
 public class CatalogoProductoPOJO {
 	
 	private int idCatalogoProducto;
@@ -61,5 +70,5 @@ public class CatalogoProductoPOJO {
 	public void setProductoId(Integer productoId) {
 		this.productoId = productoId;
 	}
-	
+
 }

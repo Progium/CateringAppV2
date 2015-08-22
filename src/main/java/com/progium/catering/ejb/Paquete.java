@@ -1,15 +1,21 @@
 package com.progium.catering.ejb;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.math.BigDecimal;
 import java.util.List;
 
 
 /**
- * The persistent class for the paquete database table.
- * 
- */
+* Esta clase con anotaciones para la crear la entidadad en
+* la base de datos
+*
+* @author  Progium<progiump3@gmail.com>
+* @version 1.0
+* @since   2015/08/08
+*/
 @Entity
 @NamedQuery(name="Paquete.findAll", query="SELECT p FROM Paquete p")
 public class Paquete implements Serializable {
@@ -25,13 +31,11 @@ public class Paquete implements Serializable {
 
 	private int descuento;
 
-	private String fotografia;
-
-	private BigDecimal montoTotal;
+	private double montoTotal;
 
 	private String nombre;
 
-	private BigDecimal precio;
+	private double precio;
 
 	//bi-directional many-to-one association to Catering
 	@ManyToOne
@@ -43,6 +47,10 @@ public class Paquete implements Serializable {
 	@JoinColumn(name="eventoId")
 	private Tipo tipo;
 
+	//bi-directional many-to-one association to Paqueteproducto
+	@OneToMany(mappedBy="paquete")
+	private List<Paqueteproducto> paqueteproducto;
+	
 	//bi-directional many-to-one association to Propuestasubasta
 	@OneToMany(mappedBy="paquete")
 	private List<Propuestasubasta> propuestasubastas;
@@ -86,19 +94,11 @@ public class Paquete implements Serializable {
 		this.descuento = descuento;
 	}
 
-	public String getFotografia() {
-		return this.fotografia;
-	}
-
-	public void setFotografia(String fotografia) {
-		this.fotografia = fotografia;
-	}
-
-	public BigDecimal getMontoTotal() {
+	public double getMontoTotal() {
 		return this.montoTotal;
 	}
 
-	public void setMontoTotal(BigDecimal montoTotal) {
+	public void setMontoTotal(double montoTotal) {
 		this.montoTotal = montoTotal;
 	}
 
@@ -110,11 +110,11 @@ public class Paquete implements Serializable {
 		this.nombre = nombre;
 	}
 
-	public BigDecimal getPrecio() {
+	public double getPrecio() {
 		return this.precio;
 	}
 
-	public void setPrecio(BigDecimal precio) {
+	public void setPrecio(double precio) {
 		this.precio = precio;
 	}
 
@@ -134,6 +134,28 @@ public class Paquete implements Serializable {
 		this.tipo = tipo;
 	}
 
+	public List<Paqueteproducto> getPaqueteproducto() {
+		return this.paqueteproducto;
+	}
+
+	public void setPaqueteproducto(List<Paqueteproducto> paqueteproducto) {
+		this.paqueteproducto = paqueteproducto;
+	}
+	
+	public Paqueteproducto addPaqueteproducto(Paqueteproducto paqueteproducto) {
+		getPaqueteproducto().add(paqueteproducto);
+		paqueteproducto.setPaquete(this);
+
+		return paqueteproducto;
+	}
+
+	public Paqueteproducto removePaqueteproducto(Paqueteproducto paqueteproducto) {
+		getPaqueteproducto().remove(paqueteproducto);
+		paqueteproducto.setPaquete(null);
+
+		return paqueteproducto;
+	}
+	
 	public List<Propuestasubasta> getPropuestasubastas() {
 		return this.propuestasubastas;
 	}

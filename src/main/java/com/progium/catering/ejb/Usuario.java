@@ -4,11 +4,16 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
 
-
 /**
- * The persistent class for the usuario database table.
- * 
- */
+* Esta clase contiene las anotaciones para
+* crear la entidad en
+* la base de datos
+*
+* @author  Progium<progiump3@gmail.com>
+* @version 1.0
+* @since   2015/08/09
+*/
+
 @Entity
 @NamedQuery(name="Usuario.findAll", query="SELECT u FROM Usuario u")
 public class Usuario implements Serializable {

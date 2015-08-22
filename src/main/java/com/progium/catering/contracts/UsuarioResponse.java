@@ -2,11 +2,21 @@ package com.progium.catering.contracts;
 
 import java.util.List;
 
-import com.progium.catering.ejb.Usuario;
+/**
+* Esta clase se encarga de setear las variables que
+* se le envian al controlador de javascript.
+*
+* @author  Progium<progiump3@gmail.com>
+* @version 1.0
+* @since   2015/08/08
+*/
+
+import com.progium.catering.pojo.UsuarioPOJO;
 
 public class UsuarioResponse extends BaseResponse {
 
-	private List<Usuario> usuarios;
+	private List<UsuarioPOJO> usuarios;
+	private UsuarioPOJO usuario;
 	private int idUsuario;
 	private String nombre;
 	
@@ -15,11 +25,11 @@ public class UsuarioResponse extends BaseResponse {
 		// TODO Auto-generated constructor stub
 	}
 
-	public List<Usuario> getUsuarios() {
+	public List<UsuarioPOJO> getUsuarios() {
 		return usuarios;
 	}
 
-	public void setUsuarios(List<Usuario> usuarios) {
+	public void setUsuarios(List<UsuarioPOJO> usuarios) {
 		this.usuarios = usuarios;
 	}
 
@@ -37,6 +47,14 @@ public class UsuarioResponse extends BaseResponse {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public UsuarioPOJO getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(UsuarioPOJO usuario) {
+		this.usuario = usuario;
 	}
 
 	
