@@ -5,6 +5,7 @@ package test;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.After;
@@ -15,17 +16,20 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.data.domain.Page;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.progium.catering.config.ProgiumApplication;
 import com.progium.catering.ejb.Catering;
 import com.progium.catering.ejb.Distrito;
+import com.progium.catering.ejb.Eventocatering;
 import com.progium.catering.ejb.Usuario;
 import com.progium.catering.services.CateringServiceInterface;
 import com.progium.catering.services.GeneralServiceInterface;
 import com.progium.catering.services.UsuarioServiceInterface;
 import com.progium.catering.services.EventoCateringServiceInterface;
+import com.progium.catering.contracts.CateringRequest;
 
 /**
 * Esta clase se encarga de testear todo el modulo de catering
@@ -50,6 +54,9 @@ public class CateringControllerTest {
 	
 	@Autowired
 	EventoCateringServiceInterface eventoCateringService;
+	
+	
+	private CateringRequest cateringRequest;
 	
 	/**
 	 * @throws java.lang.Exception
@@ -135,7 +142,17 @@ public class CateringControllerTest {
 	 */
 	@Test
 	public final void testGetCaterigById() {
-		fail("Not yet implemented"); // TODO
+		try {
+			Catering catering = cateringService.getCateringById(1);
+			
+			assertNotNull(catering);
+			 
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			fail("Not yet implemented"); // TODO
+		}
+		
 	}
 
 	/**
@@ -143,15 +160,29 @@ public class CateringControllerTest {
 	 */
 	@Test
 	public final void testModificar() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	/**
-	 * Test method for {@link com.progium.catering.controllers.CateringController#getAll(com.progium.catering.contracts.CateringRequest)}.
-	 */
-	@Test
-	public final void testGetAll() {
-		fail("Not yet implemented"); // TODO
+		try {
+			Distrito objDistrito = generalService.getDistritoById(244);
+			Catering objCatering = cateringService.getCateringById(1);
+			
+			objCatering.setNombre("Isild's Catering");
+			objCatering.setCedulaJuridica("306543212");
+			objCatering.setDireccion("50 metros sur de la iglesia católica");
+			objCatering.setTelefono1("2567-9765");
+			objCatering.setTelefono2("8765-3567");
+			objCatering.setHorario("Lunes a Domingo de 10am a 4pm");
+			objCatering.setProvinciaId(3);
+			objCatering.setCantonId(37);
+			objCatering.setDistrito(objDistrito);
+				
+			Boolean state = cateringService.saveCatering(objCatering);
+			
+			assertTrue(state);
+			 
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			fail("Not yet implemented"); // TODO
+		}
 	}
 
 	/**
@@ -159,7 +190,24 @@ public class CateringControllerTest {
 	 */
 	@Test
 	public final void testGetCateringByTipoEvento() {
-		fail("Not yet implemented"); // TODO
+		try {
+			List<Integer> evento = new ArrayList<Integer>();
+			evento.add(3);
+			cateringRequest = new CateringRequest();
+			
+			cateringRequest.setPageNumber(1);
+			cateringRequest.setPageNumber(cateringRequest.getPageNumber() - 1);
+			cateringRequest.setTipoEvento(evento);
+			Page<Eventocatering> eventoCaterings =  eventoCateringService.getEventoCateringByIdTipoEvento(cateringRequest);
+		
+			assertNotNull(eventoCaterings);
+			 
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			fail("Not yet implemented"); // TODO
+		}
+		
 	}
 
 	/**
@@ -167,7 +215,23 @@ public class CateringControllerTest {
 	 */
 	@Test
 	public final void testGetPorLocalizacion() {
-		fail("Not yet implemented"); // TODO
+		try {
+			cateringRequest = new CateringRequest();
+			
+			cateringRequest.setPageNumber(1);
+			cateringRequest.setPageNumber(cateringRequest.getPageNumber() - 1);
+			cateringRequest.setDistritoId(244);
+			
+			Page<Catering> caterings = cateringService.getCateringByIdDistrito(cateringRequest);
+		
+			assertNotNull(caterings);
+			 
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			fail("Not yet implemented"); // TODO
+		}
+		
 	}
 
 	/**
@@ -175,7 +239,22 @@ public class CateringControllerTest {
 	 */
 	@Test
 	public final void testGetCateringPorNombre() {
-		fail("Not yet implemented"); // TODO
+		try {
+			cateringRequest = new CateringRequest();
+			
+			cateringRequest.setPageNumber(1);
+			cateringRequest.setPageNumber(cateringRequest.getPageNumber() - 1);
+			cateringRequest.setNombre("i");
+			
+			Page<Catering> caterings = cateringService.getCateringByNombre(cateringRequest);
+		
+			assertNotNull(caterings);
+			 
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			fail("Not yet implemented"); // TODO
+		}
 	}
 
 }
