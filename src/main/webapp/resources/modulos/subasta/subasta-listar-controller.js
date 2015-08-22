@@ -38,12 +38,14 @@ App.controller('SubastaListarController', function($scope, $http, $location, $up
 	    //Funcion que obtiene la lista de todos los paquetes por paginación
 	    $scope.ObtenerListaSubasta = function(pageNumber){
 	    	$scope.objSubasta.pageNumber = pageNumber;
-	    	$http.post('rest/protected/subasta/getSubastaLista', $scope.objSubasta)
+	    	setInterval(function () {$http.post('rest/protected/subasta/getSubastaLista', $scope.objSubasta)
 			.success(function(subastaResponse) {
 				$scope.cantResult = subastaResponse.subastas.length;
 				$scope.subastaLista = subastaResponse.subastas;
 				$scope.totalItems = subastaResponse.totalElements;
 	    	});
+	    	}, 6000);
+	    	$scope.subastaLista.length = 0;
 	    };	
 	    
 	    $scope.init();
@@ -143,13 +145,16 @@ App.controller('SubastaClienteListarController', function($scope, $http, $locati
 			$scope.listaPropuesta = [];
 			$scope.listaPaquete = [];
 			$scope.objPropuesta = [];
+	
 			
-	    	$http.post('rest/protected/subasta/getPropuestaSubastaBySubasta', $scope.objPropuestaSubasta).success(function (contractPropuestaResponse){
+			setInterval(function () {$http.post('rest/protected/subasta/getPropuestaSubastaBySubasta', $scope.objPropuestaSubasta).success(function (contractPropuestaResponse){
 				var i = 0;
 				var j = 0;
 				var f = 0;
+				$scope.listaPaquete.length = 0;
 	    		$scope.listaPropuesta = contractPropuestaResponse.propuestas;
 	    		//recorre la lista de propuesta para obtener todo el objeto paquete
+	    	
 				for (i = 0; i <= $scope.listaPropuesta.length-1; i++) {
 					var objProp = {};
 					objProp.idPropuestaSubasta = $scope.listaPropuesta[i].idPropuestaSubasta;
@@ -174,18 +179,25 @@ App.controller('SubastaClienteListarController', function($scope, $http, $locati
 			    				$scope.objPropuesta[j].descuento =  paqueteResponse.paquete.descuento;
 			    				$scope.objPropuesta[j].montoTotal =  paqueteResponse.paquete.montoTotal;
 			    				$scope.objPropuesta[j].catalogoProducto =  paqueteResponse.paquete.catalogoProducto;
-			    				$scope.objPropuesta[j].total = ( paqueteResponse.paquete.precio *  paqueteResponse.paquete.cantidadPersonas);
+			    				$scope.objPropuesta[j].total = (paqueteResponse.paquete.precio *  paqueteResponse.paquete.cantidadPersonas);
 							}
+							
 						}
-
-						if(f == $scope.listaPropuesta.length-1){
+						
+						
+						if(f == $scope.listaPropuesta.length-1 ){
+							
 							$scope.listaPaquete = $scope.objPropuesta;
 						}
 						f++;
+					
+						
 					});
 				}
 				
 	    	});
+	    	}, 6000);
+			console.log(lista);
 	    };
 	 	   
 	    //Funcion que obtiene la lista de todos los paquetes por paginación
