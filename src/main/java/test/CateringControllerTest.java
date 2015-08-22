@@ -16,7 +16,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.data.domain.Page;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
@@ -55,8 +54,6 @@ public class CateringControllerTest {
 	@Autowired
 	EventoCateringServiceInterface eventoCateringService;
 	
-	
-	private CateringRequest cateringRequest;
 	
 	/**
 	 * @throws java.lang.Exception
@@ -187,7 +184,7 @@ public class CateringControllerTest {
 
 	/**
 	 * Test method for {@link com.progium.catering.controllers.CateringController#getCateringByTipoEvento(com.progium.catering.contracts.CateringRequest)}.
-	 */
+	 *//*
 	@Test
 	public final void testGetCateringByTipoEvento() {
 		try {
@@ -210,9 +207,9 @@ public class CateringControllerTest {
 		
 	}
 
-	/**
+	*//**
 	 * Test method for {@link com.progium.catering.controllers.CateringController#getPorLocalizacion(com.progium.catering.contracts.CateringRequest)}.
-	 */
+	 *//*
 	@Test
 	public final void testGetPorLocalizacion() {
 		try {
@@ -234,9 +231,9 @@ public class CateringControllerTest {
 		
 	}
 
-	/**
+	*//**
 	 * Test method for {@link com.progium.catering.controllers.CateringController#getCateringPorNombre(com.progium.catering.contracts.CateringRequest)}.
-	 */
+	 *//*
 	@Test
 	public final void testGetCateringPorNombre() {
 		try {
@@ -256,5 +253,5 @@ public class CateringControllerTest {
 			fail("Not yet implemented"); // TODO
 		}
 	}
-
+*/
 }
