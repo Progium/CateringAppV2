@@ -84,14 +84,14 @@ public class SubastaControllerTest {
 					
 			Boolean state = subastaService.saveSubasta(objSubasta);
 			
+			assertTrue(state);
+			
 		}catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			fail("Not yet implemented"); // TODO
 		}
 		
-		
-		fail("Not yet implemented"); // TODO
 	}
 
 	/**
@@ -109,7 +109,6 @@ public class SubastaControllerTest {
 			e.printStackTrace();
 			fail("Not yet implemented"); // TODO
 		}
-		fail("Not yet implemented"); // TODO
 	}
 
 	
@@ -129,15 +128,13 @@ public class SubastaControllerTest {
 			objPropuesta.setSubasta(objSubasta);
 					
 			Boolean state = propuestaSubastaService.savePropuestaSubasta(objPropuesta);
-			
+			assertTrue(state);
 		}catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			fail("Not yet implemented"); // TODO
 		}
 		
-		
-		fail("Not yet implemented"); // TODO
 	}
 
 	/**
@@ -155,7 +152,6 @@ public class SubastaControllerTest {
 			e.printStackTrace();
 			fail("Not yet implemented"); // TODO
 		}
-		fail("Not yet implemented"); // TODO
 	}
 
 	/**
@@ -164,18 +160,15 @@ public class SubastaControllerTest {
 	@Test
 	public final void testGetReservarPropuestaSubasta() {
 		try {
-			
-			
 			Propuestasubasta propuestaGanadora = propuestaSubastaService.getPropuestaSubastaById(1);
 			propuestaGanadora.setTipoTransaccion(2);
 			Boolean state = propuestaSubastaService.savePropuestaSubasta(propuestaGanadora);
-			
+			assertTrue(state);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			fail("Not yet implemented"); // TODO
 		}
-		fail("Not yet implemented");
 	}
 
 }

@@ -53,20 +53,19 @@ public class CatalogoProductoControllerTest {
 	@Test
 	public final void testCreate() {
 		try{
+			Producto objProducto = generalService.getProductoById(1);
+			Catering objCatering = generalService.getCateringById(1);
 			
+			Catalogoproducto objNuevoCataloProducto = new Catalogoproducto();
 			
-				Producto objProducto = generalService.getProductoById(1);
-				Catering objCatering = generalService.getCateringById(1);
-				
-				Catalogoproducto objNuevoCataloProducto = new Catalogoproducto();
-				
-				objNuevoCataloProducto.setCatering(objCatering);
-				objNuevoCataloProducto.setProducto(objProducto);
-				objNuevoCataloProducto.setPrecio(2000);
-				objNuevoCataloProducto.setEstado(false);
+			objNuevoCataloProducto.setCatering(objCatering);
+			objNuevoCataloProducto.setProducto(objProducto);
+			objNuevoCataloProducto.setPrecio(2000);
+			objNuevoCataloProducto.setEstado(false);
 
-				Boolean state = catalogoproductoservice.saveCatalogoProducto(objNuevoCataloProducto);
+			Boolean state = catalogoproductoservice.saveCatalogoProducto(objNuevoCataloProducto);
 			
+			assertTrue(state);
 			
 		}catch (Exception e) {
 			// TODO Auto-generated catch block
