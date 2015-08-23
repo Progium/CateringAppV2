@@ -140,6 +140,7 @@ App.controller('SubastaClienteListarController', function($scope, $http, $locati
 	    //Funcion que obtiene las propuestas de una subasta determinada
 	    $scope.verPropuestas = function(idSubasta){
 	    	$scope.mostrarTablaListPaquete = true;
+			$scope.mostrarBotonElegir = true;
 			$scope.objPropuestaSubasta = {};
 			$scope.objPropuestaSubasta.subastaId = idSubasta;
 			$scope.listaPropuesta = [];
@@ -162,6 +163,7 @@ App.controller('SubastaClienteListarController', function($scope, $http, $locati
 					objProp.subastaId = $scope.listaPropuesta[i].subastaId;
 					objProp.tipoTransaccion = $scope.listaPropuesta[i].tipoTransaccion;
 					objProp.estadoPropuesta = $scope.listaPropuesta[i].tipoTransaccion == 0 ? "Pendiente" : $scope.listaPropuesta[i].tipoTransaccion == 2 ? "Acceptada" :"Rechazada";
+					$scope.mostrarBotonElegir = $scope.listaPropuesta[i].tipoTransaccion != 0 ? false : true;
 					//Guarda en un objeto propuesta los datos de esa propuesta
 					$scope.objPropuesta.push(objProp);
 					$http.post('rest/protected/paquete/getPaqueteById', objProp)

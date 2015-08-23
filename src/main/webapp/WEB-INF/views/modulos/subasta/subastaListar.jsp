@@ -12,7 +12,7 @@
 						<tr>
 							<th>Nombre</th>
 							<th>Fecha Evento</th>
-							<th>Monto Máximo</th>
+							<th>Presupuesto Disponible</th>
 							<th width="70"></th>
 							<th width="70" ng-show="mostrarBotonSubasta"></th>
 							<th width="70" ng-show="mostrarBotonPropuesta"></th>
@@ -79,7 +79,7 @@
 							<th>Costo</th>
 							<th>Estado Propuesta</th>
 							<th width="70"></th>
-							<th width="70"></th>
+							<th width="70" ng-show="mostrarBotonElegir"></th>
 						</tr>
 					</thead>
 					<tbody ng-repeat="paquete in listaPaquete">
@@ -95,9 +95,9 @@
 										Detalle</button>
 								</div>
 							</td>
-							<td class="text-right">
+							<td class="text-right" ng-hide="paquete.tipoTransaccion != 0">
 								<div class="btn-group">
-									<button type="button" class="btn btn-primary" ng-disabled="paquete.tipoTransaccion != 0"
+									<button type="button" class="btn btn-primary"
 										ng-click="AcceptarPropuesta(paquete)">Elegir</button>
 								</div>
 							</td>
