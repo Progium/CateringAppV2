@@ -617,3 +617,13 @@ input[type="text"], select, textarea{min-width: 40px;height: auto;}
 .imagen-title{
 	padding-right: 15px;
 }
+
+.text-inf{
+	font-size: 90%;
+	COLOR: #FFF;
+}
+
+.categoria-style{
+	COLOR: #FFF;
+}
+

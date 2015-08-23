@@ -9,7 +9,7 @@
 				</h4>
 			</div>
 			<div class="form-group">
-				<label class="col-lg-8">Categoría:</label>
+				<label class="col-lg-8 categoria-style">Categoría:</label>
   				
 					<select name="idCategoria" id="idCategoria" ng-model="objCategoria.idCategoria" 
 							ng-options="cat.idCategoria as cat.nombre for cat in listaCategorias"
