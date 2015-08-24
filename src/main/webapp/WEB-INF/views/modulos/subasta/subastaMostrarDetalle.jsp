@@ -52,9 +52,12 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-lg-3 control-label">Monto máximo</label>
-							<div class="col-lg-8">
-								<input class="input-sm form-control" type="text"
+							<label class="col-lg-3 control-label">Presupuesto
+								disponible</label>
+							<div class="col-lg-8 input-group">
+								<span class="input-group-addon">¢</span> <input
+									class="input-sm form-control inputMonto" type="text"
+									aria-label="Amount (to the nearest dollar)"
 									ng-model="subasta.montoMaximo" placeholder="250000"
 									ng-disabled="true" />
 							</div>

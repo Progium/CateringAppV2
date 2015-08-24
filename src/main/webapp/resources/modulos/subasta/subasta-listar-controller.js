@@ -38,15 +38,24 @@ App.controller('SubastaListarController', function($scope, $http, $location, $up
 	    //Funcion que obtiene la lista de todos los paquetes por paginación
 	    $scope.ObtenerListaSubasta = function(pageNumber){
 	    	$scope.objSubasta.pageNumber = pageNumber;
-	    	setInterval(function () {$http.post('rest/protected/subasta/getSubastaLista', $scope.objSubasta)
+	    	
+	    	obtenerSubasta($scope.objSubasta);
+	    	
+	    	setInterval(function () {
+	    		obtenerSubasta($scope.objSubasta);
+	    	}, 9000);
+	    	$scope.subastaLista.length = 0;
+	    };	
+	    
+	    //Funcion que obtiene las subastas
+	    function obtenerSubasta(subasta){
+	    	$http.post('rest/protected/subasta/getSubastaLista', subasta)
 			.success(function(subastaResponse) {
 				$scope.cantResult = subastaResponse.subastas.length;
 				$scope.subastaLista = subastaResponse.subastas;
 				$scope.totalItems = subastaResponse.totalElements;
 	    	});
-	    	}, 6000);
-	    	$scope.subastaLista.length = 0;
-	    };	
+	    }
 	    
 	    $scope.init();
 	    

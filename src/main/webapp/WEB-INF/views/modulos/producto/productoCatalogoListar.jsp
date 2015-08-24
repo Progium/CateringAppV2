@@ -51,7 +51,7 @@
 				</footer>
 			</section>
 			<button type="submit" class="btn btn-primary"
-				ng-click="agregarProducto()">Agregar productos al catalogo</button>
+				ng-click="agregarProducto()">Agregar productos al catálogo</button>
 		</div>
 	</div>
 </section>
