@@ -627,3 +627,14 @@ input[type="text"], select, textarea{min-width: 40px;height: auto;}
 	COLOR: #FFF;
 }
 
+.styleInputCharapter{
+	padding-left: 15px;
+}
+
+.porcentaje{
+  	padding-right: 15px !important;
+}
+
+.input-porcentaje{
+	width: 101% !important;
+}

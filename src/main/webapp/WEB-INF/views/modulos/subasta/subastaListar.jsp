@@ -95,7 +95,7 @@
 										Detalle</button>
 								</div>
 							</td>
-							<td class="text-right" ng-hide="paquete.tipoTransaccion != 0">
+							<td class="text-right" ng-show="mostrarBotonElegir">
 								<div class="btn-group">
 									<button type="button" class="btn btn-primary"
 										ng-click="AcceptarPropuesta(paquete)">Elegir</button>
