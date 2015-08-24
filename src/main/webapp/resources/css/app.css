@@ -3,13 +3,13 @@
 
 
 .header-banner{
-	background-image: url("../img/banner3.jpg");
+	/*background-image: url("../img/banner3.jpg");*/
     background-repeat: repeat-x;
     height: 51px;
 }
 
 
-.jpa {background-image: url("../img/bg_header.jpg");}
+/*.jpa {background-image: url("../img/bg_header.jpg");}*/
 
 .logo-progium {
     right: 20%;

@@ -86,7 +86,7 @@
 
 <body ng-controller="MainController">
 	<!-- header -->
-	<header class="header-banner"></header>
+	<!--<header class="header-banner"></header>-->
 	<header id="header" class="navbar">
 	    <ul class="nav navbar-nav navbar-avatar pull-right">
 	        <li class="dropdown">
@@ -102,7 +102,7 @@
 	            </ul>
 	        </li>
 	    </ul>
-	    <a class="navbar-brand" href="">Catering Service App</a>
+	    <a class="navbar-brand" href="">CateringApp</a>
 	    <button type="button" class="btn btn-link pull-left nav-toggle visible-xs" data-toggle="class:slide-nav slide-nav-left" data-target="body">
 	        <i class="fa fa-bars fa-lg text-default"></i>
 	    </button>

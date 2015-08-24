@@ -2,7 +2,8 @@
 	<div class="row">
 		<div class="col-lg-4 col-lg-offset-4 m-t-large">
 			<section class="panel">
-				<header class="panel-heading text-center"> Iniciar sesión </header>
+				<header class="panel-heading text-center"> 
+				<h3>CateringApp</h3> </header>
 				<form class="panel-body" method="post">
 					<div class="block">
 						<label class="control-label">Correo electrónico</label> <input

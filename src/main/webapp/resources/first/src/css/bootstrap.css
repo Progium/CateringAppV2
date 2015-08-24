@@ -436,8 +436,8 @@ h6 .small,
 h1,
 h2,
 h3 {
-  margin-top: 20px;
-  margin-bottom: 10px;
+  margin-top: 0px;
+  margin-bottom: 0px;
 }
 
 h1 small,
@@ -4323,7 +4323,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 
 .navbar {
   position: relative;
-  min-height: 50px;
+  min-height: 84px;
   margin-bottom: 20px;
   border: 1px solid transparent;
 }
@@ -4492,7 +4492,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
   float: left;
   padding: 15px 15px;
   font-size: 18px;
-  line-height: 20px;
+  line-height: 50px;
 }
 
 .navbar-brand:hover,
@@ -4541,9 +4541,9 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 
 .navbar-nav > li > a {
-  padding-top: 10px;
+  padding-top: 30px;
   padding-bottom: 10px;
-  line-height: 20px;
+  line-height: 59px;
 }
 
 @media (max-width: 767px) {
