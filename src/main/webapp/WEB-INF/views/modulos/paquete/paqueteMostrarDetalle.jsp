@@ -74,38 +74,46 @@
 						<!-- Precio por persona -->
 						<div class="form-group">
 							<label class="col-lg-3 control-label">Precio por persona</label>
-							<div class="col-lg-8">
-								<input ng-model="paquete.precio" type="text" name="precio"
-									placeholder="5000" class="form-control" data-trigger="keyup"
-									ng-readonly="true" />
+							<div class="col-lg-8 input-group">
+								<span class="input-group-addon">¢</span><input
+									ng-model="paquete.precio" type="text" name="precio"
+									placeholder="5000.00" class="form-control inputMonto"
+									data-trigger="keyup"
+									aria-label="Amount (to the nearest dollar)" ng-disabled="true" />
 							</div>
 						</div>
 						<!-- Total del paquete sin descuento -->
 						<div class="form-group">
 							<label class="col-lg-3 control-label">Total</label>
-							<div class="col-lg-8">
-								<input ng-model="paquete.total" type="text" name="total"
-									placeholder="100000" class="form-control" data-trigger="keyup"
-									ng-readonly="true" />
+							<div class="col-lg-8 input-group">
+								<span class="input-group-addon">¢</span> <input
+									ng-model="paquete.total" type="text" name="total"
+									placeholder="100,000.00" class="form-control inputMonto"
+									data-trigger="keyup" ng-readonly="true" ng-disabled="true" />
 							</div>
 						</div>
 						<!-- Descuento -->
 						<div class="form-group">
 							<label class="col-lg-3 control-label">Porcentaje de
 								descuento</label>
-							<div class="col-lg-8">
+							<div class="col-lg-8 input-group porcentaje">
 								<input ng-model="paquete.descuento" type="text" name="descuento"
-									placeholder="30" class="form-control" data-trigger="keyup"
-									ng-readonly="true" />
+									placeholder="30" class="form-control input-porcentaje"
+									aria-label="Amount (to the nearest dollar)"
+									data-trigger="keyup" ng-disabled="true" /> <span
+									class="input-group-addon">%</span>
+
 							</div>
 						</div>
 						<!-- Monto total con el descuento-->
 						<div class="form-group">
 							<label class="col-lg-3 control-label">Monto total</label>
-							<div class="col-lg-8">
-								<input ng-model="paquete.montoTotal" type="text"
-									name="montoTotal" placeholder="100000" class="form-control"
-									data-trigger="keyup" ng-readonly="true" />
+							<div class="col-lg-8 input-group">
+								<span class="input-group-addon">¢</span> <input
+									ng-model="paquete.montoTotal" type="text" name="montoTotal"
+									placeholder="100,000.00" class="form-control inputMonto"
+									data-trigger="keyup"
+									aria-label="Amount (to the nearest dollar)" ng-disabled="true" />
 							</div>
 						</div>
 					</div>
