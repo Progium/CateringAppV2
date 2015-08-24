@@ -147,8 +147,16 @@ App.controller('SubastaClienteListarController', function($scope, $http, $locati
 			$scope.listaPaquete = [];
 			$scope.objPropuesta = [];
 	
+			obtenerPropuestas($scope.objPropuestaSubasta);
 			
-			setInterval(function () {$http.post('rest/protected/subasta/getPropuestaSubastaBySubasta', $scope.objPropuestaSubasta).success(function (contractPropuestaResponse){
+			setInterval(function () {
+				obtenerPropuestas($scope.objPropuestaSubasta);
+			}, 9000);
+			
+	    };
+	    
+	    function obtenerPropuestas(propuestasSubasta){
+	    	$http.post('rest/protected/subasta/getPropuestaSubastaBySubasta', propuestasSubasta).success(function (contractPropuestaResponse){
 				var i = 0;
 				var j = 0;
 				var f = 0;
@@ -198,8 +206,7 @@ App.controller('SubastaClienteListarController', function($scope, $http, $locati
 				}
 				
 	    	});
-	    	}, 6000);
-	    };
+	    }
 	 	   
 	    //Funcion que obtiene la lista de todos los paquetes por paginación
 	    $scope.ObtenerListaSubasta = function(pageNumber){
