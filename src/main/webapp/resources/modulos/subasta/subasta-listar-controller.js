@@ -199,7 +199,6 @@ App.controller('SubastaClienteListarController', function($scope, $http, $locati
 				
 	    	});
 	    	}, 6000);
-			console.log(lista);
 	    };
 	 	   
 	    //Funcion que obtiene la lista de todos los paquetes por paginación

@@ -22,7 +22,7 @@
 						<tr>
 							<td>{{subasta.nombre}}</td>
 							<td>{{subasta.fechaEvento}}</td>
-							<td>{{subasta.montoMaximo}}</td>
+							<td>{{subasta.montoMaximo| currency:""}}</td>
 							<td class="text-right">
 								<div class="btn-group">
 									<button type="button" class="btn btn-primary"
@@ -86,7 +86,7 @@
 						<tr>
 							<td>{{paquete.nombreCatering}}</td>
 							<td>{{paquete.nombre}}</td>
-							<td>{{paquete.montoTotal}}</td>
+							<td>{{paquete.montoTotal| currency:""}}</td>
 							<td>{{paquete.estadoPropuesta}}</td>
 							<td class="text-right">
 								<div class="btn-group">
