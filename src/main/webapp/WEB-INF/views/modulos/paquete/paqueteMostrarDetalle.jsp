@@ -7,7 +7,7 @@
 	<div class="row">
 		<form class="form-horizontal" method="get" name="crearPaquete"
 			data-validate="parsley">
-			<div class="col-sm-12">
+			<div class="col-sm-6">
 				<section class="panel">
 					<div class="panel-body">
 						<!-- Nombre -->
@@ -58,6 +58,14 @@
 									ng-disabled="true" />
 							</div>
 						</div>
+
+					</div>
+				</section>
+			</div>
+			<!-- Datos del catalogo -->
+			<div class="col-sm-6">
+				<section class="panel">
+					<div class="panel-body">
 						<!-- Lista productos relacionados al catalogo -->
 						<div class="form-group">
 							<label class="col-lg-3 control-label">Productos</label>

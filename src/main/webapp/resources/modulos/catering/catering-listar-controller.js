@@ -95,7 +95,6 @@ App.controller('CateringListarController', function($scope, $http,$location, $up
 				$http.post('rest/protected/provincia/getProvincia', param)
 				.success(function(ProvinciaResponse) {
 					provincia = ProvinciaResponse.provincia.nombre;
-					console.log(provincia);
 				});
 				
 				//Obtiene los tipos de eventos
