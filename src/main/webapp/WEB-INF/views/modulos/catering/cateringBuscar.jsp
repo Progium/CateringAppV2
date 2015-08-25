@@ -2,14 +2,14 @@
 <section class="main padder">
 	<div class="clearfix">
 		<h4>
-			<i class="fa fa-edit imagen-title"></i> Busqueda de Catering
+			<i class="fa fa-edit imagen-title"></i> Búsqueda de Catering
 		</h4>
 	</div>
 	<div class="row">
 		<div class="col-sm-2">
 			<aside class="sidebar bg-lighter">
 				<div class="bg-light padder padder-v" style="padding-bottom: 5px;">
-					<span class="h4 col-lg-offset-1">Criterio de busquedas</span>
+					<span class="h4 col-lg-offset-1">Criterio de búsquedas</span>
 				</div>
 				<ul class="list-group list-normal m-b-none">
 					<li class="list-group-item">
@@ -89,7 +89,7 @@
 						<thead>
 							<tr>
 								<th>Nombre</th>
-								<th>Ubicacion</th>
+								<th>Ubicación</th>
 								<th width="50"></th>
 								<th width="50"></th>
 							</tr>
