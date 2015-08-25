@@ -69,7 +69,7 @@
 		</div>
 		<div class="col-sm-6" ng-show="mostrarTablaListPaquete">
 			<section class="panel">
-				<header class="panel-heading">Lista de propuestas de paquetes del
+				<header class="panel-heading table-paquete">Lista de propuestas de paquetes del
 					Catering</header>
 				<table class="table table-striped m-b-none text-small">
 					<thead>

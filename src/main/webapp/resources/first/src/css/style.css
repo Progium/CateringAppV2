@@ -643,3 +643,11 @@ input[type="text"], select, textarea{min-width: 40px;height: auto;}
 	padding-left: 40px; 
 	padding-right: 45px;
 }
+
+.table-paquete{
+	width: 616px;
+}
+
+.table-catering{
+	width: 497px;
+}

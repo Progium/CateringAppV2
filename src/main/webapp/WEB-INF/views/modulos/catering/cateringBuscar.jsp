@@ -83,7 +83,7 @@
 
 		<div class="col-sm-5">
 			<section class="panel">
-				<header class="panel-heading">Lista de Catering Services</header>
+				<header class="panel-heading table-catering">Lista de Catering Services</header>
 				<div class="table-responsive">
 					<table class="table table-striped b-t text-small">
 						<thead>
@@ -115,7 +115,7 @@
 						</tbody>
 					</table>
 				</div>
-				<footer class="panel-footer">
+				<footer class="panel-footer table-catering">
 					<div class="row">
 						<div class="col-sm-2 text-center">
 							<small class="text-muted inline m-t-small m-b-small">{{cantResult}}
