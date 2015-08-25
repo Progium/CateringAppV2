@@ -8,7 +8,7 @@
 		<form class="form-horizontal" name="crearCatering"
 			data-validate="parsley">
 
-			<div class="col-sm-12">
+			<div class="col-sm-6">
 				<section class="panel">
 					<div class="panel-body">
 						<!-- Foto -->
@@ -52,6 +52,13 @@
 									ng-disabled="true"></textarea>
 							</div>
 						</div>
+
+					</div>
+				</section>
+			</div>
+			<div class="col-sm-6">
+				<section class="panel">
+					<div class="panel-body">
 						<!-- Teléfono1 -->
 						<div class="form-group">
 							<label class="col-lg-3 control-label">Teléfono</label>
@@ -81,8 +88,8 @@
 							<label class="col-lg-3 control-label">Horario atención</label>
 							<div class="col-lg-8">
 
-								<textarea ng-model="catering.horario"
-									name="horarioAtencion" data-trigger="keyup"
+								<textarea ng-model="catering.horario" name="horarioAtencion"
+									data-trigger="keyup"
 									placeholder="Lunes a Viernes de 10am a 5pm" rows="5"
 									class="form-control" data-trigger="keyup" ng-maxlength="250"
 									ng-disabled="true"></textarea>
@@ -91,7 +98,6 @@
 					</div>
 				</section>
 			</div>
-
 		</form>
 	</div>
 </section>
