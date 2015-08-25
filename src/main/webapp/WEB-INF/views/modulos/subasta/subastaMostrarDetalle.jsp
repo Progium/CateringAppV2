@@ -1,13 +1,13 @@
 <section class="main padder">
 	<div class="clearfix">
-		<h4>
-			<i class="fa fa-edit"></i> Subasta {{subasta.nombre}}
+		<h4 class="title-detalle">
+			<i class="fa fa-edit imagen-title title-detalle"></i> Detalle de la subasta
 		</h4>
 	</div>
 	<div class="row">
 		<form class="form-horizontal" name="crearSubasta"
 			data-validate="parsley">
-			<div class="col-sm-12">
+			<div class="col-sm-12 detalle-style">
 				<section class="panel">
 					<div class="panel-body">
 						<div class="form-group">
@@ -52,9 +52,12 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-lg-3 control-label">Monto máximo</label>
-							<div class="col-lg-8">
-								<input class="input-sm form-control" type="text"
+							<label class="col-lg-3 control-label">Presupuesto
+								disponible</label>
+							<div class="col-lg-8 input-group">
+								<span class="input-group-addon">¢</span> <input
+									class="input-sm form-control inputMonto" type="text"
+									aria-label="Amount (to the nearest dollar)"
 									ng-model="subasta.montoMaximo" placeholder="250000"
 									ng-disabled="true" />
 							</div>

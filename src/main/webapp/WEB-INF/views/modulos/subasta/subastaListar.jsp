@@ -1,7 +1,7 @@
 <section class="main padder">
 	<div class="clearfix">
 		<h4>
-			<i class="fa fa-table"></i>Lista Subasta
+			<i class="fa fa-table imagen-title"></i>Lista Subasta
 		</h4>
 	</div>
 	<div class="row">
@@ -12,7 +12,7 @@
 						<tr>
 							<th>Nombre</th>
 							<th>Fecha Evento</th>
-							<th>Monto Máximo</th>
+							<th>Presupuesto Disponible</th>
 							<th width="70"></th>
 							<th width="70" ng-show="mostrarBotonSubasta"></th>
 							<th width="70" ng-show="mostrarBotonPropuesta"></th>
@@ -22,7 +22,7 @@
 						<tr>
 							<td>{{subasta.nombre}}</td>
 							<td>{{subasta.fechaEvento}}</td>
-							<td>{{subasta.montoMaximo}}</td>
+							<td>{{subasta.montoMaximo| currency:""}}</td>
 							<td class="text-right">
 								<div class="btn-group">
 									<button type="button" class="btn btn-primary"
@@ -69,7 +69,7 @@
 		</div>
 		<div class="col-sm-6" ng-show="mostrarTablaListPaquete">
 			<section class="panel">
-				<header class="panel-heading">Lista de propuestas de paquetes del
+				<header class="panel-heading table-paquete">Lista de propuestas de paquetes del
 					Catering</header>
 				<table class="table table-striped m-b-none text-small">
 					<thead>
@@ -79,14 +79,14 @@
 							<th>Costo</th>
 							<th>Estado Propuesta</th>
 							<th width="70"></th>
-							<th width="70"></th>
+							<th width="70" ng-show="mostrarBotonElegir"></th>
 						</tr>
 					</thead>
 					<tbody ng-repeat="paquete in listaPaquete">
 						<tr>
 							<td>{{paquete.nombreCatering}}</td>
 							<td>{{paquete.nombre}}</td>
-							<td>{{paquete.montoTotal}}</td>
+							<td>{{paquete.montoTotal| currency:""}}</td>
 							<td>{{paquete.estadoPropuesta}}</td>
 							<td class="text-right">
 								<div class="btn-group">
@@ -95,9 +95,9 @@
 										Detalle</button>
 								</div>
 							</td>
-							<td class="text-right">
+							<td class="text-right" ng-show="mostrarBotonElegir">
 								<div class="btn-group">
-									<button type="button" class="btn btn-primary" ng-disabled="paquete.tipoTransaccion != 0"
+									<button type="button" class="btn btn-primary"
 										ng-click="AcceptarPropuesta(paquete)">Elegir</button>
 								</div>
 							</td>

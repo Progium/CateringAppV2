@@ -1,7 +1,7 @@
 <section class="main padder">
 	<div class="clearfix">
 		<h4>
-			<i class="fa fa-edit"></i> {{tituloPagina}}
+			<i class="fa fa-edit imagen-title"></i> {{tituloPagina}}
 		</h4>
 	</div>
 	<div class="row">
@@ -15,7 +15,7 @@
 								interesado</label>
 							<div class="col-lg-8">
 								<input ng-model="objSubasta.nombre" type="text" name="nombre"
-									class="form-control" ng-readonly="true"  required />
+									class="form-control" ng-readonly="true" required />
 							</div>
 						</div>
 						<div class="form-group">
@@ -40,8 +40,7 @@
 								personas</label>
 							<div class="col-lg-8">
 								<input type="number" class="input-sm spinner-input form-control"
-									name="cantidadPersonas" maxlength="3"
-								    ng-pattern="/^\d*$/"
+									name="cantidadPersonas" maxlength="3" ng-pattern="/^\d*$/"
 									ng-model="objSubasta.cantidadPersonas" min="1" max="5000"
 									required /><span class="error-message"
 									ng-show="crearSubasta.cantidadPersonas.$error.pattern">Debe
@@ -61,11 +60,15 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-lg-3 control-label">Monto máximo</label>
-							<div class="col-lg-8">
-								<input class="input-sm form-control" type="text" name ="montoMaximo"
-									ng-model="objSubasta.montoMaximo" placeholder="250000" ng-pattern="/^\d*$/"
-									data-trigger="keyup" required/> <span class="error-message"
+							<label class="col-lg-3 control-label">Presupuesto
+								disponible</label>
+							<div class="col-lg-8 input-group">
+								<span class="input-group-addon">¢</span> <input
+									class="input-sm form-control inputMonto" type="text"
+									aria-label="Amount (to the nearest dollar)" name="montoMaximo"
+									ng-model="objSubasta.montoMaximo" placeholder="250000"
+									ng-pattern="/^\d*$/" data-trigger="keyup" required /> <span
+									class="error-message"
 									ng-show="crearSubasta.montoMaximo.$error.pattern">Debe
 									ingresar solo números.</span>
 							</div>

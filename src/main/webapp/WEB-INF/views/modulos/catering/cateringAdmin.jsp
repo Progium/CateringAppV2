@@ -1,7 +1,7 @@
 <section class="main padder">
 	<div class="clearfix">
 		<h4>
-			<i class="fa fa-edit"></i> {{tituloPagina}}
+			<i class="fa fa-edit imagen-title"></i> {{tituloPagina}}
 		</h4>
 	</div>
 	<div class="row">
@@ -128,7 +128,7 @@
 						</div>
 						<!-- Cantón -->
 						<div class="form-group">
-							<label class="col-lg-3 control-label">Canton</label>
+							<label class="col-lg-3 control-label">Cantón</label>
 							<div class="col-lg-4">
 								<select name="idCanton" id="idCanton" class="form-control"
 									ng-model="objCatering.idCanton" ng-change="llenarDistrito()"

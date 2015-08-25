@@ -104,6 +104,17 @@ App.controller('PaqueteListarController', function($scope, $http,$location, $upl
 			$scope.paquete = {};
 			$scope.onError = false;
 				
+		    //Funcion que convierte en miles los montos
+		    Number.prototype.numberFormat = function(decimals, dec_point, thousands_sep) {
+		    	dec_point = typeof dec_point !== 'undefined' ? dec_point : '.';
+		        thousands_sep = typeof thousands_sep !== 'undefined' ? thousands_sep : ',';
+
+		        var parts = this.toFixed(decimals).split('.');
+		        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, thousands_sep);
+
+		        return parts.join(dec_point);
+		    }
+		    
 			$scope.init = function(){
 				$scope.paquete.idPaquete = param.idPaquete;
 				$scope.paquete.nombre = param.nombre;
@@ -113,11 +124,11 @@ App.controller('PaqueteListarController', function($scope, $http,$location, $upl
 				$scope.paquete.idTipoEvento = param.idTipoEvento;
  				$scope.paquete.nombreTipoEvento = param.nombreTipoEvento;
  				$scope.paquete.cantidadPersonas = param.cantidadPersonas;
- 				$scope.paquete.precio = param.precio;
+ 				$scope.paquete.precio = (param.precio).numberFormat(2);
  				$scope.paquete.descuento = param.descuento;
- 				$scope.paquete.montoTotal = param.montoTotal;
+ 				$scope.paquete.montoTotal = (param.montoTotal).numberFormat(2);
  				$scope.paquete.catalogoProducto = param.catalogoProducto;
- 				$scope.paquete.total = (param.precio * param.cantidadPersonas);
+ 				$scope.paquete.total = (param.precio * param.cantidadPersonas).numberFormat(2);
  				
 
 				//Obtiene los tipos de eventos

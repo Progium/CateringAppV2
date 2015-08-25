@@ -1,7 +1,7 @@
 <section class="main padder">
 	<div class="clearfix">
 		<h4>
-			<i class="fa fa-edit"></i>Registrar Paquete
+			<i class="fa fa-edit imagen-title"></i>Registrar Paquete
 		</h4>
 	</div>
 	<div class="row">
@@ -113,18 +113,21 @@
 						<!-- Precio por persona -->
 						<div class="form-group">
 							<label class="col-lg-3 control-label">Precio por persona</label>
-							<div class="col-lg-8">
-								<input ng-model="objPaquete.precio" type="text" name="precio"
-									placeholder="5000" class="form-control" data-trigger="keyup"
-									ng-readonly="true" required />
+							<div class="col-lg-8 input-group">
+								<span class="input-group-addon">¢</span><input
+									ng-model="objPaquete.precio" type="text" name="precio"
+									placeholder="5000.00" class="form-control inputMonto"
+									data-trigger="keyup" ng-readonly="true"
+									aria-label="Amount (to the nearest dollar)" required />
 							</div>
 						</div>
 						<!-- Total del paquete sin descuento -->
 						<div class="form-group">
 							<label class="col-lg-3 control-label">Total</label>
-							<div class="col-lg-8">
-								<input ng-model="total" type="text" name="total"
-									placeholder="100000" class="form-control" data-trigger="keyup"
+							<div class="col-lg-8 input-group">
+								<span class="input-group-addon">¢</span> <input ng-model="total"
+									type="text" name="total" placeholder="100,000.00"
+									class="form-control inputMonto" data-trigger="keyup"
 									ng-readonly="true" required />
 							</div>
 						</div>
@@ -132,12 +135,15 @@
 						<div class="form-group">
 							<label class="col-lg-3 control-label">Porcentaje de
 								descuento</label>
-							<div class="col-lg-8">
+							<div class="col-lg-8 input-group porcentaje">
 								<input ng-model="objPaquete.descuento" type="text"
 									ng-change="actualizarFormulas()" name="descuento"
-									placeholder="30" class="form-control"
+									placeholder="30" class="form-control input-porcentaje"
+									aria-label="Amount (to the nearest dollar)"
 									ng-pattern="/^((0|[1-9]\d?)(\.\d{1,2})?|100)$/"
-									data-trigger="keyup" /><span class="error-message"
+									data-trigger="keyup"/>
+									<span class="input-group-addon">%</span>
+									<span class="error-message"
 									ng-show="crearPaquete.descuento.$error.pattern">Debe
 									ingresar solo números, el porcentaje va del 0 al 100.</span>
 							</div>
@@ -145,10 +151,12 @@
 						<!-- Monto total con el descuento-->
 						<div class="form-group">
 							<label class="col-lg-3 control-label">Monto total</label>
-							<div class="col-lg-8">
-								<input ng-model="objPaquete.montoTotal" type="text"
-									name="montoTotal" placeholder="100000" class="form-control"
-									data-trigger="keyup" ng-readonly="true" required />
+							<div class="col-lg-8 input-group">
+								<span class="input-group-addon">¢</span> <input
+									ng-model="objPaquete.montoTotal" type="text" name="montoTotal"
+									placeholder="100,000.00" class="form-control inputMonto"
+									data-trigger="keyup" ng-readonly="true"
+									aria-label="Amount (to the nearest dollar)" required />
 							</div>
 						</div>
 						<div class="form-group">

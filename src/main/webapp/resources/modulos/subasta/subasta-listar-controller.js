@@ -38,15 +38,24 @@ App.controller('SubastaListarController', function($scope, $http, $location, $up
 	    //Funcion que obtiene la lista de todos los paquetes por paginación
 	    $scope.ObtenerListaSubasta = function(pageNumber){
 	    	$scope.objSubasta.pageNumber = pageNumber;
-	    	setInterval(function () {$http.post('rest/protected/subasta/getSubastaLista', $scope.objSubasta)
+	    	
+	    	obtenerSubasta($scope.objSubasta);
+	    	
+	    	setInterval(function () {
+	    		obtenerSubasta($scope.objSubasta);
+	    	}, 9000);
+	    	$scope.subastaLista.length = 0;
+	    };	
+	    
+	    //Funcion que obtiene las subastas
+	    function obtenerSubasta(subasta){
+	    	$http.post('rest/protected/subasta/getSubastaLista', subasta)
 			.success(function(subastaResponse) {
 				$scope.cantResult = subastaResponse.subastas.length;
 				$scope.subastaLista = subastaResponse.subastas;
 				$scope.totalItems = subastaResponse.totalElements;
 	    	});
-	    	}, 6000);
-	    	$scope.subastaLista.length = 0;
-	    };	
+	    }
 	    
 	    $scope.init();
 	    
@@ -140,14 +149,23 @@ App.controller('SubastaClienteListarController', function($scope, $http, $locati
 	    //Funcion que obtiene las propuestas de una subasta determinada
 	    $scope.verPropuestas = function(idSubasta){
 	    	$scope.mostrarTablaListPaquete = true;
+			$scope.mostrarBotonElegir = true;
 			$scope.objPropuestaSubasta = {};
 			$scope.objPropuestaSubasta.subastaId = idSubasta;
 			$scope.listaPropuesta = [];
 			$scope.listaPaquete = [];
 			$scope.objPropuesta = [];
 	
+			obtenerPropuestas($scope.objPropuestaSubasta);
 			
-			setInterval(function () {$http.post('rest/protected/subasta/getPropuestaSubastaBySubasta', $scope.objPropuestaSubasta).success(function (contractPropuestaResponse){
+			setInterval(function () {
+				obtenerPropuestas($scope.objPropuestaSubasta);
+			}, 9000);
+			
+	    };
+	    
+	    function obtenerPropuestas(propuestasSubasta){
+	    	$http.post('rest/protected/subasta/getPropuestaSubastaBySubasta', propuestasSubasta).success(function (contractPropuestaResponse){
 				var i = 0;
 				var j = 0;
 				var f = 0;
@@ -162,6 +180,7 @@ App.controller('SubastaClienteListarController', function($scope, $http, $locati
 					objProp.subastaId = $scope.listaPropuesta[i].subastaId;
 					objProp.tipoTransaccion = $scope.listaPropuesta[i].tipoTransaccion;
 					objProp.estadoPropuesta = $scope.listaPropuesta[i].tipoTransaccion == 0 ? "Pendiente" : $scope.listaPropuesta[i].tipoTransaccion == 2 ? "Acceptada" :"Rechazada";
+					$scope.mostrarBotonElegir = $scope.listaPropuesta[i].tipoTransaccion != 0 ? false : true;
 					//Guarda en un objeto propuesta los datos de esa propuesta
 					$scope.objPropuesta.push(objProp);
 					$http.post('rest/protected/paquete/getPaqueteById', objProp)
@@ -196,9 +215,7 @@ App.controller('SubastaClienteListarController', function($scope, $http, $locati
 				}
 				
 	    	});
-	    	}, 6000);
-			console.log(lista);
-	    };
+	    }
 	 	   
 	    //Funcion que obtiene la lista de todos los paquetes por paginación
 	    $scope.ObtenerListaSubasta = function(pageNumber){
@@ -314,6 +331,17 @@ App.controller('SubastaClienteListarController', function($scope, $http, $locati
 		   $scope.paquete = {};
 		   $scope.onError = false;
 			
+		   //Funcion que convierte en miles los montos
+		   Number.prototype.numberFormat = function(decimals, dec_point, thousands_sep) {
+			   dec_point = typeof dec_point !== 'undefined' ? dec_point : '.';
+			   thousands_sep = typeof thousands_sep !== 'undefined' ? thousands_sep : ',';
+		
+			   var parts = this.toFixed(decimals).split('.');
+			   parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, thousands_sep);
+		
+			   return parts.join(dec_point);
+		   }
+
 		   $scope.init = function(){
 			   $scope.paquete.idPaquete = param.idPaquete;
 			   $scope.paquete.nombre = param.nombre;
@@ -323,11 +351,11 @@ App.controller('SubastaClienteListarController', function($scope, $http, $locati
 			   $scope.paquete.idTipoEvento = param.idTipoEvento;
 			   $scope.paquete.nombreTipoEvento = param.nombreTipoEvento;
 			   $scope.paquete.cantidadPersonas = param.cantidadPersonas;
-			   $scope.paquete.precio = param.precio;
+			   $scope.paquete.precio = (param.precio).numberFormat(2);
 			   $scope.paquete.descuento = param.descuento;
-			   $scope.paquete.montoTotal = param.montoTotal;
+			   $scope.paquete.montoTotal = (param.montoTotal).numberFormat(2);
 			   $scope.paquete.catalogoProducto = param.catalogoProducto;
-			   $scope.paquete.total = (param.precio * param.cantidadPersonas);
+			   $scope.paquete.total = (param.precio * param.cantidadPersonas).numberFormat(2);
 			
 			   //Obtiene los tipos de eventos
 			   $http.post('rest/protected/catalogo/getCatalogoProducto', param)

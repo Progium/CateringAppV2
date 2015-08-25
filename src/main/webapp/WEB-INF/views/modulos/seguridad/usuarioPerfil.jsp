@@ -1,7 +1,7 @@
 <section class="main padder">
 	<div class="clearfix">
 		<h4>
-			<i class="fa fa-edit"></i> Ver Perfil
+			<i class="fa fa-edit imagen-title"></i> Ver Perfil
 		</h4>
 	</div>
 	<div class="row">

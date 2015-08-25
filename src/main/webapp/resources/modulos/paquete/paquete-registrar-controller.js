@@ -24,6 +24,7 @@ App.controller('PaqueteRegistrarController', function($scope, $http,$location, $
 		var sumaProducto = 0;
 		var descuento = 0;
 		var montoDescuento = 0;
+		var montoTotalSinDescuento = 0;
 		$scope.productosSelecc = [];
 		var caterings = [];
 		
@@ -179,15 +180,16 @@ App.controller('PaqueteRegistrarController', function($scope, $http,$location, $
 		    	$scope.objPaquete.montoTotal =  0;
 	    	}
 	    	//le agrega a la variable el precio por persona
-	    	$scope.objPaquete.precio = sumaProducto;
+	    	$scope.objPaquete.precio = sumaProducto.numberFormat(2);
 	    	//calcula en decimal el porcentale en descuento
 	    	descuento = ($scope.objPaquete.descuento != null) ? ($scope.objPaquete.descuento / 100) : 0;
 	    	//calcula el total del precio por la cantidad de personas
-	    	$scope.total = sumaProducto * $scope.objPaquete.cantidadPersonas;
+	    	$scope.total = (sumaProducto * $scope.objPaquete.cantidadPersonas).numberFormat(2);
+	    	montoTotalSinDescuento = sumaProducto * $scope.objPaquete.cantidadPersonas;
 	    	//calcula cuanto es el monto que tiene que descontar
-	    	montoDescuento =  $scope.total  * descuento;
+	    	montoDescuento =  montoTotalSinDescuento * descuento;
 	    	//el monto total con el descuento aplicado
-	    	$scope.objPaquete.montoTotal =  $scope.total - montoDescuento;
+	    	$scope.objPaquete.montoTotal =  (montoTotalSinDescuento - montoDescuento).numberFormat(2);
 	    };
 		   
 	    	    
@@ -205,28 +207,47 @@ App.controller('PaqueteRegistrarController', function($scope, $http,$location, $
 		    	$scope.objPaquete.montoTotal =  0;
 	    	}
 	    	//le agrega a la variable el precio por persona
-	    	$scope.objPaquete.precio = sumaProducto;
+	    	$scope.objPaquete.precio = sumaProducto.numberFormat(2);
 	    	//calcula en decimal el porcentale en descuento
 	    	descuento = ($scope.objPaquete.descuento != null) ? ($scope.objPaquete.descuento / 100) : 0;
 	    	//calcula el total del precio por la cantidad de personas
-	    	$scope.total = sumaProducto * $scope.objPaquete.cantidadPersonas;
+	    	$scope.total = (sumaProducto * $scope.objPaquete.cantidadPersonas).numberFormat(2);
+	    	montoTotalSinDescuento = sumaProducto * $scope.objPaquete.cantidadPersonas;
 	    	//calcula cuanto es el monto que tiene que descontar
-	    	montoDescuento =  $scope.total  * descuento;
+	    	montoDescuento =  montoTotalSinDescuento  * descuento;
 	    	//el monto total con el descuento aplicado
-	    	$scope.objPaquete.montoTotal =  $scope.total - montoDescuento;
+	    	$scope.objPaquete.montoTotal =  (montoTotalSinDescuento - montoDescuento).numberFormat(2);
 	    };
 	    
+	    //Funcion que convierte en miles los montos
+	    Number.prototype.numberFormat = function(decimals, dec_point, thousands_sep) {
+	        dec_point = typeof dec_point !== 'undefined' ? dec_point : '.';
+	        thousands_sep = typeof thousands_sep !== 'undefined' ? thousands_sep : ',';
+
+	        var parts = this.toFixed(decimals).split('.');
+	        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, thousands_sep);
+
+	        return parts.join(dec_point);
+	    }
+	    	    
 	    //Guarda los datos ingresados por el usuario.
 		$scope.guardar = function() {
+			//Valida que el formulario este lleno y que ademas haya productos seleccionados
 			if(validarDatos($scope.productosSelecc) && this.crearPaquete.$valid){
+				//Quita los ultimos dos ceros y el . al precio por persona. montoTotal
+				var precioSinDecimal = $scope.objPaquete.precio.slice(0, $scope.objPaquete.precio.lastIndexOf("."));
+				var montoTotalSinDecimal = $scope.objPaquete.montoTotal.slice(0, $scope.objPaquete.montoTotal.lastIndexOf("."));
+				//Quita la coma del precio por persona y montoTotal
+				var precioSinComa = precioSinDecimal.replace(/,/g, '');
+				var montoTotalSinComa = montoTotalSinDecimal.replace(/,/g, '');
 				var datosPaquete = {};
 				datosPaquete = {
 					nombre: $scope.objPaquete.nombre,
 					descripcion: $scope.objPaquete.descripcion,
 					cantidadPersonas: $scope.objPaquete.cantidadPersonas,
-					precio: $scope.objPaquete.precio,
+					precio: precioSinComa,
 					descuento: ($scope.objPaquete.descuento != null) ? Math.round($scope.objPaquete.descuento) : 0,
-					montoTotal: $scope.objPaquete.montoTotal,
+					montoTotal: montoTotalSinComa,
 					cateringId: $scope.objPaquete.idCatering,
 					eventoId: $scope.objPaquete.idTipoEvento,
 					catalogoProducto: $scope.productosSelecc

@@ -3,7 +3,7 @@
 
 
 .header-banner{
-	background-image: url("../img/banner3.jpg");
+	/*background-image: url("../img/banner3.jpg"*/);
     background-repeat: repeat-x;
     height: 51px;
 }
@@ -51,3 +51,12 @@
 .paddingTable{
 	padding: 10px;
 }
+
+.inputMonto{
+	width: 338px;
+}
+
+.title-detalle{
+	color: #656565;
+}
+

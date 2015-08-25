@@ -16,9 +16,11 @@
 				</div>
 				<div class="form-group">
 					<label class="col-lg-3 control-label">Precio</label>
-					<div class="col-lg-8">
-						<input type="text" class="form-control" name="precio" id="precio"
-							ng-model="objCatalogo.precio" ng-pattern="/^\d*$/" required/> <span
+					<div class="col-lg-8 input-group">
+						<span class="input-group-addon">¢</span> <input type="text"
+							class="form-control inputMonto" name="precio" id="precio"
+							ng-model="objCatalogo.precio" ng-pattern="/^\d*$/"
+							aria-label="Amount (to the nearest dollar)" required /> <span
 							class="error-message"
 							ng-show="registroCatalogo.precio.$error.pattern">Debe
 							ingresar solo números.</span>

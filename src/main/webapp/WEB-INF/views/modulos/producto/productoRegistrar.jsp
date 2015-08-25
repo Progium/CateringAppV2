@@ -5,11 +5,11 @@
 		<div class="col-sm-8">
 			<div class="clearfix">
 				<h4>
-					<i class="fa fa-edit"></i>Mi Catálogo
+					<i class="fa fa-edit imagen-title"></i>Mi Catálogo
 				</h4>
 			</div>
 			<div class="form-group">
-				<label class="col-lg-8">Categoría:</label>
+				<label class="col-lg-8 categoria-style">Categoría:</label>
   				
 					<select name="idCategoria" id="idCategoria" ng-model="objCategoria.idCategoria" 
 							ng-options="cat.idCategoria as cat.nombre for cat in listaCategorias"

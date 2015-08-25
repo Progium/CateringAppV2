@@ -2,14 +2,14 @@
 <section class="main padder">
 	<div class="clearfix">
 		<h4>
-			<i class="fa fa-edit"></i> Busqueda de Catering
+			<i class="fa fa-edit imagen-title"></i> Búsqueda de Catering
 		</h4>
 	</div>
 	<div class="row">
 		<div class="col-sm-2">
 			<aside class="sidebar bg-lighter">
 				<div class="bg-light padder padder-v" style="padding-bottom: 5px;">
-					<span class="h4 col-lg-offset-1">Criterio de busquedas</span>
+					<span class="h4 col-lg-offset-1">Criterio de búsquedas</span>
 				</div>
 				<ul class="list-group list-normal m-b-none">
 					<li class="list-group-item">
@@ -83,13 +83,13 @@
 
 		<div class="col-sm-5">
 			<section class="panel">
-				<header class="panel-heading">Lista de Catering Services</header>
+				<header class="panel-heading table-catering">Lista de Catering Services</header>
 				<div class="table-responsive">
 					<table class="table table-striped b-t text-small">
 						<thead>
 							<tr>
 								<th>Nombre</th>
-								<th>Ubicacion</th>
+								<th>Ubicación</th>
 								<th width="50"></th>
 								<th width="50"></th>
 							</tr>
@@ -115,7 +115,7 @@
 						</tbody>
 					</table>
 				</div>
-				<footer class="panel-footer">
+				<footer class="panel-footer table-catering">
 					<div class="row">
 						<div class="col-sm-2 text-center">
 							<small class="text-muted inline m-t-small m-b-small">{{cantResult}}
@@ -154,7 +154,7 @@
 							<tr>
 								<td>{{paquete.nombre}}</td>
 								<td>{{paquete.nombreTipoEvento}}</td>
-								<td>{{paquete.montoTotal}}</td>
+								<td>{{paquete.montoTotal| currency:""}}</td>
 								<td class="text-right">
 									<div class="btn-group">
 										<button type="button" class="btn btn-primary"
