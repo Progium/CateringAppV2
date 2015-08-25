@@ -638,3 +638,8 @@ input[type="text"], select, textarea{min-width: 40px;height: auto;}
 .input-porcentaje{
 	width: 101% !important;
 }
+
+.detalle-style{
+	padding-left: 40px; 
+	padding-right: 45px;
+}

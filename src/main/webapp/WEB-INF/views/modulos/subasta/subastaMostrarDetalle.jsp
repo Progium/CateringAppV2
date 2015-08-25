@@ -1,13 +1,13 @@
 <section class="main padder">
 	<div class="clearfix">
-		<h4>
-			<i class="fa fa-edit imagen-title"></i> Subasta {{subasta.nombre}}
+		<h4 class="title-detalle">
+			<i class="fa fa-edit imagen-title title-detalle"></i> Detalle de la subasta
 		</h4>
 	</div>
 	<div class="row">
 		<form class="form-horizontal" name="crearSubasta"
 			data-validate="parsley">
-			<div class="col-sm-12">
+			<div class="col-sm-12 detalle-style">
 				<section class="panel">
 					<div class="panel-body">
 						<div class="form-group">

@@ -1,14 +1,14 @@
 <section class="main padder">
 	<div class="clearfix">
-		<h4>
-			<i class="fa fa-edit"></i> Catering {{objCatering.nombre}}
+		<h4 class="title-detalle">
+			<i class="fa fa-edit title-detalle"></i> Detalle del catering
 		</h4>
 	</div>
 	<div class="row">
 		<form class="form-horizontal" name="crearCatering"
 			data-validate="parsley">
 
-			<div class="col-sm-6">
+			<div class="col-sm-6" style="padding-left: 27px;">
 				<section class="panel">
 					<div class="panel-body">
 						<!-- Foto -->

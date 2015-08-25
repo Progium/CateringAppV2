@@ -1,13 +1,13 @@
 <section class="main padder">
 	<div class="clearfix">
-		<h4>
-			<i class="fa fa-edit"></i>Paquete {{objPaquete.nombre}}
+		<h4 class="title-detalle">
+			<i class="fa fa-edit title-detalle"></i> Detalle del paquete
 		</h4>
 	</div>
 	<div class="row">
 		<form class="form-horizontal" method="get" name="crearPaquete"
 			data-validate="parsley">
-			<div class="col-sm-6">
+			<div class="col-sm-6 detalle-style">
 				<section class="panel">
 					<div class="panel-body">
 						<!-- Nombre -->
