@@ -86,7 +86,7 @@
         <footer id="footer">
             <div class="text-center padder clearfix">
                 <p>
-                    <small>&copy; Catering Service App 2015</small>
+                    <small class="text-inf">&copy; Catering Service App 2015</small>
                     <br>
                     <br>
                     <!-- <a href="" class="btn btn-xs btn-circle btn-twitter"><i class="fa fa-twitter"></i></a>
